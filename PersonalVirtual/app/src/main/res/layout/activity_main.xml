@@ -4,38 +4,75 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/halteres_foto"
+    android:background="@drawable/background_app_personal"
     app:layout_anchorGravity="fill"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:background="#F2040404"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+    <ImageView
+        android:id="@+id/criarTreino"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textCriarTreino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icone_criar_treino" />
 
-        <ImageView
-            android:id="@+id/criarTreino"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="32dp"
-            app:srcCompat="@drawable/icone_criar_treino" />
+    <TextView
+        android:id="@+id/textCriarTreino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Montar Treino"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/guiaExercicios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <ImageView
-            android:id="@+id/guiaExercicios"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="32dp"
-            app:srcCompat="@drawable/icone_halteres" />
+    <ImageView
+        android:id="@+id/guiaExercicios"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textGuiaExercicios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icone_halteres" />
 
-        <ImageView
-            android:id="@+id/guiaAlimentacao"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="32dp"
-            app:srcCompat="@drawable/icone_alimentacao" />
+    <TextView
+        android:id="@+id/textGuiaExercicios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Guia de Exercícios"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/guiaAlimentacao"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/guiaAlimentacao"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/textGuiaAlimentar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/icone_alimentacao" />
+
+    <TextView
+        android:id="@+id/textGuiaAlimentar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Guia Alimentar"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
