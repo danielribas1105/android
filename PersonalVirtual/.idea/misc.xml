@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/PersonalVirtual/app/src/main/res/layout/activity_exercicios_peito.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/PersonalVirtual/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/PersonalVirtual/app/src/main/res/layout/activity_membros_superiores.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/PersonalVirtual/app/src/main/res/layout/adapter_expeito.xml" value="0.2" />
       </map>
     </option>
   </component>

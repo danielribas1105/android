@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_app_personal"
     app:layout_anchorGravity="fill"
-    tools:context=".MainActivity">
+    tools:context=".ui.activity.MainActivity">
 
     <ImageView
         android:id="@+id/criarTreino"

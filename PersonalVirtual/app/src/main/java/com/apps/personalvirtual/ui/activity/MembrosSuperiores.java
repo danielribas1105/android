@@ -1,10 +1,12 @@
-package com.apps.personalvirtual;
+package com.apps.personalvirtual.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.apps.personalvirtual.R;
 
 public class MembrosSuperiores extends AppCompatActivity {
 
