@@ -4,23 +4,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_principal">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.apps.agendaescolar.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
+        android:id="@+id/nav_principal"
+        android:name="com.apps.agendaescolar.ui.principal.PrincipalFragment"
+        android:label="@string/menu_principal"
+        tools:layout="@layout/fragment_principal" />
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.apps.agendaescolar.ui.gallery.GalleryFragment"
+        android:id="@+id/nav_cadastro"
+        android:name="com.apps.agendaescolar.ui.cadastro.CadastroFragment"
+        android:label="@string/menu_cadastro"
+        tools:layout="@layout/fragment_cadastro" />
+    <fragment
+        android:id="@+id/nav_avisos"
+        android:name="com.apps.agendaescolar.ui.avisos.AvisosFragment"
         android:label="@string/menu_avisos"
-        tools:layout="@layout/fragment_gallery" />
-
+        tools:layout="@layout/fragment_avisos" />
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.apps.agendaescolar.ui.slideshow.SlideshowFragment"
+        android:id="@+id/nav_calendario"
+        android:name="com.apps.agendaescolar.ui.calendario.CalendarioFragment"
         android:label="@string/menu_calendario"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_calendario" />
+    <fragment
+        android:id="@+id/nav_boletim"
+        android:name="com.apps.agendaescolar.ui.boletim.BoletimFragment"
+        android:label="@string/menu_boletim"
+        tools:layout="@layout/fragment_boletim" />
+    <fragment
+        android:id="@+id/nav_documentos"
+        android:name="com.apps.agendaescolar.ui.documentos.DocumentosFragment"
+        android:label="@string/menu_documentos"
+        tools:layout="@layout/fragment_documentos" />
+    <fragment
+        android:id="@+id/nav_financeiro"
+        android:name="com.apps.agendaescolar.ui.financeiro.FinanceiroFragment"
+        android:label="@string/menu_financeiro"
+        tools:layout="@layout/fragment_financeiro" />
+    <fragment
+        android:id="@+id/nav_sobre"
+        android:name="com.apps.agendaescolar.ui.sobre.SobreFragment"
+        android:label="@string/menu_sobre"
+        tools:layout="@layout/fragment_sobre" />
+
+
+
 </navigation>

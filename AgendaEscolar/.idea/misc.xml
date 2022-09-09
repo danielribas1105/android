@@ -3,8 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/drawable/ic_baseline_agenda.xml" value="0.1585" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/drawable/ic_baseline_avisos.xml" value="0.1585" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/drawable/ic_baseline_calendar.xml" value="0.1585" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/drawable/ic_baseline_comunications.xml" value="0.1585" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/drawable/side_nav_bar.xml" value="0.1585" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/fragment_avisos.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/fragment_calendario.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/fragment_documentos.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/fragment_financeiro.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/fragment_principal.xml" value="0.2359375" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/fragment_sobre.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/layout/nav_header_main.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/AgendaEscolar/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
       </map>

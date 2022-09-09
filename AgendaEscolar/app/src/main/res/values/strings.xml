@@ -7,7 +7,14 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_principal">Tela Inicial</string>
+    <string name="menu_cadastro">Dados Pessoais</string>
     <string name="menu_avisos">Avisos</string>
     <string name="menu_calendario">Calendário</string>
+    <string name="menu_boletim">Boletim</string>
+    <string name="menu_documentos">Documentos</string>
+    <string name="menu_financeiro">Financeiro</string>
+    <string name="menu_sobre">Sobre Nós</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

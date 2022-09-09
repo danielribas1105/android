@@ -5,16 +5,37 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_principal"
             android:icon="@drawable/ic_baseline_home"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_principal" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_cadastro"
+            android:icon="@drawable/ic_baseline_dados_pessoais"
+            android:title="@string/menu_cadastro" />
+        <item
+            android:id="@+id/nav_avisos"
             android:icon="@drawable/ic_baseline_comunications"
             android:title="@string/menu_avisos" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_calendario"
             android:icon="@drawable/ic_baseline_agenda"
             android:title="@string/menu_calendario" />
+        <item
+            android:id="@+id/nav_boletim"
+            android:icon="@drawable/ic_baseline_boletim"
+            android:title="@string/menu_boletim" />
+        <item
+            android:id="@+id/nav_documentos"
+            android:icon="@drawable/ic_baseline_documentos"
+            android:title="@string/menu_documentos" />
+        <item
+            android:id="@+id/nav_financeiro"
+            android:icon="@drawable/ic_baseline_financeiro"
+            android:title="@string/menu_financeiro" />
+        <item
+            android:id="@+id/nav_sobre"
+            android:icon="@drawable/ic_baseline_sobre"
+            android:title="@string/menu_sobre" />
     </group>
+
 </menu>
