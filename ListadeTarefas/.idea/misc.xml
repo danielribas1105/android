@@ -3,7 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/ListadeTarefas/app/src/main/res/layout/activity_add_task.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/ListadeTarefas/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/ListadeTarefas/app/src/main/res/layout/content_main.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/ListadeTarefas/app/src/main/res/layout/list_task_adapter.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/ListadeTarefas/app/src/main/res/menu/menu_main.xml" value="0.25" />
       </map>
     </option>
   </component>
