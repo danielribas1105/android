@@ -4,15 +4,12 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
-import androidx.appcompat.widget.Toolbar;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycleView);
 
-        ContentValues cv = new ContentValues();
-        cv.put("nameTask","Estudar Android");
-        DbHelper db = new DbHelper(getApplicationContext());
-        db.getWritableDatabase().insert("DB_Tasks", null, cv);
+        //DbHelper db = new DbHelper(getApplicationContext());
+        //ContentValues cv = new ContentValues();
+        //cv.put("nameTask","Estudar Android");
+        //db.getWritableDatabase().insert("tasks", null, cv);
 
         //Adicionar evento de clique
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(

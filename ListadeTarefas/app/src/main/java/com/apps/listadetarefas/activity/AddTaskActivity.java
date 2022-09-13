@@ -1,21 +1,26 @@
 package com.apps.listadetarefas.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.listadetarefas.R;
+import com.apps.listadetarefas.helper.TaskDAO;
+import com.apps.listadetarefas.model.Task;
+import com.google.android.material.textfield.TextInputEditText;
 
 public class AddTaskActivity extends AppCompatActivity {
+
+    private TextInputEditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        editText = findViewById(R.id.editTask);
     }
 
     @Override
@@ -28,8 +33,10 @@ public class AddTaskActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_salvar:
-                Toast.makeText(AddTaskActivity.this, "Item Salvar",
-                        Toast.LENGTH_SHORT).show();
+                TaskDAO taskDAO = new TaskDAO(getApplicationContext());
+                Task task = new Task();
+                task.setNameTask("Ir ao mercado");
+                taskDAO.salvar(task);
                 break;
         }
         return super.onOptionsItemSelected(item);
