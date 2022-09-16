@@ -13,5 +13,5 @@ dependencyResolutionManagement {
         maven { url 'https://jitpack.io' }
     }
 }
-rootProject.name = "My Pocket"
+rootProject.name = "Slider Pocket"
 include ':app'
