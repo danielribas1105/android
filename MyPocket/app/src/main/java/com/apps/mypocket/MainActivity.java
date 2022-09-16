@@ -18,14 +18,31 @@ public class MainActivity extends IntroActivity {
         setButtonNextVisible(false);
         setButtonNextVisible(false);
 
+
         addSlide(new FragmentSlide.Builder()
-                .background(R.color.purple_200)
+                .background(R.color.white)
                 .fragment(R.layout.fragment_slide_1)
                 .build()
         );
         addSlide(new FragmentSlide.Builder()
-                .background(R.color.purple_500)
-                .fragment(R.layout.fragment_slide_1)
+                .background(R.color.white)
+                .fragment(R.layout.fragment_slide_2)
+                .build()
+        );
+        addSlide(new FragmentSlide.Builder()
+                .background(R.color.white)
+                .fragment(R.layout.fragment_slide_3)
+                .build()
+        );
+        addSlide(new FragmentSlide.Builder()
+                .background(R.color.white)
+                .fragment(R.layout.fragment_slide_4)
+                .build()
+        );
+        addSlide(new FragmentSlide.Builder()
+                .background(R.color.white)
+                .fragment(R.layout.fragment_slide_5)
+                .canGoForward(false)
                 .build()
         );
     }
