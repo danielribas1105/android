@@ -1,24 +1,14 @@
-package com.apps.mypocket;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.apps.mypocket.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-import com.apps.mypocket.activity.CadastroActivity;
-import com.apps.mypocket.activity.LoginActivity;
+import com.apps.mypocket.R;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
-import com.heinrichreimersoftware.materialintro.app.SlideFragment;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
-import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 
 public class MainActivity extends IntroActivity  {
-
-    //private Button btnCadastrar = findViewById(R.id.btnCadastrar);
-    //private TextView btnLogin = findViewById(R.id.textTenhoCadastro);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +50,10 @@ public class MainActivity extends IntroActivity  {
 
     public void btnCadastrar (View view){
         startActivity(new Intent(this, CadastroActivity.class));
-
     }
 
     public void btnLogin(View view){
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
-
     }
 
 }

@@ -1,9 +1,12 @@
 package com.apps.drpersonaltrainer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.apps.drpersonaltrainer.ui.activity.CadastroActivity;
+import com.apps.drpersonaltrainer.ui.activity.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -41,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_principal, R.id.nav_treinos, R.id.nav_historico, R.id.nav_avaliacao)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -61,5 +64,12 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    public void logar (View view){
+        startActivity(new Intent(this, LoginActivity.class));
+    }
+    public void cadastrar(View view){
+        startActivity(new Intent(this, CadastroActivity.class));
     }
 }

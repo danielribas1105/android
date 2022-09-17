@@ -4,4 +4,12 @@
     <string name="texto_cadastro">Crie sua conta grátis e tenha o controle de suas finanças na palma da sua mão!</string>
     <string name="titulo_cadastro">Crie sua conta grátis!</string>
     <string name="tenho_conta">Já tenho conta</string>
+    <string name="termo_uso">Termos de Uso</string>
+    <string name="btn_cadastro">Cadastrar</string>
+    <string name="hint_senha">Senha</string>
+    <string name="hint_e_mail">E-mail</string>
+    <string name="hint_nome">Nome</string>
+    <string name="btn_entrar">Entrar</string>
+    <string name="titulo_nav_login">Acesse sua conta</string>
+    <string name="titulo_nav_cadastro">Faça seu cadastro</string>
 </resources>
