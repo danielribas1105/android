@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">My Pocket</string>
+    <string name="cadastro">Cadastre-se</string>
+    <string name="texto_cadastro">Crie sua conta grátis e tenha o controle de suas finanças na palma da sua mão!</string>
+    <string name="titulo_cadastro">Crie sua conta grátis!</string>
+    <string name="tenho_conta">Já tenho conta</string>
 </resources>
