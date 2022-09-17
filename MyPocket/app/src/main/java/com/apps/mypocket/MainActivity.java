@@ -58,27 +58,14 @@ public class MainActivity extends IntroActivity  {
         );
     }
 
-    /*
     public void btnCadastrar (View view){
-        btnCadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, CadastroActivity.class));
-            }
-        });
+        startActivity(new Intent(this, CadastroActivity.class));
+
     }
 
     public void btnLogin(View view){
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            }
-        });
-
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
 
     }
-
-     */
 
 }
