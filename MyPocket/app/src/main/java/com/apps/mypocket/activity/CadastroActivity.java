@@ -17,6 +17,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -70,7 +73,6 @@ public class CadastroActivity extends AppCompatActivity {
 
     public void cadastrarUsuario() {
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-        Log.i("Campos", usuario.getNome() +" "+usuario.getEmail()+" "+ usuario.getSenha());
         autenticacao.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
                 .addOnCompleteListener(CadastroActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -79,7 +81,20 @@ public class CadastroActivity extends AppCompatActivity {
                             Toast.makeText(CadastroActivity.this, "Novo usuário cadastrado!",
                                     Toast.LENGTH_LONG).show();
                         } else {
-                            Toast.makeText(CadastroActivity.this, "Erro ao cadastrar usuário!",
+                            String excecao;
+                            try {
+                                throw task.getException();
+                            }catch (FirebaseAuthWeakPasswordException e){
+                                excecao = "A senha deve conter no mínimo 6 caracteres!";
+                            }catch (FirebaseAuthInvalidCredentialsException e){
+                                excecao = "O e-mail cadastrado é inválido!";
+                            }catch (FirebaseAuthUserCollisionException e){
+                                excecao = "O e-mail digitado já está cadastrado!";
+                            }catch (Exception e){
+                                excecao = "Erro ao cadastrar usuário: "+e.getMessage();
+                                e.printStackTrace();
+                            }
+                            Toast.makeText(CadastroActivity.this, excecao,
                                     Toast.LENGTH_LONG).show();
                         }
                     }
