@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.apps.mypocket.R;
+import com.apps.mypocket.config.ConfiguracaoFirebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 
 public class MainActivity extends IntroActivity  {
+
+    private FirebaseAuth autenticacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +52,29 @@ public class MainActivity extends IntroActivity  {
         );
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        verificarUsuarioLogado();
+    }
+
     public void btnCadastrar (View view){
         startActivity(new Intent(this, CadastroActivity.class));
     }
 
     public void btnLogin(View view){
         startActivity(new Intent(MainActivity.this, LoginActivity.class));
+    }
+
+    public void verificarUsuarioLogado(){
+        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
+        if(autenticacao.getCurrentUser()!=null){
+            abrirTelaHome();
+        }
+    }
+
+    public void abrirTelaHome() {
+        startActivity(new Intent(this, HomeActivity.class));
     }
 
 }

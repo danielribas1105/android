@@ -78,8 +78,8 @@ public class CadastroActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(CadastroActivity.this, "Novo usuário cadastrado!",
-                                    Toast.LENGTH_LONG).show();
+
+                            finish();
                         } else {
                             String excecao;
                             try {
