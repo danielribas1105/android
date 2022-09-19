@@ -1,76 +1,101 @@
 package com.apps.fabmenu;
 
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.View;
-
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.apps.fabmenu.databinding.ActivityMainBinding;
-
-import android.view.Menu;
-import android.view.MenuItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    private AppBarConfiguration appBarConfiguration;
-    private ActivityMainBinding binding;
+    private Animation rotateOpen;
+    private Animation rotateClose;
+    private Animation fromBottom;
+    private Animation toBottom;
+    private Boolean clicked = false;
+
+    private FloatingActionButton btnFabAdd;
+    private FloatingActionButton btnFabEdit;
+    private FloatingActionButton btnFabImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        rotateOpen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
+        rotateClose = AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim);
+        fromBottom = AnimationUtils.loadAnimation(this, R.anim.from_bottom_anim);
+        toBottom = AnimationUtils.loadAnimation(this, R.anim.to_bottom_anim);
 
-        setSupportActionBar(binding.toolbar);
+        btnFabAdd = findViewById(R.id.fabAdd);
+        btnFabEdit = findViewById(R.id.fabEdit);
+        btnFabImage = findViewById(R.id.fabImage);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
+        btnFabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                onBtnAddClick();
+            }
+        });
+        btnFabEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Edit Activity",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
+        btnFabImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Image Activity",
+                        Toast.LENGTH_LONG).show();
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private void onBtnAddClick() {
+        setVisibility(clicked);
+        setAnimation(clicked);
+        setClickable(clicked);
+        clicked = !clicked;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void setVisibility(Boolean clicked) {
+        if (!clicked) {
+            btnFabEdit.setVisibility(View.VISIBLE);
+            btnFabImage.setVisibility(View.VISIBLE);
+        } else {
+            btnFabEdit.setVisibility(View.INVISIBLE);
+            btnFabImage.setVisibility(View.INVISIBLE);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    private void setAnimation(Boolean clicked) {
+        if (!clicked) {
+            btnFabEdit.startAnimation(fromBottom);
+            btnFabImage.startAnimation(fromBottom);
+            btnFabAdd.startAnimation(rotateOpen);
+
+        } else {
+            btnFabEdit.startAnimation(toBottom);
+            btnFabImage.startAnimation(toBottom);
+            btnFabAdd.startAnimation(rotateClose);
+        }
     }
+
+    private void setClickable(Boolean clicked){
+        if(!clicked){
+            btnFabEdit.setClickable(true);
+            btnFabImage.setClickable(true);
+        }else {
+            btnFabEdit.setClickable(false);
+            btnFabImage.setClickable(false);
+        }
+    }
+
 }
