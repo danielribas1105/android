@@ -16,16 +16,24 @@
         android:theme="@style/Theme.MyPocket"
         tools:targetApi="31">
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".activity.DespesasActivity"
             android:exported="false"
-            android:label="@string/title_activity_home"
-            android:theme="@style/Theme.MyPocket.NoActionBar" />
+            android:theme="@style/despesaTheme" />
+        <activity
+            android:name=".activity.ReceitaActivity"
+            android:exported="false"
+            android:theme="@style/receitaTheme" />
         <activity
             android:name=".activity.CadastroActivity"
             android:exported="false" />
         <activity
             android:name=".activity.LoginActivity"
             android:exported="false" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false"
+            android:label="@string/title_activity_home"
+            android:theme="@style/Theme.MyPocket.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
