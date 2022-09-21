@@ -10,4 +10,12 @@ public class DateCustom {
         String dataAtual = simpleDateFormat.format(data);
         return dataAtual;
     }
+
+    public static String dataMesAno(String data){
+        String diaMesAno[] = data.split("/");
+        String dia = diaMesAno[0];
+        String mes = diaMesAno[1];
+        String ano = diaMesAno[2];
+        return mes+ano;
+    }
 }
