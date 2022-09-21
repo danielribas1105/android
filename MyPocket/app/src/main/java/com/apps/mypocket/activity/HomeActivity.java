@@ -53,22 +53,6 @@ public class HomeActivity extends AppCompatActivity {
                 onBtnAddClick();
             }
         });
-        /*
-        fabReceita.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addReceita(view);
-            }
-        });
-        fabDespesa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addDespesa(view);
-            }
-        });
-
-         */
-
     }
 
     private void onBtnAddClick() {
