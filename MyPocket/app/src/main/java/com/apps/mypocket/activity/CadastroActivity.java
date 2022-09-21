@@ -1,6 +1,8 @@
 package com.apps.mypocket.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.mypocket.R;
 import com.apps.mypocket.config.ConfiguracaoFirebase;
+import com.apps.mypocket.helper.Base64Custom;
 import com.apps.mypocket.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -20,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+
+import java.nio.charset.StandardCharsets;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -78,8 +83,11 @@ public class CadastroActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
+                            String idUsuario = Base64Custom.codeToBase64(usuario.getEmail());
+                            usuario.setIdUsuario(idUsuario);
+                            usuario.salvarUser();
                             finish();
+                            abrirTelaHome();
                         } else {
                             String excecao;
                             try {
@@ -99,5 +107,10 @@ public class CadastroActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void abrirTelaHome() {
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
     }
 }

@@ -33,7 +33,7 @@
         app:backgroundTint="@android:color/holo_green_light"
         app:layout_constraintBottom_toTopOf="@+id/fabAdd"
         app:layout_constraintEnd_toEndOf="@+id/fabAdd"
-        app:srcCompat="@drawable/ic_add_receita" />
+        app:srcCompat="@drawable/ic_add_receita_branco" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDespesa"
@@ -48,6 +48,6 @@
         app:backgroundTint="@android:color/holo_red_light"
         app:layout_constraintBottom_toTopOf="@+id/fabReceita"
         app:layout_constraintEnd_toEndOf="@+id/fabReceita"
-        app:srcCompat="@drawable/ic_despesa" />
+        app:srcCompat="@drawable/ic_add_despesa_branco" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
