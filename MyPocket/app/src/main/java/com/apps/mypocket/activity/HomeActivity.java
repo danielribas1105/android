@@ -2,24 +2,18 @@ package com.apps.mypocket.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.apps.mypocket.databinding.ActivityHomeBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.mypocket.R;
+import com.apps.mypocket.helper.DateCustom;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,10 +27,16 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton fabReceita;
     private FloatingActionButton fabDespesa;
 
+    private TextView currentMonth;
+    private String mesAtual;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        currentMonth = findViewById(R.id.textCurrentMonth);
+        currentMonth.setText(DateCustom.mesAnoFormat(DateCustom.dataAtual()));
 
         rotateOpen = AnimationUtils.loadAnimation(this, R.anim.rotate_open_anim);
         rotateClose = AnimationUtils.loadAnimation(this, R.anim.rotate_close_anim);
@@ -105,6 +105,16 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(this, DespesasActivity.class));
         Toast.makeText(HomeActivity.this, "Adicionar Despesa",
                 Toast.LENGTH_SHORT).show();
+    }
+
+    public void clickPreviousMonth(View view){
+        mesAtual = currentMonth.getText().toString();
+        currentMonth.setText(DateCustom.previousMonth(mesAtual));
+    }
+
+    public void clickNextMonth(View view){
+        mesAtual = currentMonth.getText().toString();
+        currentMonth.setText(DateCustom.nextMonth(mesAtual));
     }
 
 }
