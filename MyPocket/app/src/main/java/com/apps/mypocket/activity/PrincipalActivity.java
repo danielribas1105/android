@@ -2,21 +2,20 @@ package com.apps.mypocket.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.ui.AppBarConfiguration;
 
 import com.apps.mypocket.R;
 import com.apps.mypocket.helper.DateCustom;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class HomeActivity extends AppCompatActivity {
+public class PrincipalActivity extends AppCompatActivity {
 
     private Animation rotateOpen;
     private Animation rotateClose;
@@ -31,13 +30,13 @@ public class HomeActivity extends AppCompatActivity {
     private TextView currentMonth, textGreet, textBalance;
     private String mesAtual;
 
+    private AppBarConfiguration appBarConfiguration;
+    //private ActivityPrincipalBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_principal);
 
         textGreet = findViewById(R.id.textHello);
         textBalance = findViewById(R.id.textSaldo);
@@ -53,12 +52,22 @@ public class HomeActivity extends AppCompatActivity {
         fabReceita = findViewById(R.id.fabReceita);
         fabDespesa = findViewById(R.id.fabDespesa);
 
+        /*
+        binding = ActivityPrincipalBinding.inflate(getLayoutInflater());
+
+        setSupportActionBar(binding.toolbar);
+
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        */
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBtnAddClick();
             }
         });
+
     }
 
     private void onBtnAddClick() {
@@ -103,13 +112,13 @@ public class HomeActivity extends AppCompatActivity {
 
     public void addReceita(View view){
         startActivity(new Intent(this, ReceitaActivity.class));
-        Toast.makeText(HomeActivity.this, "Adicionar Receita",
+        Toast.makeText(PrincipalActivity.this, "Adicionar Receita",
                 Toast.LENGTH_SHORT).show();
     }
 
     public void addDespesa(View view){
         startActivity(new Intent(this, DespesasActivity.class));
-        Toast.makeText(HomeActivity.this, "Adicionar Despesa",
+        Toast.makeText(PrincipalActivity.this, "Adicionar Despesa",
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -123,4 +132,12 @@ public class HomeActivity extends AppCompatActivity {
         currentMonth.setText(DateCustom.nextMonth(mesAtual));
     }
 
+    /*
+    @Override
+    public boolean onSupportNavigateUp() {
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal);
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+     */
 }

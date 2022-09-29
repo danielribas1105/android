@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.HomeActivity">
+    tools:context=".activity.PrincipalActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -21,40 +21,47 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include />
+    <include layout="@layout/content_principal" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="24dp"
+        android:backgroundTint="@color/purple_700"
         android:clickable="true"
         android:focusable="true"
-        app:backgroundTint="@color/purple_700" />
+        app:srcCompat="@drawable/ic_add_branco"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabReceita"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="100dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="addReceita"
-        android:tooltipText="Receita"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/holo_green_light" />
+        android:backgroundTint="@color/green_700"
+        app:srcCompat="@drawable/ic_add_receita_branco" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabDespesa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="176dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="addDespesa"
-        android:tooltipText="Despesa"
         android:visibility="invisible"
-        app:backgroundTint="@android:color/holo_red_light" />
+        android:backgroundTint="@color/red_700"
+        app:srcCompat="@drawable/ic_add_despesa_branco" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

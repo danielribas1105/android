@@ -110,7 +110,7 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void abrirTelaHome() {
-        startActivity(new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, PrincipalActivity.class));
         finish();
     }
 }

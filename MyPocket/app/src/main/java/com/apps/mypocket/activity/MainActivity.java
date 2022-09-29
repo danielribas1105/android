@@ -75,7 +75,7 @@ public class MainActivity extends IntroActivity  {
     }
 
     public void abrirTelaHome() {
-        startActivity(new Intent(this, HomeActivity.class));
+        startActivity(new Intent(this, PrincipalActivity.class));
     }
 
 }
