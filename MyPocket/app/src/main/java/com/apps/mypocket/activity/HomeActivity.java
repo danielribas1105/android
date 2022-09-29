@@ -8,6 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,7 +28,7 @@ public class HomeActivity extends AppCompatActivity {
     private FloatingActionButton fabReceita;
     private FloatingActionButton fabDespesa;
 
-    private TextView currentMonth;
+    private TextView currentMonth, textGreet, textBalance;
     private String mesAtual;
 
     @Override
@@ -35,6 +36,11 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        textGreet = findViewById(R.id.textHello);
+        textBalance = findViewById(R.id.textSaldo);
         currentMonth = findViewById(R.id.textCurrentMonth);
         currentMonth.setText(DateCustom.mesAnoFormat(DateCustom.dataAtual()));
 

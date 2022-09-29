@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/textHello"
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:gravity="center"
@@ -27,7 +27,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/textSaldo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
