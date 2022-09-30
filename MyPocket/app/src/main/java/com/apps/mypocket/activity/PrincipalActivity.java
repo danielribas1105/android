@@ -1,5 +1,6 @@
 package com.apps.mypocket.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.navigation.ui.AppBarConfiguration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,10 +61,11 @@ public class PrincipalActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdapterMovimentacao adapterMovimentacao;
     private List<Movimentacao> movimentacoes = new ArrayList<>();
+    private Movimentacao movimentacao;
 
     private TextView currentMonth, textGreet, textBalance;
     private String mesAtual;
-    private Double saldoTotal;
+    private Double saldoTotal, receitaTotal, despesaTotal;
     private static String mesAno = DateCustom.dataMesAno(DateCustom.dataAtual());
 
     private AppBarConfiguration appBarConfiguration;
@@ -89,6 +93,7 @@ public class PrincipalActivity extends AppCompatActivity {
         fabAdd = findViewById(R.id.fabAdd);
         fabReceita = findViewById(R.id.fabReceita);
         fabDespesa = findViewById(R.id.fabDespesa);
+        swipeItem();
 
         //Configurar Adapter
         adapterMovimentacao = new AdapterMovimentacao(movimentacoes, this);
@@ -98,17 +103,13 @@ public class PrincipalActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(adapterMovimentacao);
 
-
         fabAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBtnAddClick();
             }
         });
-
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,10 +129,75 @@ public class PrincipalActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void swipeItem(){
+        ItemTouchHelper.Callback itemTouch = new ItemTouchHelper.Callback() {
+            @Override
+            public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
+                int dragFlags = ItemTouchHelper.ACTION_STATE_IDLE;
+                int swipeFlags = ItemTouchHelper.START | ItemTouchHelper.END;
+                return makeMovementFlags(dragFlags, swipeFlags);
+            }
+
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                excluirMovimentacao(viewHolder);
+            }
+        };
+        new ItemTouchHelper(itemTouch).attachToRecyclerView(recyclerView);
+    }
+
+    public void excluirMovimentacao(RecyclerView.ViewHolder viewHolder){
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+
+        //Configurando o AlertDialog
+        alertDialog.setTitle("EXCLUIR MOVIMENTAÇÃO");
+        alertDialog.setMessage("Deseja realmente excluir esta movimentação?");
+        alertDialog.setCancelable(false);
+        alertDialog.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int position = viewHolder.getAdapterPosition();
+                movimentacao = movimentacoes.get(position);
+                String idUser = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+                movimentacoesRef = firebaseRef.child("movimentacao").child(idUser).child(mesAno);
+                movimentacoesRef.child(movimentacao.getKey()).removeValue();
+                adapterMovimentacao.notifyItemRemoved(position);
+                atualizarSaldo();
+            }
+        });
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(PrincipalActivity.this,
+                        "Ação de excluir cancelada!", Toast.LENGTH_SHORT).show();
+                adapterMovimentacao.notifyDataSetChanged();
+            }
+        });
+        AlertDialog alert = alertDialog.create();
+        alert.show();
+    }
+
+    public void atualizarSaldo(){
+        String idUser = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        usuarioRef = firebaseRef.child("usuarios").child(idUser);
+        if(movimentacao.getTipo().equals("r")){
+            receitaTotal -= movimentacao.getValor();
+            usuarioRef.child("receitaTotal").setValue(receitaTotal);
+        }
+        if(movimentacao.getTipo().equals("d")){
+            despesaTotal -= movimentacao.getValor();
+            usuarioRef.child("despesaTotal").setValue(despesaTotal);
+        }
+    }
+
     public void getMovimentacoes(){
         String idUser = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         movimentacoesRef = firebaseRef.child("movimentacao").child(idUser).child(mesAno);
-        Log.i("Dados","mesAtual: " + mesAno);
 
         valueEventListenerMovimentacoes = movimentacoesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,15 +205,14 @@ public class PrincipalActivity extends AppCompatActivity {
                 movimentacoes.clear();
                 for(DataSnapshot dados: snapshot.getChildren()){
                     Movimentacao movimentacao = dados.getValue(Movimentacao.class);
+                    movimentacao.setKey(dados.getKey());
                     movimentacoes.add(movimentacao);
                 }
                 adapterMovimentacao.notifyDataSetChanged();
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
@@ -166,9 +231,7 @@ public class PrincipalActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
@@ -227,21 +290,17 @@ public class PrincipalActivity extends AppCompatActivity {
     public void clickPreviousMonth(View view) {
         mesAtual = currentMonth.getText().toString();
         currentMonth.setText(DateCustom.previousMonth(mesAtual));
-        Log.i("Data", "MesAno " + DateCustom.previousMonth(mesAtual)); //Setembro 2022
-        //movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
-        String anteriorMes = DateCustom.previousMonthDataBase(mesAtual);
-        Log.i("Data", "MesAno " + anteriorMes);
-        //getMovimentacoes();
+        movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
+        mesAno = DateCustom.previousMonthDataBase(mesAtual);
+        getMovimentacoes();
     }
 
     public void clickNextMonth(View view) {
         mesAtual = currentMonth.getText().toString();
         currentMonth.setText(DateCustom.nextMonth(mesAtual));
-        Log.i("Data", "MesAno " + DateCustom.nextMonth(mesAtual)); //Setembro 2022
-        //movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
-        String proximoMes = DateCustom.nextMonthDataBase(mesAtual);
-        Log.i("Data", "MesAno " + proximoMes);
-        //getMovimentacoes();
+        movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
+        mesAno = DateCustom.nextMonthDataBase(mesAtual);
+        getMovimentacoes();
     }
 
     @Override
