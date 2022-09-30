@@ -51,7 +51,7 @@ public class PrincipalActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = ConfiguracaoFirebase.getFirebaseAutenticacao();
     private DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
-    private DatabaseReference movimentacoesRef = ConfiguracaoFirebase.getFirebaseDatabase();
+    private DatabaseReference movimentacoesRef;
     private DatabaseReference usuarioRef;
     private ValueEventListener valueEventListenerUsuario;
     private ValueEventListener valueEventListenerMovimentacoes;
@@ -62,6 +62,7 @@ public class PrincipalActivity extends AppCompatActivity {
     private TextView currentMonth, textGreet, textBalance;
     private String mesAtual;
     private Double saldoTotal;
+    private static String mesAno = DateCustom.dataMesAno(DateCustom.dataAtual());
 
     private AppBarConfiguration appBarConfiguration;
 
@@ -129,9 +130,8 @@ public class PrincipalActivity extends AppCompatActivity {
 
     public void getMovimentacoes(){
         String idUser = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        String mesAno = DateCustom.dataMesAno(DateCustom.dataAtual());
-        movimentacoesRef.child("movimentacao").child(idUser).child(mesAno);
-        //Log.i("Data","mesAtual: " + mesAno);
+        movimentacoesRef = firebaseRef.child("movimentacao").child(idUser).child(mesAno);
+        Log.i("Dados","mesAtual: " + mesAno);
 
         valueEventListenerMovimentacoes = movimentacoesRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,8 +139,9 @@ public class PrincipalActivity extends AppCompatActivity {
                 movimentacoes.clear();
                 for(DataSnapshot dados: snapshot.getChildren()){
                     Movimentacao movimentacao = dados.getValue(Movimentacao.class);
-                    Log.i("Dados", "Retorno" + movimentacao.getCategoria());
+                    movimentacoes.add(movimentacao);
                 }
+                adapterMovimentacao.notifyDataSetChanged();
             }
 
             @Override
@@ -226,11 +227,19 @@ public class PrincipalActivity extends AppCompatActivity {
     public void clickPreviousMonth(View view) {
         mesAtual = currentMonth.getText().toString();
         currentMonth.setText(DateCustom.previousMonth(mesAtual));
+        Log.i("Data", "MesAno " + DateCustom.previousMonth(mesAtual)); //Setembro 2022
+        //movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
+        //getMovimentacoes();
     }
 
     public void clickNextMonth(View view) {
         mesAtual = currentMonth.getText().toString();
         currentMonth.setText(DateCustom.nextMonth(mesAtual));
+        Log.i("Data", "MesAno " + DateCustom.nextMonth(mesAtual)); //Setembro 2022
+        //movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
+        String proximoMes = DateCustom.nextMonthDataBase();
+        Log.i("Data", "MesAno " + proximoMes);
+        //getMovimentacoes();
     }
 
     @Override

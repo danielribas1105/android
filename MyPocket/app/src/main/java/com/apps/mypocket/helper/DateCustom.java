@@ -6,9 +6,10 @@ public class DateCustom {
 
     private static String[] month = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
             "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+    private static long data;
 
     public static String dataAtual() {
-        long data = System.currentTimeMillis();
+        data = System.currentTimeMillis();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String dataAtual = simpleDateFormat.format(data);
         return dataAtual;
@@ -41,6 +42,8 @@ public class DateCustom {
         return mesAno[0] + " " + mesAno[1];
     }
 
+    //public static String previousMonthDataBase(){}
+
     public static String nextMonth(String data) {
         String mesAno[] = data.split(" ");
         for (int i = 0; i < 12; i++) {
@@ -50,5 +53,15 @@ public class DateCustom {
             }
         }
         return mesAno[0] + " " + mesAno[1];
+    }
+
+    public static String nextMonthDataBase(){
+        data = System.currentTimeMillis();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
+        String dataAtual = simpleDateFormat.format(data);
+        String diaMesAno[] = dataAtual.split("/");
+        Integer numMes = Integer.parseInt(diaMesAno[0]) + 1;
+        String nextMonth = String.valueOf(numMes);
+        return nextMonth + diaMesAno[1];
     }
 }
