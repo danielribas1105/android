@@ -58,6 +58,7 @@ public class DespesasActivity extends AppCompatActivity {
             Double despesaAtualizada = novaDespesa + despesaTotal;
             atualizarDespesa(despesaAtualizada);
             movimentacao.salvar(data);
+            finish();
         }
     }
 
