@@ -229,6 +229,8 @@ public class PrincipalActivity extends AppCompatActivity {
         currentMonth.setText(DateCustom.previousMonth(mesAtual));
         Log.i("Data", "MesAno " + DateCustom.previousMonth(mesAtual)); //Setembro 2022
         //movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
+        String anteriorMes = DateCustom.previousMonthDataBase(mesAtual);
+        Log.i("Data", "MesAno " + anteriorMes);
         //getMovimentacoes();
     }
 
@@ -237,7 +239,7 @@ public class PrincipalActivity extends AppCompatActivity {
         currentMonth.setText(DateCustom.nextMonth(mesAtual));
         Log.i("Data", "MesAno " + DateCustom.nextMonth(mesAtual)); //Setembro 2022
         //movimentacoesRef.removeEventListener(valueEventListenerMovimentacoes);
-        String proximoMes = DateCustom.nextMonthDataBase();
+        String proximoMes = DateCustom.nextMonthDataBase(mesAtual);
         Log.i("Data", "MesAno " + proximoMes);
         //getMovimentacoes();
     }

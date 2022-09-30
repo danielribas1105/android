@@ -42,7 +42,17 @@ public class DateCustom {
         return mesAno[0] + " " + mesAno[1];
     }
 
-    //public static String previousMonthDataBase(){}
+    public static String previousMonthDataBase(String mesAtual){
+        String mesAno[] = mesAtual.split(" ");
+        Integer nextMonth = 0;
+        for (int i = 0; i < 12; i++) {
+            if (mesAno[0].equals(month[i])) {
+                nextMonth = i;
+                break;
+            }
+        }
+        return String.format("%02d",nextMonth) + mesAno[1];
+    }
 
     public static String nextMonth(String data) {
         String mesAno[] = data.split(" ");
@@ -55,13 +65,15 @@ public class DateCustom {
         return mesAno[0] + " " + mesAno[1];
     }
 
-    public static String nextMonthDataBase(){
-        data = System.currentTimeMillis();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
-        String dataAtual = simpleDateFormat.format(data);
-        String diaMesAno[] = dataAtual.split("/");
-        Integer numMes = Integer.parseInt(diaMesAno[0]) + 1;
-        String nextMonth = String.valueOf(numMes);
-        return nextMonth + diaMesAno[1];
+    public static String nextMonthDataBase(String mesAtual) {
+        String mesAno[] = mesAtual.split(" ");
+        Integer nextMonth = 0;
+        for (int i = 0; i < 12; i++) {
+            if (mesAno[0].equals(month[i])) {
+                nextMonth = i + 2;
+                break;
+            }
+        }
+        return String.format("%02d",nextMonth) + mesAno[1];
     }
 }
