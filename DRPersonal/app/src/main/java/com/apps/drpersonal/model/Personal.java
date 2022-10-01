@@ -1,5 +1,8 @@
 package com.apps.drpersonal.model;
 
+import com.apps.drpersonal.config.ConfigFirebase;
+import com.google.firebase.database.DatabaseReference;
+
 public class Personal {
 
     private String idPersonal;
@@ -8,6 +11,11 @@ public class Personal {
     private String senhaPersonal;
 
     public Personal() {
+    }
+
+    public void salvarPersonal(){
+        DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
+        reference.child("personal").child(this.idPersonal).setValue(this);
     }
 
     public String getIdPersonal() {

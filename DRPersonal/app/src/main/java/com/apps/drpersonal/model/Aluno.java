@@ -2,6 +2,7 @@ package com.apps.drpersonal.model;
 
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 
 public class Aluno {
 
@@ -18,6 +19,7 @@ public class Aluno {
         reference.child("alunos").child(this.idAluno).setValue(this);
     }
 
+    @Exclude
     public String getIdAluno() {
         return idAluno;
     }
@@ -26,9 +28,7 @@ public class Aluno {
         this.idAluno = idAluno;
     }
 
-    public String getNomeAluno() {
-        return nomeAluno;
-    }
+    public String getNomeAluno() { return nomeAluno;}
 
     public void setNomeAluno(String nomeAluno) {
         this.nomeAluno = nomeAluno;
@@ -42,6 +42,7 @@ public class Aluno {
         this.emailAluno = emailAluno;
     }
 
+    @Exclude
     public String getSenhaAluno() {
         return senhaAluno;
     }
@@ -49,4 +50,5 @@ public class Aluno {
     public void setSenhaAluno(String senhaAluno) {
         this.senhaAluno = senhaAluno;
     }
+
 }
