@@ -52,18 +52,20 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/textPrevMonth"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:drawableStart="@drawable/ic_double_arrow_left_purple_48"
             android:gravity="center"
+            android:onClick="clickPreviousMonth"
             android:paddingStart="10dp"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textMonthYear"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
@@ -74,15 +76,17 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView16"
+            android:id="@+id/textNextMonth"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_weight="1"
             android:drawableEnd="@drawable/ic_double_arrow_right_purple_48"
             android:gravity="center"
+            android:onClick="clickNextMonth"
             android:paddingEnd="10dp"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            tools:ignore="SpeakableTextPresentCheck" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

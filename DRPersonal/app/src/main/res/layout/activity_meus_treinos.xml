@@ -21,14 +21,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textHello"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="MEUS TREINOS"
+            android:text="Saudação"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:textStyle="bold" />
 
         <TextView
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="Selecione uma das séries abaixo para iniciar seu treino."
+            android:text="Vamos treinar!!! Selecione uma das séries abaixo e vamos começar."
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp" />

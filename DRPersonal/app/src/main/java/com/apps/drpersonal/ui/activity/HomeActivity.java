@@ -1,19 +1,54 @@
 package com.apps.drpersonal.ui.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toolbar;
 
+import com.apps.drpersonal.MainActivity;
 import com.apps.drpersonal.R;
+import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.helper.Base64Custom;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.text.DecimalFormat;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
+    private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuSair:
+                auth.signOut();
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void goToMeusTreinos(View view){
