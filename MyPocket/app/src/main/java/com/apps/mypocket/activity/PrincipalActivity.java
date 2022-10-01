@@ -65,7 +65,9 @@ public class PrincipalActivity extends AppCompatActivity {
 
     private TextView currentMonth, textGreet, textBalance;
     private String mesAtual;
-    private Double saldoTotal, receitaTotal, despesaTotal;
+    private Double saldoTotal = 0.0;
+    private Double receitaTotal = 0.0;
+    private Double despesaTotal = 0.0;
     private static String mesAno = DateCustom.dataMesAno(DateCustom.dataAtual());
 
     private AppBarConfiguration appBarConfiguration;
@@ -186,11 +188,13 @@ public class PrincipalActivity extends AppCompatActivity {
         String idUser = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         usuarioRef = firebaseRef.child("usuarios").child(idUser);
         if(movimentacao.getTipo().equals("r")){
-            receitaTotal -= movimentacao.getValor();
+            receitaTotal = receitaTotal - movimentacao.getValor();
+            Log.i("saldo", "saldoTotal r= "+receitaTotal);
             usuarioRef.child("receitaTotal").setValue(receitaTotal);
         }
         if(movimentacao.getTipo().equals("d")){
-            despesaTotal -= movimentacao.getValor();
+            despesaTotal = despesaTotal - movimentacao.getValor();
+            Log.i("saldo", "saldoTotal d= "+despesaTotal);
             usuarioRef.child("despesaTotal").setValue(despesaTotal);
         }
     }
@@ -223,7 +227,9 @@ public class PrincipalActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Usuario usuario = snapshot.getValue(Usuario.class);
-                saldoTotal = usuario.getReceitaTotal() - usuario.getDespesaTotal();
+                receitaTotal = usuario.getReceitaTotal();
+                despesaTotal = usuario.getDespesaTotal();
+                saldoTotal = receitaTotal - despesaTotal;
                 DecimalFormat decimalFormat = new DecimalFormat("0.00");
                 String saldoFormat = decimalFormat.format(saldoTotal);
                 textGreet.setText("Olá, " + usuario.getNome());
