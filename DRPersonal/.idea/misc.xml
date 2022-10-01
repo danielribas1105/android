@@ -5,11 +5,12 @@
       <map>
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_avaliacoes.xml" value="0.2359375" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
-        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_historico.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_historico.xml" value="0.264" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_home.xml" value="0.2" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_meus_treinos.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_meus_treinos_adapter.xml" value="0.25" />
       </map>
     </option>
   </component>
