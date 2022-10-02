@@ -36,16 +36,24 @@ public class HomeActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        // Cria referência para toda a área do NavigationDrawer
         DrawerLayout drawer = binding.drawerLayout;
+
+        // Cria referência para a área de navegação
         NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        // Define as configurações para o NvigationDrawer
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
+
+        // Configura a área que irá carregar os fragments
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_home);
+
+        // Configura o menu superior esquerdo da navegação
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
+        // Configura a navegação para o menu NavigationView
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
