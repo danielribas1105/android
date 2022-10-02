@@ -3,7 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/drawable/side_nav_bar.xml" value="0.2345" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/layout/activity_main.xml" value="0.2359375" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/layout/app_bar_home.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/layout/content_home.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/layout/nav_header_home.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalTrainer/app/src/main/res/menu/home.xml" value="0.25" />
       </map>
     </option>
   </component>

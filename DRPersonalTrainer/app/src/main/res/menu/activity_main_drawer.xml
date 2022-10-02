@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="@string/menu_home" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/menu_slideshow" />
+        <item
+            android:id="@+id/nav_criar_treino"
+            android:icon="@drawable/ic_add_treino_24"
+            android:title="Criar treino"/>
+        <item
+            android:id="@+id/nav_editar_treino"
+            android:icon="@drawable/ic_edit_treino_24"
+            android:title="Editar treino"/>
+        <item
+            android:id="@+id/nav_inserir_exercicio"
+            android:icon="@drawable/ic_add_exercicio_24"
+            android:title="Inserir exercício"/>
+        <item
+            android:id="@+id/nav_buscar_alunos"
+            android:icon="@drawable/ic_search_24"
+            android:title="Buscar aluno"/>
+    </group>
+</menu>
