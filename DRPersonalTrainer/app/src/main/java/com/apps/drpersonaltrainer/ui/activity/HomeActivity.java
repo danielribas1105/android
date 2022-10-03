@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.apps.drpersonaltrainer.R;
 import com.apps.drpersonaltrainer.databinding.ActivityHomeBinding;
+import com.apps.drpersonaltrainer.ui.fragment.BuscarAlunoFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 

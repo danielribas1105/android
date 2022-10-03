@@ -1,29 +1,34 @@
 package com.apps.drpersonaltrainer.ui.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.apps.drpersonaltrainer.R;
 import com.apps.drpersonaltrainer.model.Aluno;
 import com.apps.drpersonaltrainer.ui.adapter.BuscarAlunoAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * A simple {@link Fragment} subclass.
  * Use the {@link BuscarAlunoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class BuscarAlunoFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerAlunos;
     private BuscarAlunoAdapter alunoAdapter;
     private List<Aluno> alunos = new ArrayList<>();
 
-    /*
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,9 +42,7 @@ public class BuscarAlunoFragment extends Fragment {
         // Required empty public constructor
     }
 
-     */
-
-    /*
+    /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
@@ -48,7 +51,6 @@ public class BuscarAlunoFragment extends Fragment {
      * @return A new instance of fragment BuscarAlunoFragment.
      */
 
-    /*
     // TODO: Rename and change types and number of parameters
     public static BuscarAlunoFragment newInstance(String param1, String param2) {
         BuscarAlunoFragment fragment = new BuscarAlunoFragment();
@@ -58,38 +60,35 @@ public class BuscarAlunoFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_buscar_alunos_adapter);
-
-/*
-        //Configurar Adapter
-        alunoAdapter = new BuscarAlunoAdapter(alunos);
-        //Configurar RecyclerView
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(alunoAdapter);
-
 
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-         */
     }
 
-    /*
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_buscar_aluno, container, false);
+        View view = inflater.inflate(R.layout.fragment_buscar_aluno, container, false);
+        recyclerAlunos = view.findViewById(R.id.recyclerBuscarAlunos);
+        recyclerAlunos.setLayoutManager(new LinearLayoutManager(getContext()));
+        carregarAlunos();
+        alunoAdapter = new BuscarAlunoAdapter(alunos);
+        recyclerAlunos.setAdapter(alunoAdapter);
+        return view;
     }
 
-     */
+    private void carregarAlunos() {
+        alunos.add(new Aluno("Aluno1","Data1","aluno1@email"));
+        alunos.add(new Aluno("Aluno2","Data2","aluno2@email"));
+        alunos.add(new Aluno("Aluno3","Data3","aluno3@email"));
+        alunos.add(new Aluno("Aluno4","Data4","aluno4@email"));
+        alunos.add(new Aluno("Aluno5","Data5","aluno5@email"));
+    }
 }

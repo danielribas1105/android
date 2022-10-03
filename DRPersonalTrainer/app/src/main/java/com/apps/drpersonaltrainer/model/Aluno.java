@@ -8,7 +8,10 @@ public class Aluno {
     private String senhaAluno;
     private String dataInicio;
 
-    public Aluno() {
+    public Aluno(String nomeAluno, String dataInicio, String emailAluno) {
+        this.nomeAluno = nomeAluno;
+        this.dataInicio = dataInicio;
+        this.emailAluno = emailAluno;
     }
 
     public String getIdAluno() {
