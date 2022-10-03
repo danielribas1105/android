@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "948430985505",
+    "firebase_url": "https://dr-personal-68282-default-rtdb.firebaseio.com",
+    "project_id": "dr-personal-68282",
+    "storage_bucket": "dr-personal-68282.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948430985505:android:1f22a66f5a52d24b394660",
+        "android_client_info": {
+          "package_name": "com.apps.drpersonal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948430985505-g4k5ioru3na8dpirltka7l9k55r06446.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFm_FbFwxR6pbQifxYRQwtjn1QKUN7VgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948430985505-g4k5ioru3na8dpirltka7l9k55r06446.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948430985505:android:65c383189c2e0290394660",
+        "android_client_info": {
+          "package_name": "com.apps.drpersonaltrainer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948430985505-g4k5ioru3na8dpirltka7l9k55r06446.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFm_FbFwxR6pbQifxYRQwtjn1QKUN7VgA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948430985505-g4k5ioru3na8dpirltka7l9k55r06446.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

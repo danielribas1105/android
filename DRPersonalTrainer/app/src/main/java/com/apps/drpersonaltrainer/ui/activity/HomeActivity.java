@@ -44,7 +44,8 @@ public class HomeActivity extends AppCompatActivity {
 
         // Define as configurações para o NvigationDrawer
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_buscar_alunos, R.id.nav_new_treino, R.id.nav_editar_treino,
+                R.id.nav_new_exercicio, R.id.nav_editar_exercicio)
                 .setOpenableLayout(drawer)
                 .build();
 

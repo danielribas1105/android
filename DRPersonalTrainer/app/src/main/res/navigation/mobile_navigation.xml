@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
@@ -12,14 +13,33 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.apps.drpersonaltrainer.ui.fragment.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_buscar_alunos"
+        android:name="com.apps.drpersonaltrainer.ui.fragment.BuscarAlunoFragment"
+        android:label="Alunos cadastrados"
+        tools:layout="@layout/fragment_buscar_aluno" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.apps.drpersonaltrainer.ui.fragment.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_new_treino"
+        android:name="com.apps.drpersonaltrainer.ui.fragment.CriarTreinoFragment"
+        android:label="Criar/Inserir Treino"
+        tools:layout="@layout/fragment_criar_treino" />
+
+    <fragment
+        android:id="@+id/nav_editar_treino"
+        android:name="com.apps.drpersonaltrainer.ui.fragment.EditarTreinoFragment"
+        android:label="Editar/Excluir Treino"
+        tools:layout="@layout/fragment_editar_treino" />
+
+    <fragment
+        android:id="@+id/nav_new_exercicio"
+        android:name="com.apps.drpersonaltrainer.ui.fragment.CriarExercFragment"
+        android:label="Criar/Inserir Exercício"
+        tools:layout="@layout/fragment_criar_exerc" />
+
+    <fragment
+        android:id="@+id/nav_editar_exercicio"
+        android:name="com.apps.drpersonaltrainer.ui.fragment.EditarExercFragment"
+        android:label="Editar/Excluir Exercício"
+        tools:layout="@layout/fragment_editar_exerc" />
+
 </navigation>

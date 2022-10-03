@@ -1,8 +1,4 @@
-package com.apps.drpersonal.model;
-
-import com.apps.drpersonal.config.ConfigFirebase;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
+package com.apps.drpersonaltrainer.model;
 
 public class Aluno {
 
@@ -15,12 +11,6 @@ public class Aluno {
     public Aluno() {
     }
 
-    public void salvarAluno(){
-        DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-        reference.child("alunos").child(this.idAluno).setValue(this);
-    }
-
-    @Exclude
     public String getIdAluno() {
         return idAluno;
     }
@@ -29,7 +19,9 @@ public class Aluno {
         this.idAluno = idAluno;
     }
 
-    public String getNomeAluno() { return nomeAluno;}
+    public String getNomeAluno() {
+        return nomeAluno;
+    }
 
     public void setNomeAluno(String nomeAluno) {
         this.nomeAluno = nomeAluno;
@@ -43,7 +35,6 @@ public class Aluno {
         this.emailAluno = emailAluno;
     }
 
-    @Exclude
     public String getSenhaAluno() {
         return senhaAluno;
     }
