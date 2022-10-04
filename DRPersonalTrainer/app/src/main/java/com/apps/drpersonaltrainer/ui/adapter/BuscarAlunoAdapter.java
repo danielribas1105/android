@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.drpersonaltrainer.R;
 import com.apps.drpersonaltrainer.model.Aluno;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BuscarAlunoAdapter extends RecyclerView.Adapter<BuscarAlunoAdapter.AlunosViewHolder> {

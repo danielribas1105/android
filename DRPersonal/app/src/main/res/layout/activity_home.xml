@@ -39,7 +39,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgHomeTreinos"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnLayoutTreinos">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgHomeHistorico"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
@@ -117,7 +117,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btnLayoutHistorico">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/imgHomeAvaliacoes"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"

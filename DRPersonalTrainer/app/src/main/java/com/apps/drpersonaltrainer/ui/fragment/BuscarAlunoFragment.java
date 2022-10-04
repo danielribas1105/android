@@ -1,11 +1,14 @@
 package com.apps.drpersonaltrainer.ui.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,6 +81,8 @@ public class BuscarAlunoFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_buscar_aluno, container, false);
         recyclerAlunos = view.findViewById(R.id.recyclerBuscarAlunos);
         recyclerAlunos.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerAlunos.setHasFixedSize(true);
+        recyclerAlunos.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
         carregarAlunos();
         alunoAdapter = new BuscarAlunoAdapter(alunos);
         recyclerAlunos.setAdapter(alunoAdapter);

@@ -14,8 +14,10 @@
         android:theme="@style/Theme.DRPersonal"
         tools:targetApi="31">
         <activity
-            android:name=".ui.adapter.MeusTreinosAdapter"
-            android:exported="false" />
+            android:name=".ui.activity.MeusExerciciosActivity"
+            android:exported="false"
+            android:label="@string/title_activity_meus_exercicios"
+            android:theme="@style/Theme.DRPersonal.NoActionBar" />
         <activity
             android:name=".ui.activity.MeusTreinosActivity"
             android:exported="false" />
