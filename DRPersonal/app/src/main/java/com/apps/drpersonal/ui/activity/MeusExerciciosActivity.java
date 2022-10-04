@@ -13,10 +13,14 @@ import com.apps.drpersonal.R;
 import com.apps.drpersonal.databinding.ActivityMeusExerciciosBinding;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.text.SimpleDateFormat;
+
 public class MeusExerciciosActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMeusExerciciosBinding binding;
+    private long currentDate;
+    private SimpleDateFormat simpleDateFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +35,14 @@ public class MeusExerciciosActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
+        currentDate = System.currentTimeMillis();
+        simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        String date = simpleDateFormat.format(currentDate);
+
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Treino salvo em " + date, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });

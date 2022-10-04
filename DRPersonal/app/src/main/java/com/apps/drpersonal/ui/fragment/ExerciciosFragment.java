@@ -3,14 +3,21 @@ package com.apps.drpersonal.ui.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.apps.drpersonal.R;
+import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +26,9 @@ import com.apps.drpersonal.R;
  */
 public class ExerciciosFragment extends Fragment {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerExerc;
+    private ExerciciosAdapter adapterExerc;
+    private List<Exercise> exercises = new ArrayList<>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,8 +74,21 @@ public class ExerciciosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exercicios, container, false);
-
-
+        recyclerExerc = view.findViewById(R.id.recyclerExercicios);
+        recyclerExerc.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerExerc.setHasFixedSize(true);
+        recyclerExerc.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayout.VERTICAL));
+        loadExercises();
+        adapterExerc = new ExerciciosAdapter(exercises);
+        recyclerExerc.setAdapter(adapterExerc);
         return view;
+    }
+
+    private void loadExercises() {
+        exercises.add(new Exercise(R.drawable.logo_circular,"Supino Reto"));
+        exercises.add(new Exercise(R.drawable.logo_circular,"Supino Inclinado"));
+        exercises.add(new Exercise(R.drawable.logo_circular,"Voador"));
+        exercises.add(new Exercise(R.drawable.logo_circular,"Desenvolvimento"));
+        exercises.add(new Exercise(R.drawable.logo_circular,"Elevação Lataral"));
     }
 }
