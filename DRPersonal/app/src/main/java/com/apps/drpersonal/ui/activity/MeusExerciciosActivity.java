@@ -1,6 +1,8 @@
 package com.apps.drpersonal.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +40,11 @@ public class MeusExerciciosActivity extends AppCompatActivity {
         currentDate = System.currentTimeMillis();
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDateFormat.format(currentDate);
+
+        Intent intent = getIntent();
+        //int serieEscolhida =
+
+        Log.i("Intent",intent.toString());
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

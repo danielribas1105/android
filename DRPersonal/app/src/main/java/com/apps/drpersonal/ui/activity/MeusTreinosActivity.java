@@ -67,7 +67,8 @@ public class MeusTreinosActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        goToExercise();
+                        int serie = position;
+                        goToExercise(serie);
                     }
 
                     @Override
@@ -108,8 +109,10 @@ public class MeusTreinosActivity extends AppCompatActivity {
         trainings.add(new Training(R.drawable.logo_circular,"Teste de quantidade"));
     }
 
-    public void goToExercise(){
-        startActivity(new Intent(this, MeusExerciciosActivity.class));
+    public void goToExercise(int serieEscolhida){
+        Intent intent = new Intent(this, MeusExerciciosActivity.class);
+        intent.putExtra("option",serieEscolhida);
+        startActivity(intent);
     }
 
 }

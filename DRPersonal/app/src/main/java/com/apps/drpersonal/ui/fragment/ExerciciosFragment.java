@@ -85,10 +85,10 @@ public class ExerciciosFragment extends Fragment {
     }
 
     private void loadExercises() {
-        exercises.add(new Exercise(R.drawable.logo_circular,"Supino Reto"));
-        exercises.add(new Exercise(R.drawable.logo_circular,"Supino Inclinado"));
-        exercises.add(new Exercise(R.drawable.logo_circular,"Voador"));
-        exercises.add(new Exercise(R.drawable.logo_circular,"Desenvolvimento"));
-        exercises.add(new Exercise(R.drawable.logo_circular,"Elevação Lataral"));
+        exercises.add(new Exercise(R.drawable.supino_reto,"Supino Reto"));
+        exercises.add(new Exercise(R.drawable.supino_inclinado,"Supino Inclinado"));
+        exercises.add(new Exercise(R.drawable.desenvolvimento,"Desenvolvimento"));
+        exercises.add(new Exercise(R.drawable.elevacao_lateral,"Elevação Lateral"));
+        exercises.add(new Exercise(R.drawable.barra_fixa,"Barra Fixa"));
     }
 }
