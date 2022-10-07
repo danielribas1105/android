@@ -13,6 +13,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.databinding.ActivityMeusExerciciosBinding;
+import com.apps.drpersonal.model.Training;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +24,7 @@ public class MeusExerciciosActivity extends AppCompatActivity {
     private ActivityMeusExerciciosBinding binding;
     private long currentDate;
     private SimpleDateFormat simpleDateFormat;
+    private Training trainingActual;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +43,8 @@ public class MeusExerciciosActivity extends AppCompatActivity {
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         String date = simpleDateFormat.format(currentDate);
 
-        Intent intent = getIntent();
-        //int serieEscolhida =
-
-        Log.i("Intent",intent.toString());
+        //Recuperar treino selecionado
+        trainingActual = (Training) getIntent().getSerializableExtra("treinoselecionado");
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override

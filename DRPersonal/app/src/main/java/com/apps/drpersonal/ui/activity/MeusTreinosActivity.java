@@ -67,8 +67,15 @@ public class MeusTreinosActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        int serie = position;
-                        goToExercise(serie);
+                        //int serie = position;
+                        //goToExercise(serie);
+                        //Recuperar treino selecionado
+                        Training trainingSelected = trainings.get(position);
+                        //Enviar treino selecionado para a próxima tela
+                        Intent intent = new Intent(MeusTreinosActivity.this,
+                                MeusExerciciosActivity.class);
+                        intent.putExtra("treinoselecionado",trainingSelected);
+                        startActivity(intent);
                     }
 
                     @Override

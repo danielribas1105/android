@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class ExerciciosFragment extends Fragment {
     private RecyclerView recyclerExerc;
     private ExerciciosAdapter adapterExerc;
     private List<Exercise> exercises = new ArrayList<>();
+    private Training trainingActual;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -81,6 +83,7 @@ public class ExerciciosFragment extends Fragment {
         loadExercises();
         adapterExerc = new ExerciciosAdapter(exercises);
         recyclerExerc.setAdapter(adapterExerc);
+
         return view;
     }
 
