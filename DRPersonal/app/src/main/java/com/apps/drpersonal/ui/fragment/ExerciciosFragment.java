@@ -1,5 +1,6 @@
 package com.apps.drpersonal.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,7 @@ public class ExerciciosFragment extends Fragment {
 
     private RecyclerView recyclerExerc;
     private ExerciciosAdapter adapterExerc;
-    private List<Exercise> exercises = new ArrayList<>();
+    private static List<Exercise> exercises = new ArrayList<>();
     private Training trainingActual;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -83,11 +85,10 @@ public class ExerciciosFragment extends Fragment {
         loadExercises();
         adapterExerc = new ExerciciosAdapter(exercises);
         recyclerExerc.setAdapter(adapterExerc);
-
         return view;
     }
 
-    private void loadExercises() {
+    private static void loadExercises() {
         exercises.add(new Exercise(R.drawable.supino_reto,"Supino Reto"));
         exercises.add(new Exercise(R.drawable.supino_inclinado,"Supino Inclinado"));
         exercises.add(new Exercise(R.drawable.desenvolvimento,"Desenvolvimento"));

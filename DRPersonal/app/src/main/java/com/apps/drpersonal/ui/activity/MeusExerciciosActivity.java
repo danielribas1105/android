@@ -14,6 +14,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.databinding.ActivityMeusExerciciosBinding;
 import com.apps.drpersonal.model.Training;
+import com.apps.drpersonal.ui.fragment.ExerciciosFragment;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.SimpleDateFormat;
@@ -45,6 +46,7 @@ public class MeusExerciciosActivity extends AppCompatActivity {
 
         //Recuperar treino selecionado
         trainingActual = (Training) getIntent().getSerializableExtra("treinoselecionado");
+        //Log.i("item",trainingActual.toString());
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
