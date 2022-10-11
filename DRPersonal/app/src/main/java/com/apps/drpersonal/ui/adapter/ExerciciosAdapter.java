@@ -1,6 +1,5 @@
 package com.apps.drpersonal.ui.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +34,7 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
     public void onBindViewHolder(@NonNull ExerciciosViewHolder holder, int position) {
         holder.imgExerc.setImageResource(exercises.get(position).getImgExercId());
         holder.nomeExerc.setText(exercises.get(position).getNomeExerc());
+        holder.quantExerc.setText(exercises.get(position).getQuantExerc());
     }
 
     @Override
@@ -42,12 +42,13 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
 
     public class ExerciciosViewHolder extends RecyclerView.ViewHolder{
         ImageView imgExerc;
-        TextView nomeExerc;
+        TextView nomeExerc, quantExerc;
 
         public ExerciciosViewHolder(@NonNull View itemView) {
             super(itemView);
             imgExerc = itemView.findViewById(R.id.imgExercise);
-            nomeExerc = itemView.findViewById(R.id.textExercise);
+            nomeExerc = itemView.findViewById(R.id.textNomeExercise);
+            quantExerc = itemView.findViewById(R.id.textQuantExerc);
         }
     }
 }

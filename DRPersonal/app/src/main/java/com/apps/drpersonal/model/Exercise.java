@@ -3,11 +3,12 @@ package com.apps.drpersonal.model;
 public class Exercise {
 
     private int imgExercId;
-    private String nomeExerc;
+    private String nomeExerc, quantExerc;
 
-    public Exercise(int imgId, String nome) {
+    public Exercise(int imgId, String nome, String quantExerc) {
         this.imgExercId = imgId;
         this.nomeExerc = nome;
+        this.quantExerc = quantExerc;
     }
 
     public int getImgExercId() {
@@ -24,5 +25,13 @@ public class Exercise {
 
     public void setNomeExerc(String nomeExerc) {
         this.nomeExerc = nomeExerc;
+    }
+
+    public String getQuantExerc() {
+        return quantExerc;
+    }
+
+    public void setQuantExerc(String quantExerc) {
+        this.quantExerc = quantExerc;
     }
 }
