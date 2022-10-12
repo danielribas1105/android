@@ -1,6 +1,8 @@
 package com.apps.drpersonal.model;
 
-public class Exercise {
+import java.io.Serializable;
+
+public class Exercise implements Serializable {
 
     private int imgExercId;
     private String nomeExerc, quantExerc;

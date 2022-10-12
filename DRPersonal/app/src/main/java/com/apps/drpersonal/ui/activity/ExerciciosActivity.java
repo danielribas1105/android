@@ -71,8 +71,11 @@ public class ExerciciosActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        startActivity(new Intent(ExerciciosActivity.this,
-                                InfoExercActivity.class));
+                        Exercise exercSelected = exercises.get(position);
+                        Intent intent = new Intent(ExerciciosActivity.this,
+                                InfoExercActivity.class);
+                        intent.putExtra("nomeExercicio",exercSelected);
+                        startActivity(intent);
                     }
 
                     @Override
