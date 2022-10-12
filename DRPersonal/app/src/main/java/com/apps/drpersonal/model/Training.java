@@ -4,19 +4,20 @@ import java.io.Serializable;
 
 public class Training implements Serializable {
 
-    private int idTreino, imageId;
-    private String descTreino;
+    private int imageId;
+    private String idTreino,descTreino;
 
-    public Training(int imageId, String descTreino) {
+    public Training(int imageId, String idTreino, String descTreino) {
         this.imageId = imageId;
+        this.idTreino = idTreino;
         this.descTreino = descTreino;
     }
 
-    public int getIdTreino() {
+    public String getIdTreino() {
         return idTreino;
     }
 
-    public void setIdTreino(int idTreino) {
+    public void setIdTreino(String idTreino) {
         this.idTreino = idTreino;
     }
 

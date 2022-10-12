@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -27,11 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeusTreinosActivity extends AppCompatActivity {
+public class TreinosActivity extends AppCompatActivity {
 
     private TextView campoHello;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
@@ -45,7 +43,7 @@ public class MeusTreinosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_meus_treinos);
+        setContentView(R.layout.activity_treinos);
 
         campoHello = findViewById(R.id.textHello);
         recyclerTraining = findViewById(R.id.recyclerTreinos);
@@ -67,14 +65,12 @@ public class MeusTreinosActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        //int serie = position;
-                        //goToExercise(serie);
                         //Recuperar treino selecionado
                         Training trainingSelected = trainings.get(position);
                         //Enviar treino selecionado para a próxima tela
-                        Intent intent = new Intent(MeusTreinosActivity.this,
-                                MeusExerciciosActivity.class);
-                        intent.putExtra("treinoselecionado",trainingSelected);
+                        Intent intent = new Intent(TreinosActivity.this,
+                                ExerciciosActivity.class);
+                        intent.putExtra("keyTraining",trainingSelected);
                         startActivity(intent);
                     }
 
@@ -108,18 +104,9 @@ public class MeusTreinosActivity extends AppCompatActivity {
     }
 
     public void loadTraining(){
-        trainings.add(new Training(R.drawable.logo_circular,"Série de peito e tríceps"));
-        trainings.add(new Training(R.drawable.logo_circular,"Série de costas e bíceps"));
-        trainings.add(new Training(R.drawable.logo_circular,"Série de abdominais"));
-        trainings.add(new Training(R.drawable.logo_circular,"Teste de quantidade"));
-        trainings.add(new Training(R.drawable.logo_circular,"Teste de quantidade"));
-        trainings.add(new Training(R.drawable.logo_circular,"Teste de quantidade"));
-    }
-
-    public void goToExercise(int serieEscolhida){
-        Intent intent = new Intent(this, MeusExerciciosActivity.class);
-        intent.putExtra("option",serieEscolhida);
-        startActivity(intent);
+        trainings.add(new Training(R.drawable.serie_a,"A","Série de peito e tríceps"));
+        trainings.add(new Training(R.drawable.serie_b,"B","Série de costas e bíceps"));
+        trainings.add(new Training(R.drawable.serie_c,"C","Série de abdominais"));
     }
 
 }

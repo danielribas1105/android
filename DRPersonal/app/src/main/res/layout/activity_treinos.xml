@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activity.MeusTreinosActivity">
+    tools:context=".ui.activity.TreinosActivity">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center"
-            android:text="Vamos treinar!!! Selecione uma das séries abaixo e vamos começar."
+            android:text="@string/texto_saudacao"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp" />

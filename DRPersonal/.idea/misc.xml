@@ -6,15 +6,18 @@
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_avaliacoes.xml" value="0.2359375" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_cadastro.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_desc_exerc.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_exercicios.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_historico.xml" value="0.264" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_info_exerc.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_meus_exercicios.xml" value="0.16" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_meus_treinos.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_meus_treinos_adapter.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/activity_treinos.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/adapter_exercises.xml" value="0.25" />
-        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/adapter_training.xml" value="0.1" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/adapter_training.xml" value="0.264" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/content_meus_exercicios.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/fragment_desc_exerc.xml" value="0.2359375" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/fragment_exercicios.xml" value="0.2359375" />
@@ -24,6 +27,7 @@
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/fragment_second.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/layout/fragment_video_exerc.xml" value="0.2359375" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/menu/menu_home.xml" value="0.20427350427350427" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonal/app/src/main/res/menu/menu_save_training.xml" value="0.25" />
       </map>
     </option>
   </component>

@@ -7,13 +7,13 @@ import android.os.Bundle;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.ui.fragment.ImgExercFragment;
-import com.apps.drpersonal.ui.fragment.InfoExercFragment;
+import com.apps.drpersonal.ui.fragment.DescExercFragment;
 import com.apps.drpersonal.ui.fragment.VideoExercFragment;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
-public class DescExercActivity extends AppCompatActivity {
+public class InfoExercActivity extends AppCompatActivity {
 
     private SmartTabLayout smartTabLayout;
     private ViewPager viewPager;
@@ -21,7 +21,7 @@ public class DescExercActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_desc_exerc);
+        setContentView(R.layout.activity_info_exerc);
 
         smartTabLayout = findViewById(R.id.viewPagerTab);
         viewPager = findViewById(R.id.viewPager);
@@ -29,7 +29,7 @@ public class DescExercActivity extends AppCompatActivity {
         //Configurar adapter para as abas
         FragmentPagerItemAdapter adapterAbasExerc = new FragmentPagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add("Informação", InfoExercFragment.class)
+                .add("Descrição", DescExercFragment.class)
                 .add("Imagem", ImgExercFragment.class)
                 .add("Vídeo", VideoExercFragment.class)
                 .create()

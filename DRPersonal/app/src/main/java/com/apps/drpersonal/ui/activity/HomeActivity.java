@@ -8,19 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toolbar;
 
 import com.apps.drpersonal.MainActivity;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
-import com.apps.drpersonal.helper.Base64Custom;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-
-import java.text.DecimalFormat;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -52,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void goToMeusTreinos(View view){
-        startActivity(new Intent(this, MeusTreinosActivity.class));
+        startActivity(new Intent(this, TreinosActivity.class));
     }
 
     public void goToHistorico(View view){

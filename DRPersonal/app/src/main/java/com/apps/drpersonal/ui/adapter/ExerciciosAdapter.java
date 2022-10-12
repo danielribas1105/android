@@ -1,5 +1,6 @@
 package com.apps.drpersonal.ui.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,11 @@ import java.util.List;
 public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.ExerciciosViewHolder> {
 
     List<Exercise> exercises;
+    Context context;
 
-    public ExerciciosAdapter(List<Exercise> exercises) {
+    public ExerciciosAdapter(List<Exercise> exercises, Context context) {
         this.exercises = exercises;
+        this.context = context;
     }
 
     @NonNull
