@@ -5,12 +5,23 @@ import java.io.Serializable;
 public class Training implements Serializable {
 
     private int imageId;
-    private String idTreino,descTreino;
+    private String idTreino,descTreino, key;
 
-    public Training(int imageId, String idTreino, String descTreino) {
+    public Training() {}
+        /*
+        int imageId, String idTreino, String descTreino
         this.imageId = imageId;
         this.idTreino = idTreino;
         this.descTreino = descTreino;
+
+         */
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getIdTreino() {

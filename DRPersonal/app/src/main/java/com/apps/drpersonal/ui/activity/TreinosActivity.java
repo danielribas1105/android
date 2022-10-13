@@ -115,11 +115,13 @@ public class TreinosActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 trainings.clear();
                 for(DataSnapshot infoTreinos: snapshot.getChildren()){
-                    Log.i("Dados", "Retorno: "+infoTreinos.toString());
-                    //Training training = infoTreinos.getValue(Training.class);
-                    //Log.i("Dados", "Retorno: "+training.getIdTreino());
+                    //Log.i("Dados", "Retorno: "+infoTreinos.toString());
+                    Training training = infoTreinos.getValue(Training.class);
+                    training.setKey(infoTreinos.getKey());
+                    trainings.add(training);
+                    Log.i("Dados", "Retorno: "+training.getDescTreino());
                 }
-
+                treinosAdapter.notifyDataSetChanged();
             }
 
             @Override
