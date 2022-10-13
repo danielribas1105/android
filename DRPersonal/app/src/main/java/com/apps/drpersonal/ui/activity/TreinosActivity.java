@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -112,7 +113,12 @@ public class TreinosActivity extends AppCompatActivity {
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Training training = snapshot.getValue(Training.class);
+                trainings.clear();
+                for(DataSnapshot infoTreinos: snapshot.getChildren()){
+                    Log.i("Dados", "Retorno: "+infoTreinos.toString());
+                    //Training training = infoTreinos.getValue(Training.class);
+                    //Log.i("Dados", "Retorno: "+training.getIdTreino());
+                }
 
             }
 
@@ -122,9 +128,22 @@ public class TreinosActivity extends AppCompatActivity {
             }
         });
 
-        trainings.add(new Training(R.drawable.serie_a,"A","Série de peito e tríceps"));
-        trainings.add(new Training(R.drawable.serie_b,"B","Série de costas e bíceps"));
-        trainings.add(new Training(R.drawable.serie_c,"C","Série de abdominais"));
+        //trainings.add(new Training(R.drawable.serie_a,"A","Série de peito e tríceps"));
+        //trainings.add(new Training(R.drawable.serie_b,"B","Série de costas e bíceps"));
+        //trainings.add(new Training(R.drawable.serie_c,"C","Série de abdominais"));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //getNomeAluno();
+        //loadTraining();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //alunoDB.removeEventListener(valueEventListenerAluno);
+        //treinoAluno.removeEventListener(valueEventListenerTreino);
+    }
 }
