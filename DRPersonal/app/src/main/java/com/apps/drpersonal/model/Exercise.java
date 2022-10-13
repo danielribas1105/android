@@ -7,6 +7,8 @@ public class Exercise implements Serializable {
     private int imgExercId;
     private String nomeExerc, quantExerc;
 
+    //falta implementar mais atributos (video e descrição)
+
     public Exercise(int imgId, String nome, String quantExerc) {
         this.imgExercId = imgId;
         this.nomeExerc = nome;

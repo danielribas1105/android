@@ -36,6 +36,7 @@ public class ExerciciosActivity extends AppCompatActivity {
     private Training trainingSelected;
     private static String date="", keySerie="", nameSerie="";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

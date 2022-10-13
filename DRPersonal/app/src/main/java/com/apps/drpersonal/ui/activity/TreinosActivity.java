@@ -32,10 +32,12 @@ import java.util.List;
 public class TreinosActivity extends AppCompatActivity {
 
     private TextView campoHello;
+    private String idAluno, idTreino="102022";
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference alunoDB;
+    private DatabaseReference alunoDB, treinoAluno;
     private ValueEventListener valueEventListenerAluno;
+    private ValueEventListener valueEventListenerTreino;
     private TreinosAdapter treinosAdapter;
     private List<Training> trainings = new ArrayList<>();
     private RecyclerView recyclerTraining;
@@ -47,6 +49,7 @@ public class TreinosActivity extends AppCompatActivity {
 
         campoHello = findViewById(R.id.textHello);
         recyclerTraining = findViewById(R.id.recyclerTreinos);
+
         getNomeAluno();
 
         //Configurar Adapter
@@ -89,7 +92,7 @@ public class TreinosActivity extends AppCompatActivity {
     }
 
     public void getNomeAluno() {
-        String idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         alunoDB = reference.child("alunos").child(idAluno);
         valueEventListenerAluno = alunoDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -104,6 +107,21 @@ public class TreinosActivity extends AppCompatActivity {
     }
 
     public void loadTraining(){
+        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        treinoAluno = reference.child("treinos").child(idAluno).child(idTreino);
+        valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Training training = snapshot.getValue(Training.class);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         trainings.add(new Training(R.drawable.serie_a,"A","Série de peito e tríceps"));
         trainings.add(new Training(R.drawable.serie_b,"B","Série de costas e bíceps"));
         trainings.add(new Training(R.drawable.serie_c,"C","Série de abdominais"));
