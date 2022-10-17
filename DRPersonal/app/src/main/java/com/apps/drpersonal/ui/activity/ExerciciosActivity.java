@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
 import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.Historico;
@@ -56,8 +57,6 @@ public class ExerciciosActivity extends AppCompatActivity {
             keySerie = trainingSelected.getNomeSerie();
             nameSerie = trainingSelected.getDescSerie();
         }
-
-        //Log.i("treino",keySerie+"   "+nameSerie);
 
         recyclerExerc = findViewById(R.id.recyclerExercicios);
         loadExercises(keySerie);
@@ -146,7 +145,7 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     public void salvarHistorico(){
         historico = new Historico();
-        historico.setDataSerie(date);
+        historico.setDataSerie(DataCustom.diaAtual(date));
         historico.setNomeSerie(keySerie);
         historico.setDescSerie(nameSerie);
 

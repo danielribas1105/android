@@ -127,10 +127,6 @@ public class TreinosActivity extends AppCompatActivity {
 
             }
         });
-
-        //trainings.add(new Training(R.drawable.serie_a,"A","Série de peito e tríceps"));
-        //trainings.add(new Training(R.drawable.serie_b,"B","Série de costas e bíceps"));
-        //trainings.add(new Training(R.drawable.serie_c,"C","Série de abdominais"));
     }
 
     @Override

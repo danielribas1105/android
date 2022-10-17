@@ -2,6 +2,7 @@ package com.apps.drpersonal.model;
 
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.DataCustom;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -15,7 +16,10 @@ public class Historico {
     public void salvar(){
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         DatabaseReference referenceHist = ConfigFirebase.getFirebaseDatabase();
-        referenceHist.child("historico").child(idAluno).child("092022").push().setValue(this);
+        referenceHist.child("historico").child(idAluno)
+                .child(DataCustom.dataMesAno(DataCustom.dataAtual()))
+                .push()
+                .setValue(this);
     }
 
     public String getDataSerie() {

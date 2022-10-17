@@ -14,7 +14,6 @@ import java.util.List;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.model.Training;
 
-
 public class TreinosAdapter extends RecyclerView.Adapter<TreinosAdapter.TreinosViewHolder > {
 
     List<Training> trainings;
@@ -43,7 +42,6 @@ public class TreinosAdapter extends RecyclerView.Adapter<TreinosAdapter.TreinosV
     public int getItemCount() {return trainings.size();}
 
     public class TreinosViewHolder extends RecyclerView.ViewHolder {
-
         TextView nomeSerie, descSerie;
 
         public TreinosViewHolder(@NonNull View itemView) {

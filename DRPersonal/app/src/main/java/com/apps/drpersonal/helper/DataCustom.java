@@ -17,10 +17,15 @@ public class DataCustom {
 
     public static String dataMesAno(String data) {
         String diaMesAno[] = data.split("/");
-        String dia = diaMesAno[0];
         String mes = diaMesAno[1];
         String ano = diaMesAno[2];
-        return mes + ano;
+        return String.format("%02d",Integer.parseInt(mes)) + ano;
+    }
+
+    public static String diaAtual(String data){
+        String diaMesAno[] = data.split("/");
+        String dia = diaMesAno[0];
+        return String.format("%02d",Integer.parseInt(dia));
     }
 
     public static String mesAnoFormat(String data) {
