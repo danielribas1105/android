@@ -4,17 +4,25 @@ import java.io.Serializable;
 
 public class Training implements Serializable {
 
-    private int imageId;
-    private String idTreino,descTreino, key;
+    private String nomeSerie,descSerie, key;
 
     public Training() {}
-        /*
-        int imageId, String idTreino, String descTreino
-        this.imageId = imageId;
-        this.idTreino = idTreino;
-        this.descTreino = descTreino;
 
-         */
+    public String getNomeSerie() {
+        return nomeSerie;
+    }
+
+    public void setNomeSerie(String nomeSerie) {
+        this.nomeSerie = nomeSerie;
+    }
+
+    public String getDescSerie() {
+        return descSerie;
+    }
+
+    public void setDescSerie(String descSerie) {
+        this.descSerie = descSerie;
+    }
 
     public String getKey() {
         return key;
@@ -23,29 +31,4 @@ public class Training implements Serializable {
     public void setKey(String key) {
         this.key = key;
     }
-
-    public String getIdTreino() {
-        return idTreino;
-    }
-
-    public void setIdTreino(String idTreino) {
-        this.idTreino = idTreino;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public String getDescTreino() {
-        return descTreino;
-    }
-
-    public void setDescTreino(String descTreino) {
-        this.descTreino = descTreino;
-    }
-
 }

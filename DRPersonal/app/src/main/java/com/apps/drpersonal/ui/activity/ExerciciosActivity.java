@@ -17,10 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.apps.drpersonal.R;
+import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
 import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,8 +39,8 @@ public class ExerciciosActivity extends AppCompatActivity {
     private ExerciciosAdapter adapterExerc;
     private static List<Exercise> exercises = new ArrayList<>();
     private Training trainingSelected;
-    private static String date="", keySerie="", nameSerie="";
-
+    private static String date="", keySerie="", nameSerie="",idTreino="102022";
+    private Historico historico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,11 @@ public class ExerciciosActivity extends AppCompatActivity {
 
         trainingSelected = (Training) getIntent().getSerializableExtra("keyTraining");
         if(trainingSelected!=null){
-            keySerie = trainingSelected.getIdTreino();
-            nameSerie = trainingSelected.getDescTreino();
+            keySerie = trainingSelected.getNomeSerie();
+            nameSerie = trainingSelected.getDescSerie();
         }
 
-        Log.i("treino",keySerie+"   "+nameSerie);
+        //Log.i("treino",keySerie+"   "+nameSerie);
 
         recyclerExerc = findViewById(R.id.recyclerExercicios);
         loadExercises(keySerie);
@@ -100,6 +105,7 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        salvarHistorico();
         Toast.makeText(this, "Treino salvo em: "+date, Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
@@ -128,7 +134,22 @@ public class ExerciciosActivity extends AppCompatActivity {
                 exercises.add(new Exercise(R.drawable.elevacao_lateral,"Serie C","3 x 12"));
                 exercises.add(new Exercise(R.drawable.barra_fixa,"Serie C","3 x máximo"));
                 break;
+            case "D":
+                exercises.add(new Exercise(R.drawable.supino_reto,"Serie D","3 x 12/10/8"));
+                exercises.add(new Exercise(R.drawable.supino_inclinado,"Serie D","3 x 10"));
+                exercises.add(new Exercise(R.drawable.desenvolvimento,"Serie D","3 x 10"));
+                exercises.add(new Exercise(R.drawable.elevacao_lateral,"Serie D","3 x 12"));
+                exercises.add(new Exercise(R.drawable.barra_fixa,"Serie D","3 x máximo"));
+                break;
         }
+    }
 
+    public void salvarHistorico(){
+        historico = new Historico();
+        historico.setDataSerie(date);
+        historico.setNomeSerie(keySerie);
+        historico.setDescSerie(nameSerie);
+
+        historico.salvar();
     }
 }

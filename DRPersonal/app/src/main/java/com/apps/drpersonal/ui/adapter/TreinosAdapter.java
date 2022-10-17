@@ -35,8 +35,8 @@ public class TreinosAdapter extends RecyclerView.Adapter<TreinosAdapter.TreinosV
 
     @Override
     public void onBindViewHolder(@NonNull TreinosViewHolder holder, int position) {
-        holder.imgSerie.setImageResource(trainings.get(position).getImageId());
-        holder.descSerie.setText(trainings.get(position).getDescTreino());
+        holder.nomeSerie.setText(trainings.get(position).getNomeSerie());
+        holder.descSerie.setText(trainings.get(position).getDescSerie());
     }
 
     @Override
@@ -44,12 +44,11 @@ public class TreinosAdapter extends RecyclerView.Adapter<TreinosAdapter.TreinosV
 
     public class TreinosViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgSerie;
-        TextView descSerie;
+        TextView nomeSerie, descSerie;
 
         public TreinosViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgSerie = itemView.findViewById(R.id.imageSerie);
+            nomeSerie = itemView.findViewById(R.id.textNomeSerie);
             descSerie = itemView.findViewById(R.id.textDescSerie);
         }
     }

@@ -115,11 +115,9 @@ public class TreinosActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 trainings.clear();
                 for(DataSnapshot infoTreinos: snapshot.getChildren()){
-                    //Log.i("Dados", "Retorno: "+infoTreinos.toString());
                     Training training = infoTreinos.getValue(Training.class);
-                    training.setKey(infoTreinos.getKey());
+                    //training.setKey(infoTreinos.getKey());
                     trainings.add(training);
-                    Log.i("Dados", "Retorno: "+training.getDescTreino());
                 }
                 treinosAdapter.notifyDataSetChanged();
             }
@@ -138,14 +136,14 @@ public class TreinosActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //getNomeAluno();
-        //loadTraining();
+        getNomeAluno();
+        loadTraining();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        //alunoDB.removeEventListener(valueEventListenerAluno);
-        //treinoAluno.removeEventListener(valueEventListenerTreino);
+        alunoDB.removeEventListener(valueEventListenerAluno);
+        treinoAluno.removeEventListener(valueEventListenerTreino);
     }
 }
