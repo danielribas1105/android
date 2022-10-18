@@ -4,24 +4,14 @@ import java.io.Serializable;
 
 public class Exercise implements Serializable {
 
-    private int imgExercId;
-    private String nomeExerc, quantExerc;
+    //private int imgExercId;
+    private String imgExerc, nomeExerc, quantExerc;
 
-    //falta implementar mais atributos (video e descrição)
+    public Exercise() {}
 
-    public Exercise(int imgId, String nome, String quantExerc) {
-        this.imgExercId = imgId;
-        this.nomeExerc = nome;
-        this.quantExerc = quantExerc;
-    }
+    public String getImgExerc() {return imgExerc;}
 
-    public int getImgExercId() {
-        return imgExercId;
-    }
-
-    public void setImgExercId(int imgExercId) {
-        this.imgExercId = imgExercId;
-    }
+    public void setImgExerc(String imgExerc) {this.imgExerc = imgExerc;}
 
     public String getNomeExerc() {
         return nomeExerc;

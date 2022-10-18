@@ -35,7 +35,7 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
 
     @Override
     public void onBindViewHolder(@NonNull ExerciciosViewHolder holder, int position) {
-        holder.imgExerc.setImageResource(exercises.get(position).getImgExercId());
+        holder.imgExerc.setText(exercises.get(position).getImgExerc());
         holder.nomeExerc.setText(exercises.get(position).getNomeExerc());
         holder.quantExerc.setText(exercises.get(position).getQuantExerc());
     }
@@ -44,12 +44,12 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
     public int getItemCount() { return exercises.size(); }
 
     public class ExerciciosViewHolder extends RecyclerView.ViewHolder{
-        ImageView imgExerc;
-        TextView nomeExerc, quantExerc;
+        //ImageView imgExerc;
+        TextView imgExerc, nomeExerc, quantExerc;
 
         public ExerciciosViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgExerc = itemView.findViewById(R.id.imgExercise);
+            imgExerc = itemView.findViewById(R.id.textImgExerc);
             nomeExerc = itemView.findViewById(R.id.textNomeExercise);
             quantExerc = itemView.findViewById(R.id.textQuantExerc);
         }

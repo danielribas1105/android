@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.drpersonal.R;
@@ -21,6 +22,7 @@ import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
+import com.apps.drpersonal.model.Aluno;
 import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
@@ -38,6 +40,7 @@ import java.util.List;
 public class ExerciciosActivity extends AppCompatActivity {
 
     private long currentDate;
+    private TextView campoSerie, campoDesc;
     private SimpleDateFormat simpleDateFormat;
     private RecyclerView recyclerExerc;
     private ExerciciosAdapter adapterExerc;
@@ -47,8 +50,9 @@ public class ExerciciosActivity extends AppCompatActivity {
     private String idAluno = "";
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference referenceExerc = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference exercAluno;
+    private DatabaseReference exercAluno, treinoDB;
     private ValueEventListener valueEventListenerExerc;
+    private ValueEventListener valueEventListenerTreino;
     private Historico historico;
 
     @Override
@@ -65,6 +69,13 @@ public class ExerciciosActivity extends AppCompatActivity {
             keySerie = trainingSelected.getNomeSerie();
             nameSerie = trainingSelected.getDescSerie();
         }
+
+        campoSerie = findViewById(R.id.textSerie);
+        campoDesc = findViewById(R.id.textDesc);
+        campoSerie.setText(keySerie);
+        campoDesc.setText(nameSerie);
+
+        Log.i("treino",keySerie + " " +nameSerie);
 
         recyclerExerc = findViewById(R.id.recyclerExercicios);
         loadExercises(keySerie);
@@ -118,17 +129,19 @@ public class ExerciciosActivity extends AppCompatActivity {
     }
 
     private void loadExercises(String keySerie) {
+        String idSerieAluno = "serie" + keySerie;
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        exercAluno = referenceExerc.child("treinos").child(idAluno).child(idTreino)
-                .child("serieA").child("exercicios");
+        exercAluno = referenceExerc.child("exercicios").child(idAluno).child(idTreino)
+                .child(idSerieAluno);
         valueEventListenerExerc = exercAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 exercises.clear();
                 for(DataSnapshot infoExerc: snapshot.getChildren()){
                     Exercise exercise = infoExerc.getValue(Exercise.class);
-                    Log.i("exercicios", exercise.getNomeExerc());
+                    exercises.add(exercise);
                 }
+                adapterExerc.notifyDataSetChanged();
             }
 
             @Override
@@ -137,36 +150,39 @@ public class ExerciciosActivity extends AppCompatActivity {
             }
         });
 
+        /*
         switch (keySerie){
             case "A":
-                exercises.add(new Exercise(R.drawable.supino_reto,"Supino Reto","3 x 12/10/8"));
-                exercises.add(new Exercise(R.drawable.supino_inclinado,"Supino Inclinado","3 x 10"));
-                exercises.add(new Exercise(R.drawable.desenvolvimento,"Desenvolvimento","3 x 10"));
-                exercises.add(new Exercise(R.drawable.elevacao_lateral,"Elevação Lateral","3 x 12"));
-                exercises.add(new Exercise(R.drawable.barra_fixa,"Barra Fixa","3 x máximo"));
+                exercises.add(new Exercise(keySerie,"Supino Reto","3 x 12/10/8"));
+                exercises.add(new Exercise(keySerie,"Supino Inclinado","3 x 10"));
+                exercises.add(new Exercise(keySerie,"Desenvolvimento","3 x 10"));
+                exercises.add(new Exercise(keySerie,"Elevação Lateral","3 x 12"));
+                exercises.add(new Exercise(keySerie,"Barra Fixa","3 x máximo"));
                 break;
             case "B":
-                exercises.add(new Exercise(R.drawable.supino_reto,"SerieB","3 x 12/10/8"));
-                exercises.add(new Exercise(R.drawable.supino_inclinado,"SerieB","3 x 10"));
-                exercises.add(new Exercise(R.drawable.desenvolvimento,"SerieB","3 x 10"));
-                exercises.add(new Exercise(R.drawable.elevacao_lateral,"SerieB","3 x 12"));
-                exercises.add(new Exercise(R.drawable.barra_fixa,"SerieB","3 x máximo"));
+                exercises.add(new Exercise(keySerie,"SerieB","3 x 12/10/8"));
+                exercises.add(new Exercise(keySerie,"SerieB","3 x 10"));
+                exercises.add(new Exercise(keySerie,"SerieB","3 x 10"));
+                exercises.add(new Exercise(keySerie,"SerieB","3 x 12"));
+                exercises.add(new Exercise(keySerie,"SerieB","3 x máximo"));
                 break;
             case "C":
-                exercises.add(new Exercise(R.drawable.supino_reto,"Serie C","3 x 12/10/8"));
-                exercises.add(new Exercise(R.drawable.supino_inclinado,"Serie C","3 x 10"));
-                exercises.add(new Exercise(R.drawable.desenvolvimento,"Serie C","3 x 10"));
-                exercises.add(new Exercise(R.drawable.elevacao_lateral,"Serie C","3 x 12"));
-                exercises.add(new Exercise(R.drawable.barra_fixa,"Serie C","3 x máximo"));
+                exercises.add(new Exercise(keySerie,"Serie C","3 x 12/10/8"));
+                exercises.add(new Exercise(keySerie,"Serie C","3 x 10"));
+                exercises.add(new Exercise(keySerie,"Serie C","3 x 10"));
+                exercises.add(new Exercise(keySerie,"Serie C","3 x 12"));
+                exercises.add(new Exercise(keySerie,"Serie C","3 x máximo"));
                 break;
             case "D":
-                exercises.add(new Exercise(R.drawable.supino_reto,"Serie D","3 x 12/10/8"));
-                exercises.add(new Exercise(R.drawable.supino_inclinado,"Serie D","3 x 10"));
-                exercises.add(new Exercise(R.drawable.desenvolvimento,"Serie D","3 x 10"));
-                exercises.add(new Exercise(R.drawable.elevacao_lateral,"Serie D","3 x 12"));
-                exercises.add(new Exercise(R.drawable.barra_fixa,"Serie D","3 x máximo"));
+                exercises.add(new Exercise(keySerie,"Serie D","3 x 12/10/8"));
+                exercises.add(new Exercise(keySerie,"Serie D","3 x 10"));
+                exercises.add(new Exercise(keySerie,"Serie D","3 x 10"));
+                exercises.add(new Exercise(keySerie,"Serie D","3 x 12"));
+                exercises.add(new Exercise(keySerie,"Serie D","3 x máximo"));
                 break;
         }
+
+         */
     }
 
     public void salvarHistorico(){
