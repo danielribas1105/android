@@ -1,6 +1,8 @@
 package com.apps.drpersonal.ui.activity;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 public class InfoExercActivity extends AppCompatActivity {
 
+    private TextView campoNomeExerc;
     private SmartTabLayout smartTabLayout;
     private ViewPager viewPager;
     private Exercise exercSelected;
@@ -31,6 +34,11 @@ public class InfoExercActivity extends AppCompatActivity {
         if(exercSelected!=null){
             nomeExerc = exercSelected.getNomeExerc();
         }
+
+        campoNomeExerc = findViewById(R.id.textFragNomeExerc);
+        campoNomeExerc.setText(nomeExerc);
+
+        //Log.i("exercicio",nomeExerc);
 
         smartTabLayout = findViewById(R.id.viewPagerTab);
         viewPager = findViewById(R.id.viewPager);
