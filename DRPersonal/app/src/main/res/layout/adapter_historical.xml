@@ -8,15 +8,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
         <TextView
             android:id="@+id/textDiaSerie"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:text="17"
+            android:textAlignment="center"
             android:textSize="34sp"
             android:textStyle="bold" />
 
@@ -24,20 +27,22 @@
             android:id="@+id/textIdSerie"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_weight="1"
             android:fontFamily="casual"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
             android:text="A"
+            android:textAlignment="center"
             android:textColor="@color/orange"
             android:textSize="34sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textTipoSerie"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1"
             android:gravity="center_vertical"
+            android:paddingStart="10dp"
             android:text="Peito e tríceps"
             android:textSize="20sp" />
 

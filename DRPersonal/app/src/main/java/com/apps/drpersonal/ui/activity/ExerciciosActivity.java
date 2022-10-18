@@ -26,7 +26,10 @@ import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +44,11 @@ public class ExerciciosActivity extends AppCompatActivity {
     private static List<Exercise> exercises = new ArrayList<>();
     private Training trainingSelected;
     private static String date="", keySerie="", nameSerie="",idTreino="102022";
+    private String idAluno = "";
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
+    private DatabaseReference referenceExerc = ConfigFirebase.getFirebaseDatabase();
+    private DatabaseReference exercAluno;
+    private ValueEventListener valueEventListenerExerc;
     private Historico historico;
 
     @Override
@@ -109,8 +117,26 @@ public class ExerciciosActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private static void loadExercises(String keySerie) {
-        exercises.clear();
+    private void loadExercises(String keySerie) {
+        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        exercAluno = referenceExerc.child("treinos").child(idAluno).child(idTreino)
+                .child("serieA").child("exercicios");
+        valueEventListenerExerc = exercAluno.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                exercises.clear();
+                for(DataSnapshot infoExerc: snapshot.getChildren()){
+                    Exercise exercise = infoExerc.getValue(Exercise.class);
+                    Log.i("exercicios", exercise.getNomeExerc());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         switch (keySerie){
             case "A":
                 exercises.add(new Exercise(R.drawable.supino_reto,"Supino Reto","3 x 12/10/8"));
@@ -148,7 +174,16 @@ public class ExerciciosActivity extends AppCompatActivity {
         historico.setDataSerie(DataCustom.diaAtual(date));
         historico.setNomeSerie(keySerie);
         historico.setDescSerie(nameSerie);
-
         historico.salvar();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

@@ -42,7 +42,6 @@ public class TreinosActivity extends AppCompatActivity {
     private TreinosAdapter treinosAdapter;
     private List<Training> trainings = new ArrayList<>();
     private RecyclerView recyclerTraining;
-    private Training trainingFind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
