@@ -189,12 +189,12 @@ public class PrincipalActivity extends AppCompatActivity {
         usuarioRef = firebaseRef.child("usuarios").child(idUser);
         if(movimentacao.getTipo().equals("r")){
             receitaTotal = receitaTotal - movimentacao.getValor();
-            Log.i("saldo", "saldoTotal r= "+receitaTotal);
+            //Log.i("saldo", "saldoTotal r= "+receitaTotal);
             usuarioRef.child("receitaTotal").setValue(receitaTotal);
         }
         if(movimentacao.getTipo().equals("d")){
             despesaTotal = despesaTotal - movimentacao.getValor();
-            Log.i("saldo", "saldoTotal d= "+despesaTotal);
+            //Log.i("saldo", "saldoTotal d= "+despesaTotal);
             usuarioRef.child("despesaTotal").setValue(despesaTotal);
         }
     }

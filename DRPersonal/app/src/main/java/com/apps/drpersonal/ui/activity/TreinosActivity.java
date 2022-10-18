@@ -42,6 +42,7 @@ public class TreinosActivity extends AppCompatActivity {
     private TreinosAdapter treinosAdapter;
     private List<Training> trainings = new ArrayList<>();
     private RecyclerView recyclerTraining;
+    private Training trainingFind;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +117,6 @@ public class TreinosActivity extends AppCompatActivity {
                 trainings.clear();
                 for(DataSnapshot infoTreinos: snapshot.getChildren()){
                     Training training = infoTreinos.getValue(Training.class);
-                    //training.setKey(infoTreinos.getKey());
                     trainings.add(training);
                 }
                 treinosAdapter.notifyDataSetChanged();
