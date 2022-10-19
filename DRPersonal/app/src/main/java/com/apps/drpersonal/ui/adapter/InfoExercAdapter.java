@@ -4,24 +4,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonal.R;
-import com.apps.drpersonal.model.ExerciseInfo;
+import com.apps.drpersonal.model.InfoExercise;
 
 import java.util.List;
 
 public class InfoExercAdapter extends RecyclerView.Adapter<InfoExercAdapter.InfoExercViewHolder> {
 
-    List<ExerciseInfo> exerciseInfos;
+    List<InfoExercise> infoExercises;
     Context context;
 
-    public InfoExercAdapter(List<ExerciseInfo> exerciseInfos, Context context) {
-        this.exerciseInfos = exerciseInfos;
+    public InfoExercAdapter(List<InfoExercise> infoExercises, Context context) {
+        this.infoExercises = infoExercises;
         this.context = context;
     }
 
@@ -29,30 +28,30 @@ public class InfoExercAdapter extends RecyclerView.Adapter<InfoExercAdapter.Info
     @Override
     public InfoExercViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View viewInfoExerc = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_info_exerc,parent,false);
+                .inflate(R.layout.adapter_info_exerc,parent, false);
         return new InfoExercViewHolder(viewInfoExerc);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InfoExercViewHolder holder, int position) {
-        //holder.campoImgExerc.setImageResource(exerciseInfos.get(position).getImgExerc());
-        holder.campoImgExercText.setText(exerciseInfos.get(position).getImgExerc());
-        holder.campoInfoExerc.setText(exerciseInfos.get(position).getDescExerc());
+        holder.campoVideoExerc.setText(infoExercises.get(position).getVideoExerc());
+        holder.campoImgExerc.setText(infoExercises.get(position).getImgExerc());
+        holder.campoDescExerc.setText(infoExercises.get(position).getDescExerc());
     }
 
     @Override
-    public int getItemCount() {return exerciseInfos.size();}
+    public int getItemCount() {return infoExercises.size();}
 
 
     public class InfoExercViewHolder extends RecyclerView.ViewHolder{
 
-        //private ImageView campoImgExerc;
-        private TextView campoInfoExerc, campoImgExercText;
+        TextView campoVideoExerc, campoImgExerc, campoDescExerc;
 
         public InfoExercViewHolder(@NonNull View itemView) {
             super(itemView);
-            campoImgExercText = itemView.findViewById(R.id.imgExercText);
-            campoInfoExerc = itemView.findViewById(R.id.descExerc);
+            campoVideoExerc = itemView.findViewById(R.id.videoExercText);
+            campoImgExerc = itemView.findViewById(R.id.imgExercText);
+            campoDescExerc = itemView.findViewById(R.id.descExercText);
         }
     }
 }
