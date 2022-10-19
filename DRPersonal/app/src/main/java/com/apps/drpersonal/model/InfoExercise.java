@@ -1,14 +1,14 @@
 package com.apps.drpersonal.model;
 
-public class InfoExercise {
+import java.io.Serializable;
+
+public class InfoExercise implements Serializable {
 
     private String videoExerc, imgExerc, descExerc;
 
     public InfoExercise() {}
 
-    public String getVideoExerc() {
-        return videoExerc;
-    }
+    public String getVideoExerc() {return videoExerc;}
 
     public void setVideoExerc(String videoExerc) {
         this.videoExerc = videoExerc;
