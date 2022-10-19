@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -18,6 +19,7 @@ import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.ExerciseInfo;
+import com.apps.drpersonal.ui.adapter.InfoExercAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,8 @@ public class DescExercFragment extends Fragment {
 
     ImageView imgExerc;
     TextView descExerc;
+    private RecyclerView recyclerInfoExerc;
+    private InfoExercAdapter infoExercAdapter;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference infoExerc;
@@ -47,9 +51,12 @@ public class DescExercFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_desc_exerc, container, false);
 
-        imgExerc = view.findViewById(R.id.imgExerc);
-        descExerc = view.findViewById(R.id.descExerc);
+        //imgExerc = view.findViewById(R.id.imgExerc);
+        //descExerc = view.findViewById(R.id.descExerc);
 
+        infoExercAdapter = new InfoExercAdapter(exerciseInfos, getContext());
+        recyclerInfoExerc.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerInfoExerc.setAdapter(infoExercAdapter);
         loadInfoExercise();
 
         return view;
@@ -65,11 +72,10 @@ public class DescExercFragment extends Fragment {
                 exerciseInfos.clear();
                 for(DataSnapshot exercInfo: snapshot.getChildren()){
                     Log.i("info",exercInfo.toString());
-                    //ExerciseInfo exerciseInfo = exercInfo.getValue(ExerciseInfo.class);
-                   // exerciseInfos.add(exerciseInfo);
-
+                    ExerciseInfo exerciseInfo = exercInfo.getValue(ExerciseInfo.class);
+                    exerciseInfos.add(exerciseInfo);
                 }
-
+                infoExercAdapter.notifyDataSetChanged();
             }
 
             @Override
