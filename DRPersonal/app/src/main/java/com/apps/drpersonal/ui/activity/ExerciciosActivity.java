@@ -1,14 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,12 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
-import com.apps.drpersonal.model.Aluno;
 import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
@@ -46,13 +44,12 @@ public class ExerciciosActivity extends AppCompatActivity {
     private ExerciciosAdapter adapterExerc;
     private static List<Exercise> exercises = new ArrayList<>();
     private Training trainingSelected;
-    private static String date="", keySerie="", nameSerie="",idTreino="102022";
+    private static String date = "", keySerie = "", nameSerie = "", idTreino = "102022";
     private String idAluno = "";
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference referenceExerc = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference exercAluno, treinoDB;
+    private DatabaseReference exercAluno;
     private ValueEventListener valueEventListenerExerc;
-    private ValueEventListener valueEventListenerTreino;
     private Historico historico;
 
     @Override
@@ -65,7 +62,7 @@ public class ExerciciosActivity extends AppCompatActivity {
         date = simpleDateFormat.format(currentDate);
 
         trainingSelected = (Training) getIntent().getSerializableExtra("keyTraining");
-        if(trainingSelected!=null){
+        if (trainingSelected != null) {
             keySerie = trainingSelected.getNomeSerie();
             nameSerie = trainingSelected.getDescSerie();
         }
@@ -75,13 +72,11 @@ public class ExerciciosActivity extends AppCompatActivity {
         campoSerie.setText(keySerie);
         campoDesc.setText(nameSerie);
 
-        Log.i("treino",keySerie + " " +nameSerie);
-
         recyclerExerc = findViewById(R.id.recyclerExercicios);
         loadExercises(keySerie);
 
         //Configurar Adapter
-        adapterExerc = new ExerciciosAdapter(exercises,this);
+        adapterExerc = new ExerciciosAdapter(exercises, this);
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerExerc.setLayoutManager(layoutManager);
@@ -98,7 +93,7 @@ public class ExerciciosActivity extends AppCompatActivity {
                         Exercise exercSelected = exercises.get(position);
                         Intent intent = new Intent(ExerciciosActivity.this,
                                 InfoExercActivity.class);
-                        intent.putExtra("nomeExercicio",exercSelected);
+                        intent.putExtra("ExerciseSelect", exercSelected);
                         startActivity(intent);
                     }
 
@@ -124,7 +119,7 @@ public class ExerciciosActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         salvarHistorico();
-        Toast.makeText(this, "Treino salvo em: "+date, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
         return super.onOptionsItemSelected(item);
     }
 
@@ -137,7 +132,7 @@ public class ExerciciosActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 exercises.clear();
-                for(DataSnapshot infoExerc: snapshot.getChildren()){
+                for (DataSnapshot infoExerc : snapshot.getChildren()) {
                     Exercise exercise = infoExerc.getValue(Exercise.class);
                     exercises.add(exercise);
                 }
@@ -150,42 +145,9 @@ public class ExerciciosActivity extends AppCompatActivity {
             }
         });
 
-        /*
-        switch (keySerie){
-            case "A":
-                exercises.add(new Exercise(keySerie,"Supino Reto","3 x 12/10/8"));
-                exercises.add(new Exercise(keySerie,"Supino Inclinado","3 x 10"));
-                exercises.add(new Exercise(keySerie,"Desenvolvimento","3 x 10"));
-                exercises.add(new Exercise(keySerie,"Elevação Lateral","3 x 12"));
-                exercises.add(new Exercise(keySerie,"Barra Fixa","3 x máximo"));
-                break;
-            case "B":
-                exercises.add(new Exercise(keySerie,"SerieB","3 x 12/10/8"));
-                exercises.add(new Exercise(keySerie,"SerieB","3 x 10"));
-                exercises.add(new Exercise(keySerie,"SerieB","3 x 10"));
-                exercises.add(new Exercise(keySerie,"SerieB","3 x 12"));
-                exercises.add(new Exercise(keySerie,"SerieB","3 x máximo"));
-                break;
-            case "C":
-                exercises.add(new Exercise(keySerie,"Serie C","3 x 12/10/8"));
-                exercises.add(new Exercise(keySerie,"Serie C","3 x 10"));
-                exercises.add(new Exercise(keySerie,"Serie C","3 x 10"));
-                exercises.add(new Exercise(keySerie,"Serie C","3 x 12"));
-                exercises.add(new Exercise(keySerie,"Serie C","3 x máximo"));
-                break;
-            case "D":
-                exercises.add(new Exercise(keySerie,"Serie D","3 x 12/10/8"));
-                exercises.add(new Exercise(keySerie,"Serie D","3 x 10"));
-                exercises.add(new Exercise(keySerie,"Serie D","3 x 10"));
-                exercises.add(new Exercise(keySerie,"Serie D","3 x 12"));
-                exercises.add(new Exercise(keySerie,"Serie D","3 x máximo"));
-                break;
-        }
-
-         */
     }
 
-    public void salvarHistorico(){
+    public void salvarHistorico() {
         historico = new Historico();
         historico.setDataSerie(DataCustom.diaAtual(date));
         historico.setNomeSerie(keySerie);

@@ -5,9 +5,13 @@ import java.io.Serializable;
 public class Exercise implements Serializable {
 
     //private int imgExercId;
-    private String imgExerc, nomeExerc, quantExerc;
+    private String idExerc, imgExerc, nomeExerc, quantExerc;
 
     public Exercise() {}
+
+    public String getIdExerc() {return idExerc;}
+
+    public void setIdExerc(String idExerc) {this.idExerc = idExerc;}
 
     public String getImgExerc() {return imgExerc;}
 

@@ -1,18 +1,17 @@
 package com.apps.drpersonal.ui.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
@@ -33,7 +32,7 @@ import java.util.List;
 public class TreinosActivity extends AppCompatActivity {
 
     private TextView campoHello;
-    private String idAluno, idTreino="102022";
+    private String idAluno, idTreino = "102022";
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference alunoDB, treinoAluno;
@@ -74,7 +73,7 @@ public class TreinosActivity extends AppCompatActivity {
                         //Enviar treino selecionado para a próxima tela
                         Intent intent = new Intent(TreinosActivity.this,
                                 ExerciciosActivity.class);
-                        intent.putExtra("keyTraining",trainingSelected);
+                        intent.putExtra("keyTraining", trainingSelected);
                         startActivity(intent);
                     }
 
@@ -103,18 +102,19 @@ public class TreinosActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
-    public void loadTraining(){
+    public void loadTraining() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         treinoAluno = reference.child("treinos").child(idAluno).child(idTreino);
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 trainings.clear();
-                for(DataSnapshot infoTreinos: snapshot.getChildren()){
+                for (DataSnapshot infoTreinos : snapshot.getChildren()) {
                     Training training = infoTreinos.getValue(Training.class);
                     trainings.add(training);
                 }
