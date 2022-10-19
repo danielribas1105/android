@@ -2,65 +2,80 @@ package com.apps.drpersonal.ui.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.apps.drpersonal.R;
+import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.model.ExerciseInfo;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DescExercFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class DescExercFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    ImageView imgExerc;
+    TextView descExerc;
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
+    private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
+    private DatabaseReference infoExerc;
+    private String idAluno;
+    private ValueEventListener valueEventListenerInfoExerc;
+    private List<ExerciseInfo> exerciseInfos = new ArrayList<>();
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DescExercFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment InfoExercFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DescExercFragment newInstance(String param1, String param2) {
-        DescExercFragment fragment = new DescExercFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public DescExercFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_desc_exerc, container, false);
+        View view = inflater.inflate(R.layout.fragment_desc_exerc, container, false);
+
+        imgExerc = view.findViewById(R.id.imgExerc);
+        descExerc = view.findViewById(R.id.descExerc);
+
+        loadInfoExercise();
+
+        return view;
+    }
+
+    public void loadInfoExercise(){
+        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        infoExerc = reference.child("exerciciosInfo").child("idRefExerc1");
+
+        valueEventListenerInfoExerc = infoExerc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                exerciseInfos.clear();
+                for(DataSnapshot exercInfo: snapshot.getChildren()){
+                    Log.i("info",exercInfo.toString());
+                    //ExerciseInfo exerciseInfo = exercInfo.getValue(ExerciseInfo.class);
+                   // exerciseInfos.add(exerciseInfo);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
