@@ -31,9 +31,7 @@ public class Aluno {
         this.idAluno = idAluno;
     }
 
-    public String getFotoAluno() {
-        return fotoAluno;
-    }
+    public String getFotoAluno() {return fotoAluno;}
 
     public void setFotoAluno(String fotoAluno) {
         this.fotoAluno = fotoAluno;
@@ -53,7 +51,7 @@ public class Aluno {
         this.emailAluno = emailAluno;
     }
 
-    @Exclude
+    //@Exclude
     public String getSenhaAluno() {
         return senhaAluno;
     }

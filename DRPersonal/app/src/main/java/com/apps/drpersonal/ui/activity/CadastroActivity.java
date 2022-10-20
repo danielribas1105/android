@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.apps.drpersonal.R;
@@ -25,7 +26,8 @@ import com.google.firebase.database.DatabaseReference;
 
 public class CadastroActivity extends AppCompatActivity {
 
-    private EditText campoNome, campoEmail, campoSenha;
+    private EditText campoNome, campoEmail, campoSenha, campoAcademia;
+    private ImageView imgFotoAluno;
     private Button btnCadastro;
     private FirebaseAuth auth;
     private Aluno aluno;
@@ -37,6 +39,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         campoNome = findViewById(R.id.textNomeCad);
         campoEmail = findViewById(R.id.textEmailCad);
+        campoAcademia = findViewById(R.id.textAcademiaCad);
         campoSenha = findViewById(R.id.textSenhaCad);
         btnCadastro = findViewById(R.id.btnCad);
 
@@ -45,15 +48,18 @@ public class CadastroActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textoNome = campoNome.getText().toString();
                 String textoEmail = campoEmail.getText().toString();
-                String texoSenha = campoSenha.getText().toString();
+                String textoAcademia = campoAcademia.getText().toString();
+                String textoSenha = campoSenha.getText().toString();
 
                 if(!textoNome.isEmpty()){
                     if(!textoEmail.isEmpty()){
-                        if(!texoSenha.isEmpty()){
+                        if(!textoSenha.isEmpty()){
                             aluno = new Aluno();
+                            aluno.setFotoAluno("Foto");
                             aluno.setNomeAluno(textoNome);
                             aluno.setEmailAluno(textoEmail);
-                            aluno.setSenhaAluno(texoSenha);
+                            aluno.setAcademia(textoAcademia);
+                            aluno.setSenhaAluno(textoSenha);
                             createAluno();
                         }else {
                             Toast.makeText(CadastroActivity.this, "Digite uma senha!", Toast.LENGTH_SHORT).show();
