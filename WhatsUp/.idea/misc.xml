@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/drawable/ic_edit_blue_24.xml" value="0.1575" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/drawable/ic_edit_white_24.xml" value="0.1575" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_editar_perfil.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_login.xml" value="0.25" />

@@ -2,6 +2,7 @@ package com.apps.whatsup.model;
 
 import com.apps.whatsup.config.ConfigFirebase;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Exclude;
 
 public class User {
     private String idUser, nome, email, senha;
@@ -13,6 +14,7 @@ public class User {
         databaseReference.child("users").child(idUser).setValue(this);
     }
 
+    @Exclude
     public String getIdUser() {
         return idUser;
     }
