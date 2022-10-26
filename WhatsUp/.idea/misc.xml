@@ -3,10 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_editar_perfil.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/fragment_contatos.xml" value="0.2359375" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/fragment_conversas.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/layout/toolbar.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/WhatsUp/app/src/main/res/menu/menu_home.xml" value="0.25" />
       </map>
