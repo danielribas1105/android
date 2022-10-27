@@ -2,6 +2,7 @@ package com.apps.drpersonal.ui.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
     }
 
     @Override
@@ -39,6 +41,9 @@ public class HomeActivity extends AppCompatActivity {
                 auth.signOut();
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
+                break;
+            case R.id.menuEditar:
+                startActivity(new Intent(this, EditarPerfilActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

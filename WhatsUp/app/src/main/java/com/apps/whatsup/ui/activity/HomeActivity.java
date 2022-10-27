@@ -72,7 +72,6 @@ public class HomeActivity extends AppCompatActivity {
                 editUser();
                 break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

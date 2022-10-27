@@ -1,6 +1,7 @@
 package com.apps.whatsup.ui.activity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -8,13 +9,21 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.apps.whatsup.R;
 import com.apps.whatsup.helper.Consent;
 
 public class EditarPerfilActivity extends AppCompatActivity {
+
+    private ImageButton imgCamera, imgGallery;
+    private static final int SELECT_CAMERA = 100;
+    private static final int SELECT_GALLERY = 200;
 
     private String[] consent = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -34,6 +43,34 @@ public class EditarPerfilActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        imgCamera = findViewById(R.id.imgBtnCamera);
+        imgGallery = findViewById(R.id.imgBtnGaleria);
+
+        imgCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(i.resolveActivity(getPackageManager()) != null){
+                    startActivityForResult(i,SELECT_CAMERA);
+                }
+            }
+        });
+
+        imgGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                if(i.resolveActivity(getPackageManager()) != null){
+                    startActivityForResult(i,SELECT_GALLERY);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
