@@ -6,7 +6,9 @@ public class InfoExercise implements Serializable {
 
     private String videoExerc, imgExerc, descExerc;
 
-    public InfoExercise() {}
+    public InfoExercise() {
+
+    }
 
     public String getVideoExerc() {return videoExerc;}
 

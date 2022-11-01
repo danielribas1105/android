@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:elevation="5dp"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,13 +14,14 @@
 
         <TextView
             android:id="@+id/textImgExerc"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
             android:layout_weight="1"
+            android:background="@color/orange"
             android:gravity="center_vertical"
-            android:text="IMG"
+            android:text="N"
             android:textAlignment="center"
-            android:textColor="@color/orange"
+            android:textColor="@color/white"
             android:textSize="40sp"
             android:textStyle="bold" />
 
@@ -33,18 +34,20 @@
             <TextView
                 android:id="@+id/textNomeExercise"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
+                android:background="@color/white"
                 android:gravity="start|center_vertical"
-                android:padding="10dp"
+                android:paddingStart="10dp"
                 android:text="Nome do exercício"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/textQuantExerc"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
+                android:background="@color/gray_100"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:text="3 x 10"

@@ -47,6 +47,9 @@ public class TreinosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treinos);
 
+        getSupportActionBar().setTitle("Meus Treinos");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         campoHello = findViewById(R.id.textHello);
         recyclerTraining = findViewById(R.id.recyclerTreinos);
 

@@ -12,5 +12,8 @@ public class AvaliacoesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_avaliacoes);
+
+        getSupportActionBar().setTitle("Minhas Avaliações");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

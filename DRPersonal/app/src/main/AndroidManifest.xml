@@ -28,19 +28,29 @@
         </activity>
         <activity
             android:name=".ui.activity.InfoExercActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activity.ExerciciosActivity">
+        </activity>
         <activity
             android:name=".ui.activity.ExerciciosActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activity.TreinosActivity">
+        </activity>
         <activity
             android:name=".ui.activity.TreinosActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activity.HomeActivity">
+        </activity>
         <activity
             android:name=".ui.activity.AvaliacoesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activity.HomeActivity">
+        </activity>
         <activity
             android:name=".ui.activity.HistoricoActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.activity.HomeActivity">
+        </activity>
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="false" />

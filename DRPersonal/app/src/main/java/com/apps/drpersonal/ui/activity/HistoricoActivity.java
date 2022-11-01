@@ -44,6 +44,9 @@ public class HistoricoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico);
 
+        getSupportActionBar().setTitle("Histórico de Treinos");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         prevMonth = findViewById(R.id.textPrevMonth);
         monthYear = findViewById(R.id.textMonthYear);
         nextMonth = findViewById(R.id.textNextMonth);

@@ -57,6 +57,9 @@ public class ExerciciosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercicios);
 
+        getSupportActionBar().setTitle("Meus Exercícios");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         currentDate = System.currentTimeMillis();
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         date = simpleDateFormat.format(currentDate);
@@ -118,8 +121,12 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        salvarHistorico();
-        Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
+        switch (item.getItemId()){
+            case R.id.menuSaveTraining:
+                salvarHistorico();
+                Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
