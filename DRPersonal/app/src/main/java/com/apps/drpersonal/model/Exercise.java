@@ -4,18 +4,25 @@ import java.io.Serializable;
 
 public class Exercise implements Serializable {
 
-    //private int imgExercId;
-    private String idExerc, imgExerc, nomeExerc, quantExerc;
+    private String idExerc, idImgExerc, nomeExerc, quantExerc, descExerc;
 
     public Exercise() {}
 
-    public String getIdExerc() {return idExerc;}
+    public String getIdExerc() {
+        return idExerc;
+    }
 
-    public void setIdExerc(String idExerc) {this.idExerc = idExerc;}
+    public void setIdExerc(String idExerc) {
+        this.idExerc = idExerc;
+    }
 
-    public String getImgExerc() {return imgExerc;}
+    public String getIdImgExerc() {
+        return idImgExerc;
+    }
 
-    public void setImgExerc(String imgExerc) {this.imgExerc = imgExerc;}
+    public void setIdImgExerc(String idImgExerc) {
+        this.idImgExerc = idImgExerc;
+    }
 
     public String getNomeExerc() {
         return nomeExerc;
@@ -31,5 +38,13 @@ public class Exercise implements Serializable {
 
     public void setQuantExerc(String quantExerc) {
         this.quantExerc = quantExerc;
+    }
+
+    public String getDescExerc() {
+        return descExerc;
+    }
+
+    public void setDescExerc(String descExerc) {
+        this.descExerc = descExerc;
     }
 }

@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.model.Exercise;
-import com.apps.drpersonal.model.InfoExercise;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,7 +33,7 @@ public class InfoExercActivity extends AppCompatActivity {
     private DatabaseReference refInfoExerc;
     private ValueEventListener valueEventListenerInfoExerc;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    private StorageReference imagens = storageReference.child("imagem").child("exercicios");
+    private StorageReference imagens = storageReference.child("images").child("exercises");
     private StorageReference videos = storageReference.child("videos").child("exercises");
 
     @Override
@@ -51,12 +50,13 @@ public class InfoExercActivity extends AppCompatActivity {
         campoImagem = findViewById(R.id.imageViewtest);
         campoVideo = findViewById(R.id.imgVideoExerc);
         campoDesc = findViewById(R.id.descExercText);
+        campoDesc.setText(exerciseSelected.getDescExerc());
 
-        infoIdExerc = exerciseSelected.getIdExerc();
+        infoIdExerc = exerciseSelected.getIdImgExerc();
         //Log.i("Id",infoIdExerc);
         loadImageExerc(infoIdExerc+".jpg");
         loadVideoExerc(infoIdExerc+".gif");
-        loadInfoExerc(infoIdExerc);
+        //loadInfoExerc(infoIdExerc);
 
     }
 
@@ -98,6 +98,7 @@ public class InfoExercActivity extends AppCompatActivity {
         });
     }
 
+    /*
     public void loadInfoExerc(String idExerc) {
         refInfoExerc = referenceInfoExerc.child("exerciciosInfo").child(idExerc);
         valueEventListenerInfoExerc = refInfoExerc.addValueEventListener(new ValueEventListener() {
@@ -114,6 +115,6 @@ public class InfoExercActivity extends AppCompatActivity {
 
             }
         });
-
-    }
+    } */
+    
 }
