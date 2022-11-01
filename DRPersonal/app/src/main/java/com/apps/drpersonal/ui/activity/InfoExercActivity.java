@@ -84,16 +84,12 @@ public class InfoExercActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(InfoExercActivity.this).load(uri).into(campoVideo);
-                Toast.makeText(InfoExercActivity.this,
-                        "Sucesso ao fazer download do vídeo",
-                        Toast.LENGTH_LONG).show();
+                //Toast.makeText(InfoExercActivity.this, "Sucesso ao fazer download do vídeo", Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(InfoExercActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(InfoExercActivity.this,
-                        "Erro ao fazer download do vídeo",
-                        Toast.LENGTH_LONG).show();
+                //Toast.makeText(InfoExercActivity.this, "Erro ao fazer download do vídeo", Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -116,5 +112,5 @@ public class InfoExercActivity extends AppCompatActivity {
             }
         });
     } */
-    
+
 }
