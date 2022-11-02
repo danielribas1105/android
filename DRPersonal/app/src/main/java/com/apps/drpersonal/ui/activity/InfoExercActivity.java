@@ -79,7 +79,7 @@ public class InfoExercActivity extends AppCompatActivity {
 
     private void loadVideoExerc(String infoIdExerc) {
         StorageReference videoRef = videos.child(infoIdExerc);
-        Log.i("Id",videoRef.toString());
+        //Log.i("Id",videoRef.toString());
         videoRef.getDownloadUrl().addOnSuccessListener(InfoExercActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

@@ -27,7 +27,6 @@ import com.google.firebase.database.DatabaseReference;
 public class CadastroActivity extends AppCompatActivity {
 
     private EditText campoNome, campoEmail, campoSenha, campoAcademia;
-    private ImageView imgFotoAluno;
     private Button btnCadastro;
     private FirebaseAuth auth;
     private Aluno aluno;
