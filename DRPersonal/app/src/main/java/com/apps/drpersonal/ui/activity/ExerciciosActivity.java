@@ -115,14 +115,14 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_save_training, menu);
+        getMenuInflater().inflate(R.menu.menu_save_info, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menuSaveTraining:
+            case R.id.menuSaveInfo:
                 salvarHistorico();
                 Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
                 break;
