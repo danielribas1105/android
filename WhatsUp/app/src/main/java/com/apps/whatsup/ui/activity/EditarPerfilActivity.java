@@ -1,5 +1,8 @@
 package com.apps.whatsup.ui.activity;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -53,14 +56,28 @@ public class EditarPerfilActivity extends AppCompatActivity {
         imgCamera = findViewById(R.id.imgBtnCamera);
         imgGallery = findViewById(R.id.imgBtnGaleria);
 
+        /*
+        ActivityResultLauncher<String> register =
+                registerForActivityResult(new ActivityResultContracts.GetContent(),
+                        new ActivityResultCallback<Uri>() {
+                            @Override
+                            public void onActivityResult(Uri result) {
+
+                            }
+                        });
+
+         */
+
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if(i.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(i,SELECT_CAMERA);
-
+                    //startActivityForResult(i,SELECT_CAMERA);
+                    //register.launch(String.valueOf(i));
                 }
+
             }
         });
 
