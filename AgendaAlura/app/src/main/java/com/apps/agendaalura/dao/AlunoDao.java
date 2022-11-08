@@ -1,7 +1,5 @@
 package com.apps.agendaalura.dao;
 
-import android.widget.ListView;
-
 import com.apps.agendaalura.model.Aluno;
 
 import java.util.ArrayList;
