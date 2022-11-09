@@ -1,4 +1,4 @@
-package com.apps.drpersonal;
+package com.apps.drpersonal.ui.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.ui.activity.CadastroActivity;
 import com.apps.drpersonal.ui.activity.HomeActivity;
@@ -22,9 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         validateUser();
-
     }
 
     public void openRegister(View view){

@@ -9,7 +9,6 @@ import com.google.firebase.database.Exclude;
 public class Aluno {
 
     private String idAluno;
-    private String fotoAluno;
     private String nomeAluno;
     private String emailAluno;
     private String senhaAluno;
@@ -37,12 +36,6 @@ public class Aluno {
 
     public void setIdAluno(String idAluno) {
         this.idAluno = idAluno;
-    }
-
-    public String getFotoAluno() {return fotoAluno;}
-
-    public void setFotoAluno(String fotoAluno) {
-        this.fotoAluno = fotoAluno;
     }
 
     public String getNomeAluno() { return nomeAluno;}

@@ -54,7 +54,6 @@ public class CadastroActivity extends AppCompatActivity {
                     if(!textoEmail.isEmpty()){
                         if(!textoSenha.isEmpty()){
                             aluno = new Aluno();
-                            aluno.setFotoAluno("Foto");
                             aluno.setNomeAluno(textoNome);
                             aluno.setEmailAluno(textoEmail);
                             aluno.setAcademia(textoAcademia);
