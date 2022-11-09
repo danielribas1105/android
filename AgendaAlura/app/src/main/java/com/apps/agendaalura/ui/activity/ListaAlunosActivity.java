@@ -4,11 +4,14 @@ import static com.apps.agendaalura.ui.activity.ConstantesActivities.CHAVE_ALUNO;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -34,6 +37,21 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configListAlunos();
         dao.salvar(new Aluno("Daniel", "123456", "daniel@gmail"));
         dao.salvar(new Aluno("Vitor", "123456", "vitor@gmail"));
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add("Remover");
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo =
+                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Aluno alunoSelected = adapter.getItem(menuInfo.position);
+        removeAluno(alunoSelected);
+        return super.onContextItemSelected(item);
     }
 
     private void configFabAddAluno() {
@@ -65,7 +83,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         ListView listAlunos = findViewById(R.id.listViewAlunos);
         configAdapter(listAlunos);
         configListenerClickAdapter(listAlunos);
-        configListenerClickLongAdapter(listAlunos);
+        registerForContextMenu(listAlunos);
     }
 
     private void configAdapter(ListView listAlunos) {
@@ -80,17 +98,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Aluno editAluno = (Aluno) adapterView.getItemAtPosition(position);
                 openFormAlunoEdit(editAluno);
-            }
-        });
-    }
-
-    private void configListenerClickLongAdapter(ListView listAlunos) {
-        listAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Aluno deleteAluno = (Aluno) adapterView.getItemAtPosition(position);
-                removeAluno(deleteAluno);
-                return true;
             }
         });
     }
