@@ -26,6 +26,13 @@ public class AlunoDao {
         }
     }
 
+    public void deletar(Aluno aluno) {
+        Aluno alunoDel = findAlunoId(aluno);
+        if(alunoDel != null){
+            alunos.remove(alunoDel);
+        }
+    }
+
     @Nullable
     private Aluno findAlunoId(Aluno aluno) {
         for (Aluno a : alunos) {
@@ -39,4 +46,5 @@ public class AlunoDao {
     public List<Aluno> allAlunos() {
         return new ArrayList<>(alunos);
     }
+
 }
