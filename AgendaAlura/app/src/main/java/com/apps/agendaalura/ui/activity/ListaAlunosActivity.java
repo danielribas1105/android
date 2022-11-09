@@ -20,8 +20,6 @@ import com.apps.agendaalura.dao.AlunoDao;
 import com.apps.agendaalura.model.Aluno;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.List;
-
 public class ListaAlunosActivity extends AppCompatActivity {
 
     public static final String TITLE_APPBAR = "Lista de Alunos";
@@ -42,15 +40,18 @@ public class ListaAlunosActivity extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        menu.add("Remover");
+        getMenuInflater().inflate(R.menu.menu_main, menu);
     }
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo =
-                (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Aluno alunoSelected = adapter.getItem(menuInfo.position);
-        removeAluno(alunoSelected);
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_main_remover) {
+            AdapterView.AdapterContextMenuInfo menuInfo =
+                    (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Aluno alunoSelected = adapter.getItem(menuInfo.position);
+            removeAluno(alunoSelected);
+        }
         return super.onContextItemSelected(item);
     }
 
