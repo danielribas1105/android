@@ -8,9 +8,7 @@ public class Exercise implements Serializable {
 
     public Exercise() {}
 
-    public String getIdExerc() {
-        return idExerc;
-    }
+    public String getIdExerc() { return idExerc; }
 
     public void setIdExerc(String idExerc) {
         this.idExerc = idExerc;

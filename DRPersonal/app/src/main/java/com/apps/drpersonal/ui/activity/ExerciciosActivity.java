@@ -1,5 +1,9 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAINING;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -64,7 +68,7 @@ public class ExerciciosActivity extends AppCompatActivity {
         simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         date = simpleDateFormat.format(currentDate);
 
-        trainingSelected = (Training) getIntent().getSerializableExtra("keyTraining");
+        trainingSelected = (Training) getIntent().getSerializableExtra(CHAVE_TRAINING);
         if (trainingSelected != null) {
             keySerie = trainingSelected.getNomeSerie();
             nameSerie = trainingSelected.getDescSerie();
@@ -96,7 +100,7 @@ public class ExerciciosActivity extends AppCompatActivity {
                         Exercise exercSelected = exercises.get(position);
                         Intent intent = new Intent(ExerciciosActivity.this,
                                 InfoExercActivity.class);
-                        intent.putExtra("ExerciseSelect", exercSelected);
+                        intent.putExtra(CHAVE_EXERCISE, exercSelected);
                         startActivity(intent);
                     }
 
@@ -133,7 +137,7 @@ public class ExerciciosActivity extends AppCompatActivity {
     private void loadExercises(String keySerie) {
         String idSerieAluno = "serie" + keySerie;
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        exercAluno = referenceExerc.child("exercicios").child(idAluno).child(idTreino)
+        exercAluno = referenceExerc.child(CHAVE_DB_EXERCICIOS).child(idAluno).child(idTreino)
                 .child(idSerieAluno);
         valueEventListenerExerc = exercAluno.addValueEventListener(new ValueEventListener() {
             @Override

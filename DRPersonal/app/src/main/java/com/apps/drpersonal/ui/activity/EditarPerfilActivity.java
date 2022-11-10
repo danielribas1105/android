@@ -1,5 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -89,7 +91,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private void loadProfile() {
         idAluno = Base64Custom.codeToBase64(authPerfil.getCurrentUser().getEmail());
-        dataProfile = reference.child("alunos").child(idAluno);
+        dataProfile = reference.child(CHAVE_DB_ALUNOS).child(idAluno);
         StorageReference fotoRef = fotoPerfil.child(idAluno + ".jpg");
         Log.i("Id",fotoRef.toString());
         fotoRef.getDownloadUrl().addOnSuccessListener(EditarPerfilActivity.this, new OnSuccessListener<Uri>() {
@@ -124,7 +126,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
         aluno.setNomeAluno(campoNome.getText().toString());
         aluno.setEmailAluno(campoEmail.getText().toString());
         aluno.setAcademia(campoAcademia.getText().toString());
-        aluno.setFotoAluno("Foto1");
         aluno.setSenhaAluno("1234567");
         aluno.salvarPerfilAluno();
     }

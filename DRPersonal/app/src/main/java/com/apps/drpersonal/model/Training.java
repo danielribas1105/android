@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Training implements Serializable {
 
-    private String nomeSerie,descSerie, key;
+    private String nomeSerie,descSerie;
 
     public Training() {}
 
@@ -24,11 +24,4 @@ public class Training implements Serializable {
         this.descSerie = descSerie;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
 }

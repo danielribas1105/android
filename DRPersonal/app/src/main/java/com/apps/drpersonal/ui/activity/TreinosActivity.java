@@ -1,5 +1,9 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAINING;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -76,7 +80,7 @@ public class TreinosActivity extends AppCompatActivity {
                         //Enviar treino selecionado para a próxima tela
                         Intent intent = new Intent(TreinosActivity.this,
                                 ExerciciosActivity.class);
-                        intent.putExtra("keyTraining", trainingSelected);
+                        intent.putExtra(CHAVE_TRAINING, trainingSelected);
                         startActivity(intent);
                     }
 
@@ -96,7 +100,7 @@ public class TreinosActivity extends AppCompatActivity {
 
     public void getNomeAluno() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        alunoDB = reference.child("alunos").child(idAluno);
+        alunoDB = reference.child(CHAVE_DB_ALUNOS).child(idAluno);
         valueEventListenerAluno = alunoDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -112,7 +116,7 @@ public class TreinosActivity extends AppCompatActivity {
 
     public void loadTraining() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        treinoAluno = reference.child("treinos").child(idAluno).child(idTreino);
+        treinoAluno = reference.child(CHAVE_DB_TREINOS).child(idAluno).child(idTreino);
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

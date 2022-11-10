@@ -1,4 +1,4 @@
-package com.apps.drpersonalmanager.adapter;
+package com.apps.drpersonalmanager.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -34,7 +34,6 @@ public class AlunosAdapter extends RecyclerView.Adapter<AlunosAdapter.AlunosView
 
     @Override
     public void onBindViewHolder(@NonNull AlunosViewHolder holder, int position) {
-        holder.foto.setText(alunos.get(position).getFotoAluno());
         holder.aluno.setText(alunos.get(position).getNomeAluno());
         holder.academia.setText(alunos.get(position).getAcademia());
     }
@@ -46,11 +45,10 @@ public class AlunosAdapter extends RecyclerView.Adapter<AlunosAdapter.AlunosView
 
     public class AlunosViewHolder extends RecyclerView.ViewHolder {
 
-        TextView foto, aluno, academia;
+        TextView aluno, academia;
 
         public AlunosViewHolder(@NonNull View itemView) {
             super(itemView);
-            foto = itemView.findViewById(R.id.textFotoAluno);
             aluno = itemView.findViewById(R.id.textNomeAluno);
             academia = itemView.findViewById(R.id.textAcademia);
         }

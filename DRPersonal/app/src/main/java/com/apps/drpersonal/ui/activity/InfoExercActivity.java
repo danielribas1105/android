@@ -1,5 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,7 +47,7 @@ public class InfoExercActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         campoNomeExerc = findViewById(R.id.infoExercNome);
-        exerciseSelected = (Exercise) getIntent().getSerializableExtra("ExerciseSelect");
+        exerciseSelected = (Exercise) getIntent().getSerializableExtra(CHAVE_EXERCISE);
         campoNomeExerc.setText(exerciseSelected.getNomeExerc());
         campoImagem = findViewById(R.id.imageViewtest);
         campoVideo = findViewById(R.id.imgVideoExerc);
