@@ -1,5 +1,6 @@
 package com.apps.drpersonalmanager.ui.activity;
 
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PERSONAL;
 
@@ -12,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.Base64Custom;
+import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Personal;
 import com.apps.drpersonalmanager.ui.adapter.AlunosAdapter;
@@ -60,6 +64,30 @@ public class HomeActivity extends AppCompatActivity {
         recyclerViewAlunos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerViewAlunos.setHasFixedSize(true);
         recyclerViewAlunos.setAdapter(alunosAdapter);
+        //Configurar evento de click no RecyclerView
+        recyclerViewAlunos.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(), recyclerViewAlunos,
+                new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        //Recuperar aluno selecionado
+                        Aluno alunoSelected = alunos.get(position);
+                        //Enviar aluno para a próxima tela
+                        Intent i = new Intent(HomeActivity.this, ManageAlunoActivity.class);
+                        i.putExtra(CHAVE_ALUNO_SELECT,alunoSelected);
+                        startActivity(i);
+                    }
+
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    }
+                }));
 
     }
 

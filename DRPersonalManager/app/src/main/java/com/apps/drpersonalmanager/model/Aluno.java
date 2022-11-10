@@ -1,6 +1,8 @@
 package com.apps.drpersonalmanager.model;
 
-public class Aluno {
+import java.io.Serializable;
+
+public class Aluno implements Serializable {
 
     private String idAluno;
     private String nomeAluno;
