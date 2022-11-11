@@ -19,6 +19,7 @@ public class TrainingDao {
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
 
     public void salvar(Training training, String idAluno, String idSerie){
-        reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL).child(idAluno).child(idSerie).setValue(training);
+        reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL)
+                .child(idAluno).child(idSerie).setValue(training);
     }
 }

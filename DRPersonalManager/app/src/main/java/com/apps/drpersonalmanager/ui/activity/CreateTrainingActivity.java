@@ -21,7 +21,7 @@ import com.apps.drpersonalmanager.model.Training;
 
 public class CreateTrainingActivity extends AppCompatActivity {
 
-    private EditText campoNomeSerie, campoDescSerie;
+    private EditText campoNomeSerie, campoData, campoDescSerie;
     private Button btnCriarSerie;
     private Training training;
     private TrainingDao trainingDao = new TrainingDao();
@@ -34,6 +34,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_training);
         setTitle("Montar Treino");
         campoNomeSerie = findViewById(R.id.editTextNomeSerie);
+        campoData = findViewById(R.id.editTextData);
         campoDescSerie = findViewById(R.id.editTextDescSerie);
 
         aluno = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);

@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
@@ -41,11 +43,10 @@ public class HomeActivity extends AppCompatActivity {
     private AlunosAdapter alunosAdapter;
     private RecyclerView recyclerViewAlunos;
     private List<Aluno> alunos = new ArrayList<>();
-    private FirebaseAuth auth;
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refDbPersonal;
     private DatabaseReference findAlunos;
-    private String idPersonal;
     private ValueEventListener valueEventListenerPersonal;
     private ValueEventListener valueEventListenerAlunos;
 
@@ -75,7 +76,7 @@ public class HomeActivity extends AppCompatActivity {
                         Aluno alunoSelected = alunos.get(position);
                         //Enviar aluno para a próxima tela
                         Intent i = new Intent(HomeActivity.this, ManageAlunoActivity.class);
-                        i.putExtra(CHAVE_ALUNO_SELECT,alunoSelected);
+                        i.putExtra(CHAVE_ALUNO_SELECT, alunoSelected);
                         startActivity(i);
                     }
 
@@ -93,6 +94,30 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btn_menu_meu_perfil:
+                startActivity(new Intent(this, MyProfileActivity.class));
+                break;
+            case R.id.btn_menu_novo_exercicio:
+                startActivity(new Intent(this, NewExerciseActivity.class));
+                break;
+            case R.id.btn_menu_sair:
+                auth.signOut();
+                startActivity(new Intent(this, MainActivity.class));
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         getPersonalLog();
@@ -104,13 +129,13 @@ public class HomeActivity extends AppCompatActivity {
         refDbPersonal.removeEventListener(valueEventListenerPersonal);
     }
 
-    public void loadAlunos(){
+    public void loadAlunos() {
         findAlunos = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL);
         valueEventListenerAlunos = findAlunos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 alunos.clear();
-                for(DataSnapshot dadosAlunos: snapshot.getChildren()){
+                for (DataSnapshot dadosAlunos : snapshot.getChildren()) {
                     Aluno aluno = dadosAlunos.getValue(Aluno.class);
                     alunos.add(aluno);
                 }
