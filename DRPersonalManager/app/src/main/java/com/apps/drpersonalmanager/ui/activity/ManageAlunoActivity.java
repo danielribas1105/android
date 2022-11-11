@@ -36,7 +36,7 @@ public class ManageAlunoActivity extends AppCompatActivity {
 
     private TextView campoNome, campoAcademia;
     private Aluno alunoSelect;
-    private String nomeAluno, academiaAluno;
+    private String nomeAluno, emailAluno, academiaAluno;
     private String idAluno, idTreino = "102022";
     private List<Training> trainings = new ArrayList<>();
     private TreinosAlunoAdapter treinosAlunoAdapter;
@@ -59,6 +59,7 @@ public class ManageAlunoActivity extends AppCompatActivity {
         alunoSelect = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
         if (alunoSelect != null) {
             nomeAluno = alunoSelect.getNomeAluno();
+            emailAluno = alunoSelect.getEmailAluno();
             academiaAluno = alunoSelect.getAcademia();
         }
         campoNome.setText(nomeAluno);
@@ -85,13 +86,15 @@ public class ManageAlunoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btn_add_treino) {
-            startActivity(new Intent(this,MakeTrainingActivity.class));
+            Intent i = new Intent(ManageAlunoActivity.this,MakeTrainingActivity.class);
+            i.putExtra(CHAVE_ALUNO_SELECT,alunoSelect);
+            startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void loadTraining() {
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        idAluno = Base64Custom.codeToBase64(emailAluno);
         treinoAluno = reference.child(CHAVE_DB_TREINOS).child(idAluno).child(idTreino);
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
