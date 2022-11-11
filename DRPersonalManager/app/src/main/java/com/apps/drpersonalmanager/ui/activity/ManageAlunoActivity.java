@@ -3,6 +3,7 @@ package com.apps.drpersonalmanager.ui.activity;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,7 +85,7 @@ public class ManageAlunoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btn_add_treino) {
-            Toast.makeText(this, "Abrir tela criar treino", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this,MakeTrainingActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
