@@ -2,10 +2,13 @@ package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,29 +32,34 @@ public class CreateTrainingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_training);
-        setTitle("Treinos");
+        setTitle("Montar Treino");
         campoNomeSerie = findViewById(R.id.editTextNomeSerie);
         campoDescSerie = findViewById(R.id.editTextDescSerie);
-        btnCriarSerie = findViewById(R.id.btnIncluirSerie);
 
         aluno = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
         if(aluno != null){
             idAluno = Base64Custom.codeToBase64(aluno.getEmailAluno());
         }
 
-        btnCriarSerie.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String serie = campoNomeSerie.getText().toString();
-                String descricao = campoDescSerie.getText().toString();
-                String idSerie = "serie"+serie;
-                training = new Training();
-                training.setNomeSerie(serie);
-                training.setDescSerie(descricao);
-                trainingDao.salvar(training,idAluno,idSerie);
+    }
 
-            }
-        });
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_training,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.btn_salvar_treino){
+            String serie = campoNomeSerie.getText().toString();
+            String descricao = campoDescSerie.getText().toString();
+            String idSerie = "serie"+serie;
+            training = new Training();
+            training.setNomeSerie(serie);
+            training.setDescSerie(descricao);
+            trainingDao.salvar(training,idAluno,idSerie);
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
