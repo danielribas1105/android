@@ -1,5 +1,8 @@
 package com.apps.drpersonal.model;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,13 +23,13 @@ public class Aluno {
 
     public void salvarAluno(){
         DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-        reference.child("alunos").child(this.idAluno).setValue(this);
+        reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(this.idAluno).setValue(this);
     }
 
     public void salvarPerfilAluno(){
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
-        referencePerfil.child("alunos").child(idAluno).setValue(this);
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno).setValue(this);
     }
 
     @Exclude

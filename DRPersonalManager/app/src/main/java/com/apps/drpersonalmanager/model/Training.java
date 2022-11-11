@@ -6,12 +6,9 @@ public class Training implements Serializable {
 
     private String nomeSerie,descSerie;
 
-    public Training() {
-    }
+    public Training() {}
 
-    public String getNomeSerie() {
-        return nomeSerie;
-    }
+    public String getNomeSerie() {return nomeSerie;}
 
     public void setNomeSerie(String nomeSerie) {
         this.nomeSerie = nomeSerie;

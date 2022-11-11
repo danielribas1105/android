@@ -48,9 +48,6 @@ public class CreateTrainingActivity extends AppCompatActivity {
                 training = new Training();
                 training.setNomeSerie(serie);
                 training.setDescSerie(descricao);
-                //Log.i("dados",idAluno);
-                //Log.i("dados",training.getNomeSerie());
-                //Log.i("dados",training.getDescSerie());
                 trainingDao.salvar(training,idAluno,idSerie);
 
             }

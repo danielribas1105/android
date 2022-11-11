@@ -1,5 +1,8 @@
 package com.apps.drpersonalmanager.dao;
 
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
+
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.Base64Custom;
 import com.apps.drpersonalmanager.model.Training;
@@ -13,12 +16,9 @@ import java.util.List;
 public class TrainingDao {
 
     private static List<Training> trainings = new ArrayList<>();
-    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private String idPersonal;
 
     public void salvar(Training training, String idAluno, String idSerie){
-        idPersonal = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        reference.child("treinos").child(idPersonal).child(idAluno).child(idSerie).setValue(training);
+        reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL).child(idAluno).child(idSerie).setValue(training);
     }
 }

@@ -2,6 +2,7 @@ package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PERSONAL;
 
 import androidx.annotation.NonNull;
@@ -104,7 +105,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadAlunos(){
-        findAlunos = reference.child(CHAVE_DB_ALUNOS);
+        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL);
         valueEventListenerAlunos = findAlunos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -124,9 +125,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void getPersonalLog() {
-        auth = ConfigFirebase.getFirebaseAutenticacao();
-        idPersonal = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(idPersonal);
+        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL);
         valueEventListenerPersonal = refDbPersonal.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

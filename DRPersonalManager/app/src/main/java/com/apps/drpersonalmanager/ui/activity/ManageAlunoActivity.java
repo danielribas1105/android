@@ -1,6 +1,7 @@
 package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 
 import android.content.Intent;
@@ -9,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,7 +23,6 @@ import com.apps.drpersonalmanager.helper.Base64Custom;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Training;
 import com.apps.drpersonalmanager.ui.adapter.TreinosAlunoAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,14 +35,12 @@ public class ManageAlunoActivity extends AppCompatActivity {
 
     private TextView campoNome, campoAcademia;
     private Aluno alunoSelect;
-    private String nomeAluno, emailAluno, academiaAluno;
-    private String idPersonal, idAluno, idTreino = "102022";
+    private String idAluno, nomeAluno, emailAluno, academiaAluno;
     private List<Training> trainings = new ArrayList<>();
     private TreinosAlunoAdapter treinosAlunoAdapter;
     private RecyclerView recyclerTreinos;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference treinoAluno;
-    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private ValueEventListener valueEventListenerTreino;
 
     @Override
@@ -86,17 +83,16 @@ public class ManageAlunoActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btn_add_treino) {
-            Intent i = new Intent(ManageAlunoActivity.this,CreateTrainingActivity.class);
-            i.putExtra(CHAVE_ALUNO_SELECT,alunoSelect);
+            Intent i = new Intent(ManageAlunoActivity.this, CreateTrainingActivity.class);
+            i.putExtra(CHAVE_ALUNO_SELECT, alunoSelect);
             startActivity(i);
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void loadTraining() {
-        idPersonal = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         idAluno = Base64Custom.codeToBase64(emailAluno);
-        treinoAluno = reference.child(CHAVE_DB_TREINOS).child(idPersonal).child(idAluno);
+        treinoAluno = reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
