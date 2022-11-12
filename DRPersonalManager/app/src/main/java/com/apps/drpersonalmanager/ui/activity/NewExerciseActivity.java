@@ -35,13 +35,14 @@ public class NewExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_exercise);
         setTitle("Novo Exercício");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         nomeExercNew = findViewById(R.id.editTextNewExerc);
         descExercNew = findViewById(R.id.editTextNewDesc);
-        catAero = findViewById(R.id.rbAerobico);
-        catAbdo = findViewById(R.id.rbAbdominais);
-        catMuscSuper = findViewById(R.id.rbMuscSuper);
-        catMuscInfer = findViewById(R.id.rbMuscInfer);
+        //catAero = findViewById(R.id.rbAerobico);
+        //catAbdo = findViewById(R.id.rbAbdominais);
+        //catMuscSuper = findViewById(R.id.rbMuscSuper);
+        //catMuscInfer = findViewById(R.id.rbMuscInfer);
         catSelect = findViewById(R.id.rgCategoria);
 
         selectedCategory();
@@ -80,7 +81,7 @@ public class NewExerciseActivity extends AppCompatActivity {
             exercise.setNomeExerc(nome);
             exercise.setDescExerc(descricao);
             exercise.setCatExerc(categoria);
-            exerciseDao.salvar(exercise, categoria);
+            exerciseDao.salvarNewExercise(exercise, categoria);
         }
         return super.onOptionsItemSelected(item);
     }

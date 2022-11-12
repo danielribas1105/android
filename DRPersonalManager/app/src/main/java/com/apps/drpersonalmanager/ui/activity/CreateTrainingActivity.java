@@ -32,6 +32,7 @@ import com.apps.drpersonalmanager.dao.TrainingDao;
 import com.apps.drpersonalmanager.helper.Base64Custom;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Exercise;
+import com.apps.drpersonalmanager.model.ExerciseAluno;
 import com.apps.drpersonalmanager.model.Training;
 import com.apps.drpersonalmanager.ui.adapter.FindExercisesAdapter;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +50,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
     private Button btnFindExercise;
     private Training training;
     private TrainingDao trainingDao = new TrainingDao();
+    private ExerciseAluno exerciseAluno;
     private Aluno aluno;
     private String idAluno, categoria = "";
     private List<Exercise> exercises = new ArrayList<>();
@@ -68,6 +70,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
         campoData = findViewById(R.id.editTextData);
         campoDescSerie = findViewById(R.id.editTextDescSerie);
         btnFindExercise = findViewById(R.id.btnBuscarExercicios);
+        catSelect = findViewById(R.id.rgSelecaoCat);
         recyclerFindExercises = findViewById(R.id.recyclerBuscarExercicios);
 
         aluno = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
@@ -97,13 +100,13 @@ public class CreateTrainingActivity extends AppCompatActivity {
         catSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int catId) {
-                if(catId == R.id.rbAerobico){
+                if(catId == R.id.rbCatAero){
                     categoria = CAT_AEROBICO;
-                }else if(catId == R.id.rbAbdominais){
+                }else if(catId == R.id.rbCatAbdo){
                     categoria = CAT_ABDOMINAIS;
-                }else if(catId == R.id.rbMuscSuper){
+                }else if(catId == R.id.rbCatMuscSuper){
                     categoria = CAT_MUSC_SUPER;
-                }else if(catId == R.id.rbMuscInfer){
+                }else if(catId == R.id.rbCatMuscInfer){
                     categoria = CAT_MUSC_INFER;
                 }
             }
@@ -145,7 +148,11 @@ public class CreateTrainingActivity extends AppCompatActivity {
             training = new Training();
             training.setNomeSerie(serie);
             training.setDescSerie(descricao);
-            trainingDao.salvar(training,idAluno,idSerie);
+            trainingDao.salvarTreino(training,idAluno,idSerie);
+            exerciseAluno = new ExerciseAluno();
+            exerciseAluno.setNomeExerc("supino reto");
+            exerciseAluno.setQuantExerc("3 x 10");
+            exerciseDao.salvarExercAluno(exerciseAluno);
         }
         return super.onOptionsItemSelected(item);
     }

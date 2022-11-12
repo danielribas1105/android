@@ -106,25 +106,25 @@
                 android:layout_height="match_parent">
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/rbCatAero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Aeróbico" />
 
                 <RadioButton
-                    android:id="@+id/radioButton6"
+                    android:id="@+id/rbCatAbdo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Abdominais" />
 
                 <RadioButton
-                    android:id="@+id/radioButton7"
+                    android:id="@+id/rbCatMuscSuper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Membros Superiores" />
 
                 <RadioButton
-                    android:id="@+id/radioButton8"
+                    android:id="@+id/rbCatMuscInfer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Membros Inferiores" />
