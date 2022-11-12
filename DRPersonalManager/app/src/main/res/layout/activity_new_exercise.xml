@@ -47,7 +47,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextNewExerc" />
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/rgCategoria"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -92,7 +92,7 @@
         android:text="Descrição do Exercício:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/rgCategoria" />
 
     <EditText
         android:id="@+id/editTextNewDesc"
