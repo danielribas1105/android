@@ -10,7 +10,11 @@ public class ExerciseDao {
 
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
 
-    public void salvar(Exercise exercise){
-        reference.child(CHAVE_DB_EXERCICIOS).push().setValue(exercise);
+    public void salvar(Exercise exercise, String categoria){
+        reference.child(CHAVE_DB_EXERCICIOS).child(categoria).push().setValue(exercise);
+    }
+
+    public void loadExercises(String categoria){
+
     }
 }

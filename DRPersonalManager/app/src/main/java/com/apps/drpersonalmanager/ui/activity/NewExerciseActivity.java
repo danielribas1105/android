@@ -80,7 +80,7 @@ public class NewExerciseActivity extends AppCompatActivity {
             exercise.setNomeExerc(nome);
             exercise.setDescExerc(descricao);
             exercise.setCatExerc(categoria);
-            exerciseDao.salvar(exercise);
+            exerciseDao.salvar(exercise, categoria);
         }
         return super.onOptionsItemSelected(item);
     }
