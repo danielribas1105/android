@@ -58,28 +58,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7">
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/rbAerobico"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Aeróbico" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/rbAbdominais"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Abdominais" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/rbMuscSuper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Membros Superiores" />
+            android:text="Músculos Superiores" />
 
         <RadioButton
-            android:id="@+id/radioButton4"
+            android:id="@+id/rbMuscInfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Membros Inferiores" />
+            android:text="Músculos Inferiores" />
     </RadioGroup>
 
     <TextView
