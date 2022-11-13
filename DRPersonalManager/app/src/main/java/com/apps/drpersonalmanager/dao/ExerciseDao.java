@@ -19,7 +19,7 @@ public class ExerciseDao {
 
     public void salvarExercAluno(String idAluno, String idserie, ExerciseAluno exerciseAluno){
         reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
-                .child(idAluno).child(idserie).setValue(exerciseAluno);
+                .child(idAluno).child(idserie).push().setValue(exerciseAluno);
     }
 
 }
