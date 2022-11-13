@@ -18,8 +18,8 @@ public class TrainingDao {
     private static List<Training> trainings = new ArrayList<>();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
 
-    public void salvarTreino(String idAluno, String data, String idSerie, Training training){
+    public void salvarTreino(String idAluno, String idSerie, Training training){
         reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL)
-                .child(idAluno).child(data).child(idSerie).setValue(training);
+                .child(idAluno).child(idSerie).setValue(training);
     }
 }

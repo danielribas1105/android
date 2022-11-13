@@ -150,11 +150,11 @@ public class CreateTrainingActivity extends AppCompatActivity {
             training = new Training();
             training.setNomeSerie(serie);
             training.setDescSerie(descricao);
-            trainingDao.salvarTreino(idAluno, dataTreino, idSerie, training);
+            trainingDao.salvarTreino(idAluno, idSerie, training);
             exerciseAluno = new ExerciseAluno();
             exerciseAluno.setNomeExerc("supino reto");
             exerciseAluno.setQuantExerc("3 x 10");
-            exerciseDao.salvarExercAluno(idAluno, dataTreino, idSerie, exerciseAluno);
+            exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
         }
         return super.onOptionsItemSelected(item);
     }
