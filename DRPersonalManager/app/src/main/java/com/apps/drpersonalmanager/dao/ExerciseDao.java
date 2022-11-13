@@ -17,10 +17,9 @@ public class ExerciseDao {
         reference.child(CHAVE_DB_EXERCICIOS).child(categoria).push().setValue(exercise);
     }
 
-    public void salvarExercAluno(ExerciseAluno exerciseAluno){
+    public void salvarExercAluno(String idAluno, String data, String idserie, ExerciseAluno exerciseAluno){
         reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
-                .child("ZGFuaWVsdGVzdGVAZ21haWwuY29t")
-                .child("serieA").setValue(exerciseAluno);
+                .child(idAluno).child(data).child(idserie).setValue(exerciseAluno);
     }
 
 }

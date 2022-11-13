@@ -30,6 +30,7 @@ import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.dao.ExerciseDao;
 import com.apps.drpersonalmanager.dao.TrainingDao;
 import com.apps.drpersonalmanager.helper.Base64Custom;
+import com.apps.drpersonalmanager.helper.DataCustom;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Exercise;
 import com.apps.drpersonalmanager.model.ExerciseAluno;
@@ -145,14 +146,15 @@ public class CreateTrainingActivity extends AppCompatActivity {
             String serie = campoNomeSerie.getText().toString();
             String descricao = campoDescSerie.getText().toString();
             String idSerie = "serie"+serie;
+            String dataTreino = DataCustom.dataMesAno(DataCustom.dataAtual());
             training = new Training();
             training.setNomeSerie(serie);
             training.setDescSerie(descricao);
-            trainingDao.salvarTreino(training,idAluno,idSerie);
+            trainingDao.salvarTreino(idAluno, dataTreino, idSerie, training);
             exerciseAluno = new ExerciseAluno();
             exerciseAluno.setNomeExerc("supino reto");
             exerciseAluno.setQuantExerc("3 x 10");
-            exerciseDao.salvarExercAluno(exerciseAluno);
+            exerciseDao.salvarExercAluno(idAluno, dataTreino, idSerie, exerciseAluno);
         }
         return super.onOptionsItemSelected(item);
     }
