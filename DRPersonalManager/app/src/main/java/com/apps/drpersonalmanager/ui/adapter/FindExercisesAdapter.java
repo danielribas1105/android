@@ -14,6 +14,8 @@ import com.apps.drpersonalmanager.model.Exercise;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FindExercisesAdapter extends RecyclerView.Adapter<FindExercisesAdapter.FindExerciseViewHolder> {
 
     private List<Exercise> exercises;

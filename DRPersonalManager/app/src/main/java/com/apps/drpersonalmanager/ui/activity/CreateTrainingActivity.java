@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -43,6 +44,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +54,7 @@ import javax.security.auth.login.LoginException;
 
 public class CreateTrainingActivity extends AppCompatActivity {
 
-    private EditText campoNomeSerie, campoData, campoDescSerie;
+    private EditText campoNomeAluno, campoNomeSerie, campoData, campoDescSerie;
     private RadioGroup catSelect;
     private Button btnFindExercise;
     private Training training;
@@ -59,7 +62,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
     private ExerciseAluno exerciseAluno;
     private Aluno aluno;
     private String serie, idSerie, descricao;
-    private String idAluno, dataTreino, categoria = "";
+    private String idAluno, nomeAluno, dataTreino, categoria = "";
     private List<Exercise> exercises = new ArrayList<>();
     private RecyclerView recyclerFindExercises;
     private FindExercisesAdapter findExercisesAdapter;
@@ -73,6 +76,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_training);
         setTitle("Montar Treino");
+        campoNomeAluno = findViewById(R.id.editTextNomeAluno);
         campoNomeSerie = findViewById(R.id.editTextNomeSerie);
         campoData = findViewById(R.id.editTextData);
         campoDescSerie = findViewById(R.id.editTextDescSerie);
@@ -83,11 +87,9 @@ public class CreateTrainingActivity extends AppCompatActivity {
         aluno = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
         if(aluno != null){
             idAluno = Base64Custom.codeToBase64(aluno.getEmailAluno());
+            nomeAluno = aluno.getNomeAluno();
         }
-
-
-        Log.i("serie",serie + idSerie);
-        String dataHist = DataCustom.dataMesAno(DataCustom.dataAtual());
+        campoNomeAluno.setText(nomeAluno);
         dataTreino = DataCustom.dataAtual();
         campoData.setText(dataTreino);
         selectedCategory();
@@ -100,20 +102,25 @@ public class CreateTrainingActivity extends AppCompatActivity {
         recyclerFindExercises.setHasFixedSize(true);
         recyclerFindExercises.setAdapter(findExercisesAdapter);
 
-        ////Configurar evento de click no RecyclerView Exercícios
+        //Configurar evento de click no RecyclerView Exercícios
         recyclerFindExercises.addOnItemTouchListener(new RecyclerItemClickListener(
                 getApplicationContext(), recyclerFindExercises,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         //Recuperar aluno selecionado
-                       Exercise exerciseSelected = exercises.get(position);
-                        Log.i("selecao",exerciseSelected.getNomeExerc());
+                        Exercise exerciseSelected = exercises.get(position);
                         loadInfoTreino();
                         exerciseAluno = new ExerciseAluno();
                         exerciseAluno.setNomeExerc(exerciseSelected.getNomeExerc());
-                        exerciseAluno.setQuantExerc("3 x 12/10/8");
+                        exerciseAluno.setIdExerc(exerciseSelected.getIdExerc());
+                        exerciseAluno.setQuantExerc("Inserir repetições");
+                        exerciseAluno.setPesoExerc("Editar peso");
+                        exerciseAluno.setObsExerc("Observeções gerais");
                         exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
+                        Toast.makeText(CreateTrainingActivity.this, "Exercício "+
+                                exerciseSelected.getNomeExerc() +" salvo com sucesso para o aluno "+
+                                nomeAluno+"!", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -194,7 +201,8 @@ public class CreateTrainingActivity extends AppCompatActivity {
             training.setNomeSerie(serie);
             training.setDescSerie(descricao);
             trainingDao.salvarTreino(idAluno, idSerie, training);
-
+            Toast.makeText(this, "Treino salvo com sucesso!", Toast.LENGTH_SHORT).show();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

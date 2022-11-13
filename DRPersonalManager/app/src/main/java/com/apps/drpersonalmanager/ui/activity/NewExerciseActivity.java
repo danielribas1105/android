@@ -12,20 +12,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.dao.ExerciseDao;
+import com.apps.drpersonalmanager.helper.DataCustom;
 import com.apps.drpersonalmanager.model.Exercise;
+
+import java.util.Locale;
 
 public class NewExerciseActivity extends AppCompatActivity {
 
     private EditText nomeExercNew, descExercNew;
-    private RadioButton catAero, catAbdo, catMuscSuper, catMuscInfer;
     private RadioGroup catSelect;
+    private ImageButton btnNewImage, btnNewVideo;
     private Exercise exercise;
     private ExerciseDao exerciseDao = new ExerciseDao();
     private static String categoria = "";
@@ -39,13 +44,26 @@ public class NewExerciseActivity extends AppCompatActivity {
 
         nomeExercNew = findViewById(R.id.editTextNewExerc);
         descExercNew = findViewById(R.id.editTextNewDesc);
-        //catAero = findViewById(R.id.rbAerobico);
-        //catAbdo = findViewById(R.id.rbAbdominais);
-        //catMuscSuper = findViewById(R.id.rbMuscSuper);
-        //catMuscInfer = findViewById(R.id.rbMuscInfer);
         catSelect = findViewById(R.id.rgCategoria);
+        btnNewImage = findViewById(R.id.btnInsertImage);
+        btnNewVideo = findViewById(R.id.btnInsertVideo);
 
         selectedCategory();
+
+        btnNewImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(NewExerciseActivity.this, "Função em desenvolvimento!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+        btnNewVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(NewExerciseActivity.this, "Função em desenvolvimento!",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -76,12 +94,17 @@ public class NewExerciseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.btn_menu_salvar_new_exercicio) {
             String nome = nomeExercNew.getText().toString();
+            String idEx = System.currentTimeMillis()+"_"+
+                    nome.toLowerCase().replaceAll(" ","_");
             String descricao = descExercNew.getText().toString();
             exercise = new Exercise();
+            exercise.setIdExerc(idEx);
             exercise.setNomeExerc(nome);
             exercise.setDescExerc(descricao);
             exercise.setCatExerc(categoria);
             exerciseDao.salvarNewExercise(exercise, categoria);
+            Toast.makeText(this, "Novo exercício "+nome+" salvo com sucesso!",
+                    Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }

@@ -2,14 +2,15 @@ package com.apps.drpersonalmanager.model;
 
 public class Exercise {
 
-    private String nomeExerc, catExerc, descExerc;
+    private String idExerc, nomeExerc, catExerc, descExerc;
 
-    public Exercise() {
-    }
+    public Exercise() {}
 
-    public String getNomeExerc() {
-        return nomeExerc;
-    }
+    public String getIdExerc() {return idExerc;}
+
+    public void setIdExerc(String idExerc) {this.idExerc = idExerc;}
+
+    public String getNomeExerc() {return nomeExerc;}
 
     public void setNomeExerc(String nomeExerc) {
         this.nomeExerc = nomeExerc;
