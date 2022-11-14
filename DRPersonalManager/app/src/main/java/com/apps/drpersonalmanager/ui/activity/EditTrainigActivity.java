@@ -27,7 +27,7 @@ public class EditTrainigActivity extends AppCompatActivity {
     private Exercise exercSelect;
     private ExerciseAluno exerciseAluno;
     private ExerciseDao exerciseDao = new ExerciseDao();
-    private String idAluno, idSerie;
+    private String idAluno, idSerie, catExerc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class EditTrainigActivity extends AppCompatActivity {
         exercSelect = (Exercise) getIntent().getSerializableExtra(CHAVE_EXERCICIO_EDIT);
         if(exercSelect != null){
             editNomeExerc.setText(exercSelect.getNomeExerc());
+            catExerc = exercSelect.getCatExerc();
         }
         idAluno = (String) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
         idSerie = (String) getIntent().getSerializableExtra(CHAVE_ID_SERIE);
@@ -53,6 +54,7 @@ public class EditTrainigActivity extends AppCompatActivity {
                 exerciseAluno = new ExerciseAluno();
                 exerciseAluno.setNomeExerc(exercSelect.getNomeExerc());
                 exerciseAluno.setIdExerc(exercSelect.getIdExerc());
+                exerciseAluno.setCatExerc(exercSelect.getCatExerc());
                 exerciseAluno.setQuantExerc(editQuantExerc.getText().toString());
                 exerciseAluno.setPesoExerc(editPesoExerc.getText().toString());
                 exerciseAluno.setObsExerc(editObsExerc.getText().toString());

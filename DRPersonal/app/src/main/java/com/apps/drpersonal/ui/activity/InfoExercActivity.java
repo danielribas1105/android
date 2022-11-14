@@ -5,6 +5,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCIS
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ public class InfoExercActivity extends AppCompatActivity {
 
     private TextView campoNomeExerc, campoDesc;
     private ImageView campoImagem, campoVideo;
-    private String idExerc, nomeExerc;
+    private String idExerc, nomeExerc, catExerc;
     private ExerciseAluno exerciseSelected;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refInfoExerc;
@@ -55,14 +56,14 @@ public class InfoExercActivity extends AppCompatActivity {
         if(exerciseSelected != null){
             idExerc = exerciseSelected.getIdExerc();
             nomeExerc = exerciseSelected.getNomeExerc();
+            catExerc = exerciseSelected.getCatExerc();
         }
 
         campoNomeExerc.setText(nomeExerc);
 
-        loadImageExerc(idExerc+".jpg");
+        loadImageExerc(idExerc+"_full.jpg");
         loadVideoExerc(idExerc+".gif");
         loadDescExerc();
-
 
     }
 
@@ -101,8 +102,8 @@ public class InfoExercActivity extends AppCompatActivity {
     }
 
     private void loadDescExerc() {
-        refInfoExerc = reference.child(CHAVE_DB_EXERCICIOS).child("aero")
-                .child("1668453335932_exercicio_de_teste");
+        refInfoExerc = reference.child(CHAVE_DB_EXERCICIOS).child(catExerc)
+                .child(idExerc);
         valueEventListenerInfoExerc = refInfoExerc.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -116,7 +117,6 @@ public class InfoExercActivity extends AppCompatActivity {
             }
         });
 
-        //problema no id do exercicio para ler a descrição !!!!!
     }
 
 

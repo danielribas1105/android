@@ -4,10 +4,9 @@ import java.io.Serializable;
 
 public class ExerciseAluno implements Serializable {
 
-    private String idExerc, nomeExerc, quantExerc, pesoExerc, obsExerc;
+    private String idExerc, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
 
-    public ExerciseAluno() {
-    }
+    public ExerciseAluno() {}
 
     public String getIdExerc() {
         return idExerc;
@@ -24,6 +23,10 @@ public class ExerciseAluno implements Serializable {
     public void setNomeExerc(String nomeExerc) {
         this.nomeExerc = nomeExerc;
     }
+
+    public String getCatExerc() {return catExerc;}
+
+    public void setCatExerc(String catExerc) {this.catExerc = catExerc;}
 
     public String getQuantExerc() {
         return quantExerc;

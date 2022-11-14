@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:elevation="5dp"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,9 +16,9 @@
         <TextView
             android:id="@+id/textIdExerc"
             android:layout_width="150dp"
-            android:layout_height="70dp"
+            android:layout_height="110dp"
             android:layout_weight="1"
-            android:background="@color/orange"
+            android:background="@color/purple_200"
             android:gravity="center_vertical"
             android:text="N"
             android:textAlignment="center"
@@ -36,24 +36,37 @@
             <TextView
                 android:id="@+id/textNomeExercise"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="32dp"
                 android:layout_weight="1"
                 android:background="@color/white"
-                android:gravity="start|center_vertical"
+                android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:text="Nome do exercício"
-                android:textSize="20sp" />
+                android:textColor="@color/orange"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textQuantExerc"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
                 android:background="@color/gray_100"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:text="3 x 10"
-                android:textSize="20sp" />
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/textObsExerc"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:background="@color/gray_100"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:text="Observações"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>

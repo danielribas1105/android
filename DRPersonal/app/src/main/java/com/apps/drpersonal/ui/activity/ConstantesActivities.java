@@ -11,5 +11,9 @@ public interface ConstantesActivities {
     String CHAVE_DB_TREINOS = "treinos";
     String CHAVE_DB_EXERCICIOS = "exercicios";
     String CHAVE_DB_EXERCICIOS_ALUNO = "exerciciosAlunos";
+    String CAT_AEROBICO = "aero";
+    String CAT_ABDOMINAIS = "abdo";
+    String CAT_MUSC_SUPER = "muscSuper";
+    String CAT_MUSC_INFER = "muscInfer";
 
 }

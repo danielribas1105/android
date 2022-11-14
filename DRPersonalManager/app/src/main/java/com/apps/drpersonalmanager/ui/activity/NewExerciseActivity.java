@@ -30,7 +30,6 @@ public class NewExerciseActivity extends AppCompatActivity {
 
     private EditText nomeExercNew, descExercNew;
     private RadioGroup catSelect;
-    private ImageButton btnNewImage, btnNewVideo;
     private Exercise exercise;
     private ExerciseDao exerciseDao = new ExerciseDao();
     private static String categoria = "";
@@ -45,25 +44,8 @@ public class NewExerciseActivity extends AppCompatActivity {
         nomeExercNew = findViewById(R.id.editTextNewExerc);
         descExercNew = findViewById(R.id.editTextNewDesc);
         catSelect = findViewById(R.id.rgCategoria);
-        btnNewImage = findViewById(R.id.btnInsertImage);
-        btnNewVideo = findViewById(R.id.btnInsertVideo);
 
         selectedCategory();
-
-        btnNewImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(NewExerciseActivity.this, "Função em desenvolvimento!",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-        btnNewVideo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(NewExerciseActivity.this, "Função em desenvolvimento!",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
 
     }
 

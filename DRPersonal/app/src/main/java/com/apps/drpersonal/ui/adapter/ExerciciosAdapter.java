@@ -37,19 +37,21 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
         holder.idExerc.setText(exercisesAluno.get(position).getIdExerc());
         holder.nomeExerc.setText(exercisesAluno.get(position).getNomeExerc());
         holder.quantExerc.setText(exercisesAluno.get(position).getQuantExerc());
+        holder.obsExerc.setText(exercisesAluno.get(position).getObsExerc());
     }
 
     @Override
     public int getItemCount() { return exercisesAluno.size(); }
 
     public class ExerciciosViewHolder extends RecyclerView.ViewHolder{
-        TextView idExerc, nomeExerc, quantExerc;
+        TextView idExerc, nomeExerc, quantExerc, obsExerc;
 
         public ExerciciosViewHolder(@NonNull View itemView) {
             super(itemView);
             idExerc = itemView.findViewById(R.id.textIdExerc);
             nomeExerc = itemView.findViewById(R.id.textNomeExercise);
             quantExerc = itemView.findViewById(R.id.textQuantExerc);
+            obsExerc = itemView.findViewById(R.id.textObsExerc);
         }
     }
 }
