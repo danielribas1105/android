@@ -1,11 +1,14 @@
 package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNO;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAINING;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,7 +51,7 @@ public class ExerciciosActivity extends AppCompatActivity {
     private ExerciciosAdapter adapterExerc;
     private static List<Exercise> exercises = new ArrayList<>();
     private Training trainingSelected;
-    private static String date = "", keySerie = "", nameSerie = "", idTreino = "102022";
+    private static String date = "", keySerie = "", nameSerie = "";
     private String idAluno = "";
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference referenceExerc = ConfigFirebase.getFirebaseDatabase();
@@ -137,8 +140,8 @@ public class ExerciciosActivity extends AppCompatActivity {
     private void loadExercises(String keySerie) {
         String idSerieAluno = "serie" + keySerie;
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        exercAluno = referenceExerc.child(CHAVE_DB_EXERCICIOS).child(idAluno).child(idTreino)
-                .child(idSerieAluno);
+        exercAluno = referenceExerc.child(CHAVE_DB_EXERCICIOS_ALUNO).child(CHAVE_DB_IDPERSONAL)
+                .child(idAluno).child(idSerieAluno);
         valueEventListenerExerc = exercAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

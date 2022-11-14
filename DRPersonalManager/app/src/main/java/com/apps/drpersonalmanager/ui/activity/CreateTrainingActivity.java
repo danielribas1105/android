@@ -9,6 +9,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_EXERCICIO_EDIT;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ID_SERIE;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -109,22 +110,15 @@ public class CreateTrainingActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        //Recuperar aluno selecionado
+                        //Recuperar exercício selecionado
                         Exercise exerciseSelected = exercises.get(position);
                         loadInfoTreino();
-                        exerciseAluno = new ExerciseAluno();
-                        exerciseAluno.setNomeExerc(exerciseSelected.getNomeExerc());
-                        exerciseAluno.setIdExerc(exerciseSelected.getIdExerc());
-                        exerciseAluno.setQuantExerc("");
-                        exerciseAluno.setPesoExerc("");
-                        exerciseAluno.setObsExerc("");
-                        //exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
+                        //Passar informações para a próxima activity
                         Intent i = new Intent(CreateTrainingActivity.this, EditTrainigActivity.class);
-                        i.putExtra(CHAVE_EXERCICIO_EDIT,exerciseSelected);
+                        i.putExtra(CHAVE_EXERCICIO_EDIT,exerciseSelected)
+                                .putExtra(CHAVE_ALUNO_SELECT,idAluno)
+                                .putExtra(CHAVE_ID_SERIE,idSerie);
                         startActivity(i);
-                        Toast.makeText(CreateTrainingActivity.this, "Exercício "+
-                                exerciseSelected.getNomeExerc() +" salvo com sucesso para o aluno "+
-                                nomeAluno+"!", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -150,8 +144,8 @@ public class CreateTrainingActivity extends AppCompatActivity {
 
     private void loadInfoTreino() {
         serie = campoNomeSerie.getText().toString();
-        descricao = campoDescSerie.getText().toString();
         idSerie = "serie"+serie;
+        descricao = campoDescSerie.getText().toString();
     }
 
     private void selectedCategory() {
@@ -201,12 +195,16 @@ public class CreateTrainingActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.btn_salvar_treino){
             loadInfoTreino();
-            training = new Training();
-            training.setNomeSerie(serie);
-            training.setDescSerie(descricao);
-            trainingDao.salvarTreino(idAluno, idSerie, training);
-            Toast.makeText(this, "Treino salvo com sucesso!", Toast.LENGTH_SHORT).show();
-            finish();
+            if(!descricao.isEmpty()){
+                training = new Training();
+                training.setNomeSerie(serie);
+                training.setDescSerie(descricao);
+                trainingDao.salvarTreino(idAluno, idSerie, training);
+                Toast.makeText(this, "Treino salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
+            }else {
+                Toast.makeText(this, "Preencher campo objetivo da série!", Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }

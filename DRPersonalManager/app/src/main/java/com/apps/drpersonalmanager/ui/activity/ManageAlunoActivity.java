@@ -86,8 +86,6 @@ public class ManageAlunoActivity extends AppCompatActivity {
             Intent i = new Intent(ManageAlunoActivity.this, CreateTrainingActivity.class);
             i.putExtra(CHAVE_ALUNO_SELECT, alunoSelect);
             startActivity(i);
-        }else if(item.getItemId() == R.id.btn_edit_treino){
-            startActivity(new Intent(ManageAlunoActivity.this, EditTrainigActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

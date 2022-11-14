@@ -7,9 +7,5 @@
         android:title="Criar"
         android:icon="@drawable/ic_add_white_24"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/btn_edit_treino"
-        android:title="Editar"
-        android:icon="@drawable/ic_edit_white_24"
-        app:showAsAction="always"/>
+
 </menu>

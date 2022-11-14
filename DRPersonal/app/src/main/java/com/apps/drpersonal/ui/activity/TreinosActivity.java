@@ -1,6 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAINING;
 
@@ -78,10 +79,10 @@ public class TreinosActivity extends AppCompatActivity {
                         //Recuperar treino selecionado
                         Training trainingSelected = trainings.get(position);
                         //Enviar treino selecionado para a próxima tela
-                        Intent intent = new Intent(TreinosActivity.this,
+                        Intent i = new Intent(TreinosActivity.this,
                                 ExerciciosActivity.class);
-                        intent.putExtra(CHAVE_TRAINING, trainingSelected);
-                        startActivity(intent);
+                        i.putExtra(CHAVE_TRAINING, trainingSelected);
+                        startActivity(i);
                     }
 
                     @Override
@@ -100,7 +101,7 @@ public class TreinosActivity extends AppCompatActivity {
 
     public void getNomeAluno() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        alunoDB = reference.child(CHAVE_DB_ALUNOS).child(idAluno);
+        alunoDB = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         valueEventListenerAluno = alunoDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -116,7 +117,7 @@ public class TreinosActivity extends AppCompatActivity {
 
     public void loadTraining() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        treinoAluno = reference.child(CHAVE_DB_TREINOS).child(idAluno).child(idTreino);
+        treinoAluno = reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
