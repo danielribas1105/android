@@ -8,6 +8,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_EXERCICIO_EDIT;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -114,10 +115,13 @@ public class CreateTrainingActivity extends AppCompatActivity {
                         exerciseAluno = new ExerciseAluno();
                         exerciseAluno.setNomeExerc(exerciseSelected.getNomeExerc());
                         exerciseAluno.setIdExerc(exerciseSelected.getIdExerc());
-                        exerciseAluno.setQuantExerc("Inserir repetições");
-                        exerciseAluno.setPesoExerc("Editar peso");
-                        exerciseAluno.setObsExerc("Observeções gerais");
-                        exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
+                        exerciseAluno.setQuantExerc("");
+                        exerciseAluno.setPesoExerc("");
+                        exerciseAluno.setObsExerc("");
+                        //exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
+                        Intent i = new Intent(CreateTrainingActivity.this, EditTrainigActivity.class);
+                        i.putExtra(CHAVE_EXERCICIO_EDIT,exerciseSelected);
+                        startActivity(i);
                         Toast.makeText(CreateTrainingActivity.this, "Exercício "+
                                 exerciseSelected.getNomeExerc() +" salvo com sucesso para o aluno "+
                                 nomeAluno+"!", Toast.LENGTH_SHORT).show();

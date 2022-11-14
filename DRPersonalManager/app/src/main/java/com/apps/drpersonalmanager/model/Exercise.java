@@ -1,6 +1,8 @@
 package com.apps.drpersonalmanager.model;
 
-public class Exercise {
+import java.io.Serializable;
+
+public class Exercise implements Serializable {
 
     private String idExerc, nomeExerc, catExerc, descExerc;
 
