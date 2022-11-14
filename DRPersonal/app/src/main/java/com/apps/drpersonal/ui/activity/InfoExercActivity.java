@@ -13,10 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.ExerciseAluno;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -58,8 +61,8 @@ public class InfoExercActivity extends AppCompatActivity {
 
         loadImageExerc(idExerc+".jpg");
         loadVideoExerc(idExerc+".gif");
+        loadDescExerc();
 
-        campoDesc.setText(loadDescExerc());
 
     }
 
@@ -97,12 +100,23 @@ public class InfoExercActivity extends AppCompatActivity {
         });
     }
 
-    private String loadDescExerc() {
-        refInfoExerc = reference.child(CHAVE_DB_EXERCICIOS).child("muscSuper");
+    private void loadDescExerc() {
+        refInfoExerc = reference.child(CHAVE_DB_EXERCICIOS).child("aero")
+                .child("1668453335932_exercicio_de_teste");
+        valueEventListenerInfoExerc = refInfoExerc.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Exercise exercise = snapshot.getValue(Exercise.class);
+                campoDesc.setText(exercise.getDescExerc());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //problema no id do exercicio para ler a descrição !!!!!
-
-        return "descrição";
     }
 
 

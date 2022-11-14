@@ -102,7 +102,7 @@ public class NewExerciseActivity extends AppCompatActivity {
             exercise.setNomeExerc(nome);
             exercise.setDescExerc(descricao);
             exercise.setCatExerc(categoria);
-            exerciseDao.salvarNewExercise(exercise, categoria);
+            exerciseDao.salvarNewExercise(exercise, categoria, idEx);
             Toast.makeText(this, "Novo exercício "+nome+" salvo com sucesso!",
                     Toast.LENGTH_SHORT).show();
         }
