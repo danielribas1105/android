@@ -29,6 +29,7 @@ import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
 import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.model.ExerciseAluno;
 import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
@@ -50,11 +51,12 @@ public class ExerciciosActivity extends AppCompatActivity {
     private RecyclerView recyclerExerc;
     private ExerciciosAdapter adapterExerc;
     private static List<Exercise> exercises = new ArrayList<>();
+    private static List<ExerciseAluno> exercisesAluno = new ArrayList<>();
     private Training trainingSelected;
     private static String date = "", keySerie = "", nameSerie = "";
     private String idAluno = "";
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
-    private DatabaseReference referenceExerc = ConfigFirebase.getFirebaseDatabase();
+    private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference exercAluno;
     private ValueEventListener valueEventListenerExerc;
     private Historico historico;
@@ -86,7 +88,7 @@ public class ExerciciosActivity extends AppCompatActivity {
         loadExercises(keySerie);
 
         //Configurar Adapter
-        adapterExerc = new ExerciciosAdapter(exercises, this);
+        adapterExerc = new ExerciciosAdapter(exercisesAluno, this);
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerExerc.setLayoutManager(layoutManager);
@@ -100,11 +102,11 @@ public class ExerciciosActivity extends AppCompatActivity {
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                        Exercise exercSelected = exercises.get(position);
-                        Intent intent = new Intent(ExerciciosActivity.this,
+                        ExerciseAluno exercSelected = exercisesAluno.get(position);
+                        Intent i = new Intent(ExerciciosActivity.this,
                                 InfoExercActivity.class);
-                        intent.putExtra(CHAVE_EXERCISE, exercSelected);
-                        startActivity(intent);
+                        i.putExtra(CHAVE_EXERCISE, exercSelected);
+                        startActivity(i);
                     }
 
                     @Override
@@ -140,15 +142,15 @@ public class ExerciciosActivity extends AppCompatActivity {
     private void loadExercises(String keySerie) {
         String idSerieAluno = "serie" + keySerie;
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        exercAluno = referenceExerc.child(CHAVE_DB_EXERCICIOS_ALUNO).child(CHAVE_DB_IDPERSONAL)
+        exercAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNO).child(CHAVE_DB_IDPERSONAL)
                 .child(idAluno).child(idSerieAluno);
         valueEventListenerExerc = exercAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                exercises.clear();
+                exercisesAluno.clear();
                 for (DataSnapshot infoExerc : snapshot.getChildren()) {
-                    Exercise exercise = infoExerc.getValue(Exercise.class);
-                    exercises.add(exercise);
+                    ExerciseAluno exercAluno = infoExerc.getValue(ExerciseAluno.class);
+                    exercisesAluno.add(exercAluno);
                 }
                 adapterExerc.notifyDataSetChanged();
             }

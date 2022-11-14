@@ -105,6 +105,9 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.btn_menu_meu_perfil:
                 startActivity(new Intent(this, MyProfileActivity.class));
                 break;
+            case R.id.btn_menu_novo_aluno:
+                startActivity(new Intent(this, NewAlunoActivity.class));
+                break;
             case R.id.btn_menu_novo_exercicio:
                 startActivity(new Intent(this, NewExerciseActivity.class));
                 break;

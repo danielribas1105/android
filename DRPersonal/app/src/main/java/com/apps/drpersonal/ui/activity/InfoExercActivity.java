@@ -1,25 +1,22 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
-import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.model.ExerciseAluno;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -29,9 +26,9 @@ public class InfoExercActivity extends AppCompatActivity {
 
     private TextView campoNomeExerc, campoDesc;
     private ImageView campoImagem, campoVideo;
-    private String infoIdExerc, keyExerc;
-    private Exercise exerciseSelected;
-    private DatabaseReference referenceInfoExerc = ConfigFirebase.getFirebaseDatabase();
+    private String idExerc, nomeExerc;
+    private ExerciseAluno exerciseSelected;
+    private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refInfoExerc;
     private ValueEventListener valueEventListenerInfoExerc;
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
@@ -47,18 +44,22 @@ public class InfoExercActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         campoNomeExerc = findViewById(R.id.infoExercNome);
-        exerciseSelected = (Exercise) getIntent().getSerializableExtra(CHAVE_EXERCISE);
-        campoNomeExerc.setText(exerciseSelected.getNomeExerc());
-        campoImagem = findViewById(R.id.imageViewtest);
+        campoImagem = findViewById(R.id.imgImageExerc);
         campoVideo = findViewById(R.id.imgVideoExerc);
         campoDesc = findViewById(R.id.descExercText);
-        campoDesc.setText(exerciseSelected.getDescExerc());
 
-        infoIdExerc = exerciseSelected.getIdImgExerc();
-        //Log.i("Id",infoIdExerc);
-        loadImageExerc(infoIdExerc+".jpg");
-        loadVideoExerc(infoIdExerc+".gif");
-        //loadInfoExerc(infoIdExerc);
+        exerciseSelected = (ExerciseAluno) getIntent().getSerializableExtra(CHAVE_EXERCISE);
+        if(exerciseSelected != null){
+            idExerc = exerciseSelected.getIdExerc();
+            nomeExerc = exerciseSelected.getNomeExerc();
+        }
+
+        campoNomeExerc.setText(nomeExerc);
+
+        loadImageExerc(idExerc+".jpg");
+        loadVideoExerc(idExerc+".gif");
+
+        campoDesc.setText(loadDescExerc());
 
     }
 
@@ -96,23 +97,13 @@ public class InfoExercActivity extends AppCompatActivity {
         });
     }
 
-    /*
-    public void loadInfoExerc(String idExerc) {
-        refInfoExerc = referenceInfoExerc.child("exerciciosInfo").child(idExerc);
-        valueEventListenerInfoExerc = refInfoExerc.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                InfoExercise infoExercise = snapshot.getValue(InfoExercise.class);
-                //campoVideo.setText(infoExercise.getVideoExerc());
-                //campoImg.setText(infoExercise.getImgExerc());
-                campoDesc.setText(infoExercise.getDescExerc());
-            }
+    private String loadDescExerc() {
+        refInfoExerc = reference.child(CHAVE_DB_EXERCICIOS).child("muscSuper");
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        //problema no id do exercicio para ler a descrição !!!!!
 
-            }
-        });
-    } */
+        return "descrição";
+    }
+
 
 }

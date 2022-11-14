@@ -8,6 +8,9 @@
         android:title="Meu Perfil" />
 
     <item
+        android:id="@+id/btn_menu_novo_aluno"
+        android:title="Novo Aluno" />
+    <item
         android:id="@+id/btn_menu_novo_exercicio"
         android:title="Novo Exercício" />
 

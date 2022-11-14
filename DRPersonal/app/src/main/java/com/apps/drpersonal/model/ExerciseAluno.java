@@ -1,0 +1,51 @@
+package com.apps.drpersonal.model;
+
+import java.io.Serializable;
+
+public class ExerciseAluno implements Serializable {
+
+    private String idExerc, nomeExerc, quantExerc, pesoExerc, obsExerc;
+
+    public ExerciseAluno() {
+    }
+
+    public String getIdExerc() {
+        return idExerc;
+    }
+
+    public void setIdExerc(String idExerc) {
+        this.idExerc = idExerc;
+    }
+
+    public String getNomeExerc() {
+        return nomeExerc;
+    }
+
+    public void setNomeExerc(String nomeExerc) {
+        this.nomeExerc = nomeExerc;
+    }
+
+    public String getQuantExerc() {
+        return quantExerc;
+    }
+
+    public void setQuantExerc(String quantExerc) {
+        this.quantExerc = quantExerc;
+    }
+
+    public String getPesoExerc() {
+        return pesoExerc;
+    }
+
+    public void setPesoExerc(String pesoExerc) {
+        this.pesoExerc = pesoExerc;
+    }
+
+    public String getObsExerc() {
+        return obsExerc;
+    }
+
+    public void setObsExerc(String obsExerc) {
+        this.obsExerc = obsExerc;
+    }
+}

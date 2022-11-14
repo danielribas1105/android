@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonal.R;
-import com.apps.drpersonal.model.Exercise;
+import com.apps.drpersonal.model.ExerciseAluno;
 
 import java.util.List;
 
 public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.ExerciciosViewHolder> {
 
-    List<Exercise> exercises;
+    List<ExerciseAluno> exercisesAluno;
     Context context;
 
-    public ExerciciosAdapter(List<Exercise> exercises, Context context) {
-        this.exercises = exercises;
+    public ExerciciosAdapter(List<ExerciseAluno> exercisesAluno, Context context) {
+        this.exercisesAluno = exercisesAluno;
         this.context = context;
     }
 
@@ -34,13 +34,13 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
 
     @Override
     public void onBindViewHolder(@NonNull ExerciciosViewHolder holder, int position) {
-        holder.idExerc.setText(exercises.get(position).getIdExerc());
-        holder.nomeExerc.setText(exercises.get(position).getNomeExerc());
-        holder.quantExerc.setText(exercises.get(position).getQuantExerc());
+        holder.idExerc.setText(exercisesAluno.get(position).getIdExerc());
+        holder.nomeExerc.setText(exercisesAluno.get(position).getNomeExerc());
+        holder.quantExerc.setText(exercisesAluno.get(position).getQuantExerc());
     }
 
     @Override
-    public int getItemCount() { return exercises.size(); }
+    public int getItemCount() { return exercisesAluno.size(); }
 
     public class ExerciciosViewHolder extends RecyclerView.ViewHolder{
         TextView idExerc, nomeExerc, quantExerc;

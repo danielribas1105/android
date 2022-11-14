@@ -8,11 +8,6 @@ public class Exercise implements Serializable {
 
     public Exercise() {}
 
-    public String getIdExerc() { return idExerc; }
-
-    public void setIdExerc(String idExerc) {
-        this.idExerc = idExerc;
-    }
 
     public String getIdImgExerc() {
         return idImgExerc;
@@ -30,13 +25,6 @@ public class Exercise implements Serializable {
         this.nomeExerc = nomeExerc;
     }
 
-    public String getQuantExerc() {
-        return quantExerc;
-    }
-
-    public void setQuantExerc(String quantExerc) {
-        this.quantExerc = quantExerc;
-    }
 
     public String getDescExerc() {
         return descExerc;
