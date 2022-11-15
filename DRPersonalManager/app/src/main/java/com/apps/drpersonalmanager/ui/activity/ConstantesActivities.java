@@ -13,6 +13,7 @@ public interface ConstantesActivities {
     String CHAVE_ALUNO_SELECT = "idAluno";
     String CHAVE_ID_SERIE = "idSerie";
     String CHAVE_EXERCICIO_EDIT = "editExercise";
+    String CHAVE_CATEGORIA = "catExerc";
     String CAT_AEROBICO = "aero";
     String CAT_ABDOMINAIS = "abdo";
     String CAT_MUSC_SUPER = "muscSuper";

@@ -1,14 +1,14 @@
 package com.apps.drpersonalmanager.ui.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textoEmail = campoEmail.getText().toString();
                 String textoSenha = campoSenha.getText().toString();
-                if(!textoEmail.isEmpty()){
-                    if(!textoSenha.isEmpty()){
+                if (!textoEmail.isEmpty()) {
+                    if (!textoSenha.isEmpty()) {
                         personal = new Personal();
                         personal.setEmailPersonal(textoEmail);
                         personal.setSenhaPersonal(textoSenha);
                         checkLogin();
-                    }else{
-                        Toast.makeText(MainActivity.this,"Informe sua senha!",Toast.LENGTH_SHORT);
+                    } else {
+                        Toast.makeText(MainActivity.this, "Informe sua senha!", Toast.LENGTH_SHORT);
                     }
-                }else{
-                    Toast.makeText(MainActivity.this,"Informe seu e-mail!", Toast.LENGTH_SHORT);
+                } else {
+                    Toast.makeText(MainActivity.this, "Informe seu e-mail!", Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -61,19 +61,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void validateUser() {
-        if(auth.getCurrentUser() != null){
+        if (auth.getCurrentUser() != null) {
             goToHome();
         }
     }
 
-    public void checkLogin(){
-        auth.signInWithEmailAndPassword(personal.getEmailPersonal(),personal.getSenhaPersonal())
+    public void checkLogin() {
+        auth.signInWithEmailAndPassword(personal.getEmailPersonal(), personal.getSenhaPersonal())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             goToHome();
-                        }else {
+                        } else {
                             String erroDB;
                             try {
                                 throw task.getException();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void goToHome(){
+    public void goToHome() {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

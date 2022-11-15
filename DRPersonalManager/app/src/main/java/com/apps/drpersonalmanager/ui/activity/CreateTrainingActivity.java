@@ -5,21 +5,13 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_AE
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_MUSC_INFER;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_MUSC_SUPER;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_CATEGORIA;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
-import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
-import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_EXERCICIO_EDIT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ID_SERIE;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +21,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -46,13 +44,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.security.auth.login.LoginException;
 
 public class CreateTrainingActivity extends AppCompatActivity {
 
@@ -63,7 +57,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
     private TrainingDao trainingDao = new TrainingDao();
     private ExerciseAluno exerciseAluno;
     private Aluno aluno;
-    private String serie, idSerie, descricao;
+    private String serie, idSerie, objetivo;
     private String idAluno, nomeAluno, dataTreino, categoria = "";
     private List<Exercise> exercises = new ArrayList<>();
     private RecyclerView recyclerFindExercises;
@@ -87,7 +81,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
         recyclerFindExercises = findViewById(R.id.recyclerBuscarExercicios);
 
         aluno = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
-        if(aluno != null){
+        if (aluno != null) {
             idAluno = Base64Custom.codeToBase64(aluno.getEmailAluno());
             nomeAluno = aluno.getNomeAluno();
         }
@@ -96,7 +90,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
         campoData.setText(dataTreino);
         selectedCategory();
 
-        findExercisesAdapter = new FindExercisesAdapter(exercises,this);
+        findExercisesAdapter = new FindExercisesAdapter(exercises, this);
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerFindExercises.setLayoutManager(layoutManager);
@@ -115,9 +109,10 @@ public class CreateTrainingActivity extends AppCompatActivity {
                         loadInfoTreino();
                         //Passar informações para a próxima activity
                         Intent i = new Intent(CreateTrainingActivity.this, EditTrainigActivity.class);
-                        i.putExtra(CHAVE_EXERCICIO_EDIT,exerciseSelected)
-                                .putExtra(CHAVE_ALUNO_SELECT,idAluno)
-                                .putExtra(CHAVE_ID_SERIE,idSerie);
+                        i.putExtra(CHAVE_EXERCICIO_EDIT, exerciseSelected)
+                                .putExtra(CHAVE_ALUNO_SELECT, idAluno)
+                                .putExtra(CHAVE_ID_SERIE, idSerie)
+                                .putExtra(CHAVE_CATEGORIA, categoria);
                         startActivity(i);
 
                     }
@@ -144,21 +139,21 @@ public class CreateTrainingActivity extends AppCompatActivity {
 
     private void loadInfoTreino() {
         serie = campoNomeSerie.getText().toString();
-        idSerie = "serie"+serie;
-        descricao = campoDescSerie.getText().toString();
+        idSerie = "serie" + serie;
+        objetivo = campoDescSerie.getText().toString();
     }
 
     private void selectedCategory() {
         catSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int catId) {
-                if(catId == R.id.rbCatAero){
+                if (catId == R.id.rbCatAero) {
                     categoria = CAT_AEROBICO;
-                }else if(catId == R.id.rbCatAbdo){
+                } else if (catId == R.id.rbCatAbdo) {
                     categoria = CAT_ABDOMINAIS;
-                }else if(catId == R.id.rbCatMuscSuper){
+                } else if (catId == R.id.rbCatMuscSuper) {
                     categoria = CAT_MUSC_SUPER;
-                }else if(catId == R.id.rbCatMuscInfer){
+                } else if (catId == R.id.rbCatMuscInfer) {
                     categoria = CAT_MUSC_INFER;
                 }
             }
@@ -187,22 +182,22 @@ public class CreateTrainingActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_create_training,menu);
+        getMenuInflater().inflate(R.menu.menu_create_training, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.btn_salvar_treino){
+        if (item.getItemId() == R.id.btn_salvar_treino) {
             loadInfoTreino();
-            if(!descricao.isEmpty()){
+            if (!objetivo.isEmpty()) {
                 training = new Training();
                 training.setNomeSerie(serie);
-                training.setDescSerie(descricao);
+                training.setDescSerie(objetivo);
                 trainingDao.salvarTreino(idAluno, idSerie, training);
                 Toast.makeText(this, "Treino salvo com sucesso!", Toast.LENGTH_SHORT).show();
                 finish();
-            }else {
+            } else {
                 Toast.makeText(this, "Preencher campo objetivo da série!", Toast.LENGTH_SHORT).show();
             }
         }

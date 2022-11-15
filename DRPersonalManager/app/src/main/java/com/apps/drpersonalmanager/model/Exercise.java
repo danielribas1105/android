@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Exercise implements Serializable {
 
-    private String idExerc, nomeExerc, catExerc, descExerc;
+    private String idExerc, nomeExerc, descExerc;
 
     public Exercise() {}
 
@@ -16,14 +16,6 @@ public class Exercise implements Serializable {
 
     public void setNomeExerc(String nomeExerc) {
         this.nomeExerc = nomeExerc;
-    }
-
-    public String getCatExerc() {
-        return catExerc;
-    }
-
-    public void setCatExerc(String catExerc) {
-        this.catExerc = catExerc;
     }
 
     public String getDescExerc() {
