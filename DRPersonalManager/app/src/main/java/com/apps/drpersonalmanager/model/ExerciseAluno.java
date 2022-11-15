@@ -16,9 +16,7 @@ public class ExerciseAluno {
         this.nomeExerc = nomeExerc;
     }
 
-    public String getCatExerc() {
-        return catExerc;
-    }
+    public String getCatExerc() {return catExerc;}
 
     public void setCatExerc(String catExerc) {
         this.catExerc = catExerc;

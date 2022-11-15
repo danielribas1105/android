@@ -8,6 +8,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAININ
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.STR_SERIE;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -34,11 +35,16 @@ import com.apps.drpersonal.model.ExerciseAluno;
 import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,12 +61,15 @@ public class ExerciciosActivity extends AppCompatActivity {
     private static List<ExerciseAluno> exercisesAluno = new ArrayList<>();
     private Training trainingSelected;
     private static String date = "", keySerie = "", nameSerie = "";
-    private String idAluno = "";
+    private String idAluno = "", idImg, idImgStorage;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference exercAluno;
     private ValueEventListener valueEventListenerExerc;
     private Historico historico;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    private StorageReference imagens = storageReference.child("images").child("exercises");
+    private String infoIdExerc = "imagem_indisponivel.jpg";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +96,10 @@ public class ExerciciosActivity extends AppCompatActivity {
 
         recyclerExerc = findViewById(R.id.recyclerExercicios);
         loadExercises(keySerie);
+        //loadImageExerc(infoIdExerc);
 
         //Configurar Adapter
-        adapterExerc = new ExerciciosAdapter(exercisesAluno, this);
+        adapterExerc = new ExerciciosAdapter(exercisesAluno,this);
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerExerc.setLayoutManager(layoutManager);
@@ -136,6 +146,23 @@ public class ExerciciosActivity extends AppCompatActivity {
             Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void loadImageExerc(String id){
+        StorageReference imgRef = imagens.child(id);
+        //Log.i("dados",imgRef.toString());
+        imgRef.getDownloadUrl().addOnSuccessListener(ExerciciosActivity.this, new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                idImgStorage = uri.toString();
+                Log.i("dados", "1- "+idImgStorage);
+            }
+        }).addOnFailureListener(ExerciciosActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 
     private void loadExercises(String keySerie) {

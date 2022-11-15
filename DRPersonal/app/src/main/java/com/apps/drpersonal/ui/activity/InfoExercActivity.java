@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.dao.InfoExercDao;
 import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.ExerciseAluno;
 import com.bumptech.glide.Glide;
@@ -35,6 +36,7 @@ public class InfoExercActivity extends AppCompatActivity {
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refInfoExerc;
     private ValueEventListener valueEventListenerInfoExerc;
+    private InfoExercDao infoExercDao = new InfoExercDao();
     private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
     private StorageReference imagens = storageReference.child("images").child("exercises");
     private StorageReference videos = storageReference.child("videos").child("exercises");

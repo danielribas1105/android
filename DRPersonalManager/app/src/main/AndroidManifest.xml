@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.apps.drpersonalmanager">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -19,10 +28,13 @@
         <activity
             android:name=".ui.activity.EditTrainigActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.activity.NewExerciseActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+            android:parentActivityName=".ui.activity.HomeActivity">
+        </activity>
+
         <activity
             android:name=".ui.activity.MyProfileActivity"
             android:exported="false" />

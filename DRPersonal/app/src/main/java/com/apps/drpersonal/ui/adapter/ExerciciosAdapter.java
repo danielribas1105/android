@@ -1,6 +1,7 @@
 package com.apps.drpersonal.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.model.ExerciseAluno;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.ViewTarget;
 
 import java.util.List;
 
@@ -35,7 +38,8 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
 
     @Override
     public void onBindViewHolder(@NonNull ExerciciosViewHolder holder, int position) {
-        holder.imgExerc.setImageResource(R.drawable.logo_circular);
+        //holder.imgExerc.setImageResource(R.drawable.logo_circular);
+        Glide.with(holder.imgExerc.getContext()).load(exercisesAluno.get(position).getIdImg()).into(holder.imgExerc);
         holder.nomeExerc.setText(exercisesAluno.get(position).getNomeExerc());
         holder.quantExerc.setText(exercisesAluno.get(position).getQuantExerc());
         holder.obsExerc.setText(exercisesAluno.get(position).getObsExerc());

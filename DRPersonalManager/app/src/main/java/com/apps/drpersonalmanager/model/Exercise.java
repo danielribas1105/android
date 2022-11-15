@@ -4,9 +4,13 @@ import java.io.Serializable;
 
 public class Exercise implements Serializable {
 
-    private String idExerc, nomeExerc, descExerc;
+    private String idExerc, idImgExerc, nomeExerc, descExerc;
 
     public Exercise() {}
+
+    public String getIdImgExerc() {return idImgExerc;}
+
+    public void setIdImgExerc(String idImgExerc) {this.idImgExerc = idImgExerc;}
 
     public String getIdExerc() {return idExerc;}
 
