@@ -1,6 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -91,7 +92,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private void loadProfile() {
         idAluno = Base64Custom.codeToBase64(authPerfil.getCurrentUser().getEmail());
-        dataProfile = reference.child(CHAVE_DB_ALUNOS).child(idAluno);
+        dataProfile = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         StorageReference fotoRef = fotoPerfil.child(idAluno + ".jpg");
         Log.i("Id",fotoRef.toString());
         fotoRef.getDownloadUrl().addOnSuccessListener(EditarPerfilActivity.this, new OnSuccessListener<Uri>() {
@@ -126,7 +127,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
         aluno.setNomeAluno(campoNome.getText().toString());
         aluno.setEmailAluno(campoEmail.getText().toString());
         aluno.setAcademia(campoAcademia.getText().toString());
-        aluno.setSenhaAluno("1234567");
         aluno.salvarPerfilAluno();
     }
 
@@ -138,12 +138,10 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menuSaveInfo:
-                salvarPerfil();
-                Toast.makeText(this,"Perfil atualizado!",Toast.LENGTH_SHORT).show();
-                finish();
-                break;
+        if (item.getItemId() == R.id.menuSaveInfo){
+            salvarPerfil();
+            Toast.makeText(this,"Perfil atualizado com sucesso!",Toast.LENGTH_SHORT).show();
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }

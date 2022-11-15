@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
 
     @Override
     public void onBindViewHolder(@NonNull ExerciciosViewHolder holder, int position) {
-        holder.idExerc.setText(exercisesAluno.get(position).getIdExerc());
+        holder.imgExerc.setImageResource(R.drawable.logo_circular);
         holder.nomeExerc.setText(exercisesAluno.get(position).getNomeExerc());
         holder.quantExerc.setText(exercisesAluno.get(position).getQuantExerc());
         holder.obsExerc.setText(exercisesAluno.get(position).getObsExerc());
@@ -44,11 +45,12 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
     public int getItemCount() { return exercisesAluno.size(); }
 
     public class ExerciciosViewHolder extends RecyclerView.ViewHolder{
-        TextView idExerc, nomeExerc, quantExerc, obsExerc;
+        TextView nomeExerc, quantExerc, obsExerc;
+        ImageView imgExerc;
 
         public ExerciciosViewHolder(@NonNull View itemView) {
             super(itemView);
-            idExerc = itemView.findViewById(R.id.textIdExerc);
+            imgExerc = itemView.findViewById(R.id.imgListExerc);
             nomeExerc = itemView.findViewById(R.id.textNomeExercise);
             quantExerc = itemView.findViewById(R.id.textQuantExerc);
             obsExerc = itemView.findViewById(R.id.textObsExerc);

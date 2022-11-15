@@ -6,26 +6,21 @@
     android:layout_height="wrap_content"
     android:elevation="5dp"
     android:orientation="vertical"
-    android:padding="5dp">
+    android:padding="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textIdExerc"
-            android:layout_width="150dp"
+        <ImageView
+            android:id="@+id/imgListExerc"
+            android:layout_width="180dp"
             android:layout_height="110dp"
             android:layout_weight="1"
-            android:background="@color/purple_200"
-            android:gravity="center_vertical"
-            android:text="N"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="40sp"
-            android:textStyle="bold"
-            tools:ignore="TextContrastCheck" />
+            android:background="@color/gray_100"
+            android:padding="5dp"
+            app:srcCompat="@drawable/padrao" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,13 +33,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
                 android:layout_weight="1"
-                android:background="@color/white"
+                android:background="@color/gray_100"
                 android:gravity="center_vertical"
                 android:paddingStart="10dp"
                 android:text="Nome do exercício"
                 android:textColor="@color/orange"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:ignore="TextContrastCheck" />
 
             <TextView
                 android:id="@+id/textQuantExerc"

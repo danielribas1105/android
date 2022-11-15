@@ -6,10 +6,10 @@
 
     <uses-feature
         android:name="android.hardware.camera"
-        android:required="true"/>
+        android:required="true" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,36 +21,47 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DRPersonal"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ui.activity.SwapPasswordActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.activity.EditarPerfilActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity">
-        </activity>
+            android:parentActivityName=".ui.activity.HomeActivity" />
+
         <activity
             android:name=".ui.activity.InfoExercActivity"
             android:exported="false"
             android:parentActivityName=".ui.activity.ExerciciosActivity">
+
         </activity>
+
         <activity
             android:name=".ui.activity.ExerciciosActivity"
             android:exported="false"
             android:parentActivityName=".ui.activity.TreinosActivity">
         </activity>
+
         <activity
             android:name=".ui.activity.TreinosActivity"
             android:exported="false"
             android:parentActivityName=".ui.activity.HomeActivity">
         </activity>
+
         <activity
             android:name=".ui.activity.AvaliacoesActivity"
             android:exported="false"
             android:parentActivityName=".ui.activity.HomeActivity">
         </activity>
+
         <activity
             android:name=".ui.activity.HistoricoActivity"
             android:exported="false"
             android:parentActivityName=".ui.activity.HomeActivity">
         </activity>
+
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="false" />

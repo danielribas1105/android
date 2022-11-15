@@ -1,5 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_HISTORICO;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -55,7 +57,7 @@ public class HistoricoActivity extends AppCompatActivity {
 
         //Configurar adapter
         loadHistorical();
-        historicoAdapter = new HistoricoAdapter(historicos,this);
+        historicoAdapter = new HistoricoAdapter(historicos, this);
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerHistorical.setLayoutManager(layoutManager);
@@ -81,14 +83,14 @@ public class HistoricoActivity extends AppCompatActivity {
         loadHistorical();
     }
 
-    public void loadHistorical(){
+    public void loadHistorical() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        histAluno = referenceHist.child("historico").child(idAluno).child(mesAnoHist);
+        histAluno = referenceHist.child(CHAVE_DB_HISTORICO).child(idAluno).child(mesAnoHist);
         valueEventListenerHistoric = histAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 historicos.clear();
-                for(DataSnapshot historic: snapshot.getChildren()){
+                for (DataSnapshot historic : snapshot.getChildren()) {
                     Historico historico = historic.getValue(Historico.class);
                     historicos.add(historico);
                 }

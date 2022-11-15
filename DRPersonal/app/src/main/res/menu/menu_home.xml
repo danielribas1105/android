@@ -7,10 +7,14 @@
         android:orderInCategory="100"
         android:title="Editar Perfil"
         app:showAsAction="never"/>
-
+    <item
+        android:id="@+id/menuAlterarSenha"
+        android:orderInCategory="200"
+        android:title="Alterar Senha"
+        app:showAsAction="never"/>
     <item
         android:id="@+id/menuSair"
-        android:orderInCategory="200"
+        android:orderInCategory="300"
         android:title="Sair"
         app:showAsAction="never"/>
 

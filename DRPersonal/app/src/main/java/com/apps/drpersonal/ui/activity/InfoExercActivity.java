@@ -65,11 +65,14 @@ public class InfoExercActivity extends AppCompatActivity {
         loadVideoExerc(idExerc+".gif");
         loadDescExerc();
 
+        //Log.i("dados",idExerc+"_full.jpg");
+        //Log.i("dados",idExerc+".gif");
+
     }
 
     private void loadImageExerc(String infoIdExerc) {
         StorageReference imgRef = imagens.child(infoIdExerc);
-        //Log.i("Id",imgRef.toString());
+        //Log.i("dados",imgRef.toString());
         imgRef.getDownloadUrl().addOnSuccessListener(InfoExercActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -86,7 +89,7 @@ public class InfoExercActivity extends AppCompatActivity {
 
     private void loadVideoExerc(String infoIdExerc) {
         StorageReference videoRef = videos.child(infoIdExerc);
-        //Log.i("Id",videoRef.toString());
+        //Log.i("dados",videoRef.toString());
         videoRef.getDownloadUrl().addOnSuccessListener(InfoExercActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

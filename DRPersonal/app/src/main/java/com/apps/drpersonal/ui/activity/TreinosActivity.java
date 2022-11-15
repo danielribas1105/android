@@ -37,7 +37,7 @@ import java.util.List;
 public class TreinosActivity extends AppCompatActivity {
 
     private TextView campoHello;
-    private String idAluno, idTreino = "102022";
+    private String idAluno;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference alunoDB, treinoAluno;

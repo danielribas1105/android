@@ -5,6 +5,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXER
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAINING;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.STR_SERIE;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -130,17 +131,15 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.menuSaveInfo:
-                salvarHistorico();
-                Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
-                break;
+        if (item.getItemId() == R.id.menuSaveInfo){
+            salvarHistorico();
+            Toast.makeText(this, "Treino salvo em: " + date, Toast.LENGTH_SHORT).show();
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void loadExercises(String keySerie) {
-        String idSerieAluno = "serie" + keySerie;
+        String idSerieAluno = STR_SERIE + keySerie;
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         exercAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNO).child(CHAVE_DB_IDPERSONAL)
                 .child(idAluno).child(idSerieAluno);

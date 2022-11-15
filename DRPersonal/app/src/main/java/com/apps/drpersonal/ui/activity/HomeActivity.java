@@ -35,13 +35,16 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menuEditar:
+                startActivity(new Intent(this, EditarPerfilActivity.class));
+                break;
+            case R.id.menuAlterarSenha:
+                startActivity(new Intent(this, SwapPasswordActivity.class));
+                break;
             case R.id.menuSair:
                 auth.signOut();
                 startActivity(new Intent(this, MainActivity.class));
                 finish();
-                break;
-            case R.id.menuEditar:
-                startActivity(new Intent(this, EditarPerfilActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
