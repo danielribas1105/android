@@ -6,9 +6,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_MU
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_MUSC_SUPER;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.IMAGE_NOT_FOUND;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -19,16 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonalmanager.R;
-import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.dao.ExerciseDao;
-import com.apps.drpersonalmanager.helper.CreateImageUrl;
-import com.apps.drpersonalmanager.helper.DataCustom;
 import com.apps.drpersonalmanager.model.Exercise;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.StorageReference;
-
-import java.util.concurrent.Executor;
 
 public class NewExerciseActivity extends AppCompatActivity {
 
@@ -36,9 +26,7 @@ public class NewExerciseActivity extends AppCompatActivity {
     private RadioGroup catSelect;
     private Exercise exercise;
     private ExerciseDao exerciseDao = new ExerciseDao();
-    private static String idImgStorage, categoria = "";
-    private StorageReference imgExercicios = ConfigFirebase.getStorageReference();
-    private String idImg;
+    private static String categoria = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +41,6 @@ public class NewExerciseActivity extends AppCompatActivity {
 
         selectedCategory();
 
-        idImg = setImageUrl("imagem_indisponivel.jpg");
     }
 
     private void selectedCategory() {
@@ -73,24 +60,6 @@ public class NewExerciseActivity extends AppCompatActivity {
         });
     }
 
-    public String setImageUrl(String id){
-        StorageReference imgRef = imgExercicios.child("images").child("exercises").child(id);
-        imgRef.getDownloadUrl().addOnSuccessListener(NewExerciseActivity.this, new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                idImgStorage = uri.toString();
-                Log.i("dados",idImgStorage);
-            }
-        }).addOnFailureListener(NewExerciseActivity.this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                idImgStorage = IMAGE_NOT_FOUND;
-                Log.i("dados",e.toString());
-            }
-        });
-        return idImgStorage;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_new_exercise, menu);
@@ -108,7 +77,7 @@ public class NewExerciseActivity extends AppCompatActivity {
             exercise.setIdExerc(idEx);
             exercise.setNomeExerc(nome);
             exercise.setDescExerc(descricao);
-            exercise.setIdImgExerc(idImg);
+            exercise.setIdImgExerc(IMAGE_NOT_FOUND);
             exerciseDao.salvarNewExercise(exercise, categoria, idEx);
             Toast.makeText(this, "Novo exercício "+nome+" salvo com sucesso!",
                     Toast.LENGTH_SHORT).show();

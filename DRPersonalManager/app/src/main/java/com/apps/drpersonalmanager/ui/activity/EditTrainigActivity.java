@@ -54,6 +54,7 @@ public class EditTrainigActivity extends AppCompatActivity {
                 exerciseAluno = new ExerciseAluno();
                 exerciseAluno.setNomeExerc(exercSelect.getNomeExerc());
                 exerciseAluno.setIdExerc(exercSelect.getIdExerc());
+                exerciseAluno.setIdImg(exercSelect.getIdImgExerc());
                 exerciseAluno.setCatExerc(catExerc);
                 exerciseAluno.setQuantExerc(editQuantExerc.getText().toString());
                 exerciseAluno.setPesoExerc(editPesoExerc.getText().toString());

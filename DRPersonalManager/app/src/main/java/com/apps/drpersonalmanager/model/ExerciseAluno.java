@@ -2,13 +2,17 @@ package com.apps.drpersonalmanager.model;
 
 public class ExerciseAluno {
 
-    private String idExerc, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
+    private String idExerc, idImg, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
 
     public ExerciseAluno() {}
 
     public String getIdExerc() {return idExerc;}
 
     public void setIdExerc(String idExerc) {this.idExerc = idExerc;}
+
+    public String getIdImg() {return idImg;}
+
+    public void setIdImg(String idImg) {this.idImg = idImg;}
 
     public String getNomeExerc() {return nomeExerc;}
 
