@@ -2,6 +2,9 @@ package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_EXERCISES;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_VIDEOS;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,9 +40,9 @@ public class InfoExercActivity extends AppCompatActivity {
     private DatabaseReference refInfoExerc;
     private ValueEventListener valueEventListenerInfoExerc;
     private InfoExercDao infoExercDao = new InfoExercDao();
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    private StorageReference imagens = storageReference.child("images").child("exercises");
-    private StorageReference videos = storageReference.child("videos").child("exercises");
+    private StorageReference storageReference = ConfigFirebase.getStorageReference();
+    private StorageReference imagens = storageReference.child(CHAVE_ST_IMAGES).child(CHAVE_ST_EXERCISES);
+    private StorageReference videos = storageReference.child(CHAVE_ST_VIDEOS).child(CHAVE_ST_EXERCISES);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

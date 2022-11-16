@@ -67,7 +67,7 @@ public class ExerciciosActivity extends AppCompatActivity {
     private DatabaseReference exercAluno;
     private ValueEventListener valueEventListenerExerc;
     private Historico historico;
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    private StorageReference storageReference = ConfigFirebase.getStorageReference();
     private StorageReference imagens = storageReference.child("images").child("exercises");
     private String infoIdExerc = "imagem_indisponivel.jpg";
 

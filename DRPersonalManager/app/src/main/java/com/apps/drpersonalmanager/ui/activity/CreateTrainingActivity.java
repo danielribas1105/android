@@ -9,6 +9,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_EXERCICIO_EDIT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ID_SERIE;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SERIE;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -139,7 +140,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
 
     private void loadInfoTreino() {
         serie = campoNomeSerie.getText().toString();
-        idSerie = "serie" + serie;
+        idSerie = STR_SERIE + serie;
         objetivo = campoDescSerie.getText().toString();
     }
 
