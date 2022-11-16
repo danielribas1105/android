@@ -7,6 +7,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_MU
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.IMAGE_NOT_FOUND;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.dao.ExerciseDao;
+import com.apps.drpersonalmanager.helper.StringCustom;
 import com.apps.drpersonalmanager.model.Exercise;
 
 public class NewExerciseActivity extends AppCompatActivity {
@@ -71,7 +73,8 @@ public class NewExerciseActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.btn_menu_salvar_new_exercicio) {
             String nome = nomeExercNew.getText().toString();
             String idEx = System.currentTimeMillis()+"_"+
-                    nome.toLowerCase().replaceAll(" ","_");
+                    StringCustom.removerAcentos(nomeExercNew.getText().toString())
+                            .toLowerCase().replaceAll(" ","_");
             String descricao = descExercNew.getText().toString();
             exercise = new Exercise();
             exercise.setIdExerc(idEx);
@@ -79,6 +82,8 @@ public class NewExerciseActivity extends AppCompatActivity {
             exercise.setDescExerc(descricao);
             exercise.setIdImgExerc(IMAGE_NOT_FOUND);
             exerciseDao.salvarNewExercise(exercise, categoria, idEx);
+            nomeExercNew.setText("");
+            descExercNew.setText("");
             Toast.makeText(this, "Novo exercício "+nome+" salvo com sucesso!",
                     Toast.LENGTH_SHORT).show();
         }

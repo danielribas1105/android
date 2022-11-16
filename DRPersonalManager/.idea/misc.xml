@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/drawable/ic_camera_purple_24.xml" value="0.1725" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/drawable/ic_gallery_purple_24.xml" value="0.1725" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_alunos.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_create_training.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_edit_trainig.xml" value="0.25" />
@@ -11,6 +13,7 @@
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_make_training.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_manage_aluno.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_meu_perfil.xml" value="0.25" />
+        <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_my_profile.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_new_aluno.xml" value="0.25" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/activity_new_exercise.xml" value="0.2359375" />
         <entry key="..\:/Users/danie/Documents/GitHub/android/DRPersonalManager/app/src/main/res/layout/adapter_alunos.xml" value="0.24895833333333334" />
