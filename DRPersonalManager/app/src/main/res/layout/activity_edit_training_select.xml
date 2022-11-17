@@ -28,10 +28,9 @@
                 android:id="@+id/textView9"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:layout_weight="0.2"
+                android:gravity="center"
                 android:text="Série:"
-                android:textAlignment="textEnd"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
@@ -39,21 +38,20 @@
                 android:id="@+id/textSerieSelecao"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
+                android:layout_weight="0.1"
+                android:gravity="center"
                 android:text="A"
-                android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
             <TextView
-                android:id="@+id/textObjSelecao"
+                android:id="@+id/textExercSelecao"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:paddingStart="5dp"
                 android:text="Objetivo"
-                android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>

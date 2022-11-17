@@ -1,10 +1,16 @@
 package com.apps.drpersonalmanager.model;
 
-public class ExerciseAluno {
+import java.io.Serializable;
 
-    private String idExerc, idImg, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
+public class ExerciseAluno implements Serializable {
+
+    private String key, idExerc, idImg, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
 
     public ExerciseAluno() {}
+
+    public String getKey() {return key;}
+
+    public void setKey(String key) {this.key = key;}
 
     public String getIdExerc() {return idExerc;}
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.apps.drpersonalmanager" >
+    package="com.apps.drpersonalmanager">
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -21,7 +20,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DRPersonalManager"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".ui.activity.EditExerciseSelectActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.EditTrainingSelectActivity"
             android:exported="false" />
@@ -34,8 +36,7 @@
         <activity
             android:name=".ui.activity.NewExerciseActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity" >
-        </activity>
+            android:parentActivityName=".ui.activity.HomeActivity"></activity>
         <activity
             android:name=".ui.activity.MyProfileActivity"
             android:exported="false" />
@@ -51,7 +52,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.activity.MainActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

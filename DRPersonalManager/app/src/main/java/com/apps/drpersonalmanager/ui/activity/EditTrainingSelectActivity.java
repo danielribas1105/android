@@ -7,19 +7,28 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SERIE;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
+import com.apps.drpersonalmanager.dao.ExerciseDao;
 import com.apps.drpersonalmanager.helper.Base64Custom;
+import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.model.ExerciseAluno;
 import com.apps.drpersonalmanager.model.Training;
 import com.apps.drpersonalmanager.ui.adapter.TreinoSelectAdapter;
@@ -42,6 +51,7 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference exercTreinoAluno;
     private ValueEventListener valueEventListenerExercTreino;
+    private ExerciseDao exerciseDao = new ExerciseDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +59,7 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_training_select);
         setTitle("Editar Treino");
         nomeSerieSelect = findViewById(R.id.textSerieSelecao);
-        objSerieSelect = findViewById(R.id.textObjSelecao);
+        objSerieSelect = findViewById(R.id.textExercSelecao);
         recyclerTreinoSelect = findViewById(R.id.recyclerTreinoSelecao);
 
         training = (Training) getIntent().getSerializableExtra(CHAVE_TREINO_SELECT);
@@ -68,10 +78,54 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerTreinoSelect.setLayoutManager(layoutManager);
-        recyclerTreinoSelect.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        recyclerTreinoSelect.addItemDecoration(new DividerItemDecoration(this,
+                LinearLayout.VERTICAL));
         recyclerTreinoSelect.setHasFixedSize(true);
         recyclerTreinoSelect.setAdapter(treinoSelectAdapter);
 
+        recyclerTreinoSelect.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(), recyclerTreinoSelect,
+                new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                ExerciseAluno exerciseAlunoSelect = exerciseAlunos.get(position);
+                Intent i = new Intent(EditTrainingSelectActivity.this,
+                        EditExerciseSelectActivity.class);
+                i.putExtra(CHAVE_DB_EXERCICIOS_ALUNOS, exerciseAlunoSelect);
+                startActivity(i);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                ExerciseAluno exerciseAlunoSelect = exerciseAlunos.get(position);
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(EditTrainingSelectActivity.this);
+                alertDialog.setTitle("EXCLUIR EXERCÍCIO: " + exerciseAlunoSelect.getNomeExerc());
+                alertDialog.setMessage("O exercício selecionado será excluído definitivamente. Confirmar?");
+                alertDialog.setCancelable(false);
+                alertDialog.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        exerciseDao.excluirExerciseAluno(emailAluno,
+                                STR_SERIE + serieNomeSelect, exerciseAlunoSelect.getKey());
+                        Toast.makeText(EditTrainingSelectActivity.this,
+                                "Exercício excluído com sucesso!", Toast.LENGTH_SHORT).show();
+                    }
+                }).setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+                alertDialog.create();
+                alertDialog.show();
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        }
+        ));
     }
 
     public void loadExercTreinoSelect(String serie){
@@ -84,6 +138,7 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
                 exerciseAlunos.clear();
                 for (DataSnapshot infoTreinos : snapshot.getChildren()) {
                     ExerciseAluno exerciseAluno = infoTreinos.getValue(ExerciseAluno.class);
+                    exerciseAluno.setKey(infoTreinos.getKey());
                     exerciseAlunos.add(exerciseAluno);
                 }
                 treinoSelectAdapter.notifyDataSetChanged();
