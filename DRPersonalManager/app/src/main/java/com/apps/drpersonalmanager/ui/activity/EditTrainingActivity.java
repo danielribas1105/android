@@ -19,7 +19,7 @@ import com.apps.drpersonalmanager.dao.ExerciseDao;
 import com.apps.drpersonalmanager.model.Exercise;
 import com.apps.drpersonalmanager.model.ExerciseAluno;
 
-public class EditTrainigActivity extends AppCompatActivity {
+public class EditTrainingActivity extends AppCompatActivity {
 
     private TextView editNomeExerc;
     private EditText editQuantExerc, editPesoExerc, editObsExerc;
@@ -61,7 +61,7 @@ public class EditTrainigActivity extends AppCompatActivity {
                 exerciseAluno.setObsExerc(editObsExerc.getText().toString());
                 exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
 
-                Toast.makeText(EditTrainigActivity.this, "Exercício " +
+                Toast.makeText(EditTrainingActivity.this, "Exercício " +
                         exercSelect.getNomeExerc() + " salvo com sucesso!", Toast.LENGTH_SHORT).show();
                 finish();
             }

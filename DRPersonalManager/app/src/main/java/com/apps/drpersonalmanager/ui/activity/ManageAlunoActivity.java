@@ -4,6 +4,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_TREINO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SERIE;
 
 import android.content.Intent;
@@ -46,12 +47,10 @@ public class ManageAlunoActivity extends AppCompatActivity {
     private List<Training> trainings = new ArrayList<>();
     private List<ExerciseAluno> exerciseAlunos = new ArrayList<>();
     private TreinosAlunoAdapter treinosAlunoAdapter;
-    private TreinoSelectAdapter treinoSelectAdapter;
-    private RecyclerView recyclerTreinos, recyclerTreinoSelect;
+    private RecyclerView recyclerTreinos;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference treinoAluno, exercTreinoAluno;
-    private ValueEventListener valueEventListenerTreino, valueEventListenerExercTreino;
-    private String serieNomeSelect;
+    private DatabaseReference treinoAluno;
+    private ValueEventListener valueEventListenerTreino;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,16 +81,6 @@ public class ManageAlunoActivity extends AppCompatActivity {
         recyclerTreinos.setHasFixedSize(true);
         recyclerTreinos.setAdapter(treinosAlunoAdapter);
 
-        //Configurar adapter treino selecionado
-        loadExercTreinoSelect(serieNomeSelect);
-        treinoSelectAdapter = new TreinoSelectAdapter(exerciseAlunos,this);
-        //Configurar RecyclerView
-        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this);
-        recyclerTreinoSelect.setLayoutManager(layoutManager1);
-        recyclerTreinoSelect.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-        recyclerTreinoSelect.setHasFixedSize(true);
-        recyclerTreinoSelect.setAdapter(treinoSelectAdapter);
-
         recyclerTreinos.addOnItemTouchListener(new RecyclerItemClickListener(
                 getApplicationContext(), recyclerTreinos,
                 new RecyclerItemClickListener.OnItemClickListener() {
@@ -99,7 +88,9 @@ public class ManageAlunoActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 //Recuperar serie selecionada
                 Training trainingSelect = trainings.get(position);
-                serieNomeSelect = trainingSelect.getNomeSerie();
+                Intent i = new Intent(ManageAlunoActivity.this, EditTrainingSelectActivity.class);
+                i.putExtra(CHAVE_TREINO_SELECT,trainingSelect);
+                startActivity(i);
             }
 
             @Override
@@ -144,28 +135,6 @@ public class ManageAlunoActivity extends AppCompatActivity {
                     trainings.add(training);
                 }
                 treinosAlunoAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void loadExercTreinoSelect(String serie) {
-        idAluno = Base64Custom.codeToBase64(emailAluno);
-        exercTreinoAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
-                .child(idAluno).child(STR_SERIE+serie);
-        valueEventListenerExercTreino = exercTreinoAluno.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                exerciseAlunos.clear();
-                for (DataSnapshot infoTreinos : snapshot.getChildren()) {
-                    ExerciseAluno exerciseAluno = infoTreinos.getValue(ExerciseAluno.class);
-                    exerciseAlunos.add(exerciseAluno);
-                }
-                treinoSelectAdapter.notifyDataSetChanged();
             }
 
             @Override

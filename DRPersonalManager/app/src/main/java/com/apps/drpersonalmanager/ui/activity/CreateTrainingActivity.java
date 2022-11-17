@@ -109,7 +109,7 @@ public class CreateTrainingActivity extends AppCompatActivity {
                         Exercise exerciseSelected = exercises.get(position);
                         loadInfoTreino();
                         //Passar informações para a próxima activity
-                        Intent i = new Intent(CreateTrainingActivity.this, EditTrainigActivity.class);
+                        Intent i = new Intent(CreateTrainingActivity.this, EditTrainingActivity.class);
                         i.putExtra(CHAVE_EXERCICIO_EDIT, exerciseSelected)
                                 .putExtra(CHAVE_ALUNO_SELECT, idAluno)
                                 .putExtra(CHAVE_ID_SERIE, idSerie)
