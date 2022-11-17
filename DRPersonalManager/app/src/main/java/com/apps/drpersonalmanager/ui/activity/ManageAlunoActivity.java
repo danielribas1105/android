@@ -1,13 +1,17 @@
 package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SERIE;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,8 +24,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.Base64Custom;
+import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.model.Aluno;
+import com.apps.drpersonalmanager.model.ExerciseAluno;
 import com.apps.drpersonalmanager.model.Training;
+import com.apps.drpersonalmanager.ui.adapter.TreinoSelectAdapter;
 import com.apps.drpersonalmanager.ui.adapter.TreinosAlunoAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,11 +44,14 @@ public class ManageAlunoActivity extends AppCompatActivity {
     private Aluno alunoSelect;
     private String idAluno, nomeAluno, emailAluno, academiaAluno;
     private List<Training> trainings = new ArrayList<>();
+    private List<ExerciseAluno> exerciseAlunos = new ArrayList<>();
     private TreinosAlunoAdapter treinosAlunoAdapter;
-    private RecyclerView recyclerTreinos;
+    private TreinoSelectAdapter treinoSelectAdapter;
+    private RecyclerView recyclerTreinos, recyclerTreinoSelect;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference treinoAluno;
-    private ValueEventListener valueEventListenerTreino;
+    private DatabaseReference treinoAluno, exercTreinoAluno;
+    private ValueEventListener valueEventListenerTreino, valueEventListenerExercTreino;
+    private String serieNomeSelect;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +81,38 @@ public class ManageAlunoActivity extends AppCompatActivity {
         recyclerTreinos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerTreinos.setHasFixedSize(true);
         recyclerTreinos.setAdapter(treinosAlunoAdapter);
+
+        //Configurar adapter treino selecionado
+        loadExercTreinoSelect(serieNomeSelect);
+        treinoSelectAdapter = new TreinoSelectAdapter(exerciseAlunos,this);
+        //Configurar RecyclerView
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this);
+        recyclerTreinoSelect.setLayoutManager(layoutManager1);
+        recyclerTreinoSelect.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        recyclerTreinoSelect.setHasFixedSize(true);
+        recyclerTreinoSelect.setAdapter(treinoSelectAdapter);
+
+        recyclerTreinos.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(), recyclerTreinos,
+                new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                //Recuperar serie selecionada
+                Training trainingSelect = trainings.get(position);
+                serieNomeSelect = trainingSelect.getNomeSerie();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+            }
+        }
+        ));
 
     }
 
@@ -102,6 +144,28 @@ public class ManageAlunoActivity extends AppCompatActivity {
                     trainings.add(training);
                 }
                 treinosAlunoAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void loadExercTreinoSelect(String serie) {
+        idAluno = Base64Custom.codeToBase64(emailAluno);
+        exercTreinoAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
+                .child(idAluno).child(STR_SERIE+serie);
+        valueEventListenerExercTreino = exercTreinoAluno.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                exerciseAlunos.clear();
+                for (DataSnapshot infoTreinos : snapshot.getChildren()) {
+                    ExerciseAluno exerciseAluno = infoTreinos.getValue(ExerciseAluno.class);
+                    exerciseAlunos.add(exerciseAluno);
+                }
+                treinoSelectAdapter.notifyDataSetChanged();
             }
 
             @Override
