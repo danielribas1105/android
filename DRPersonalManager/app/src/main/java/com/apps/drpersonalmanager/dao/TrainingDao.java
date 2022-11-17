@@ -22,4 +22,9 @@ public class TrainingDao {
         reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL)
                 .child(idAluno).child(idSerie).setValue(training);
     }
+
+    public void excluirTreino(String idAluno, String idSerie){
+        reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL)
+                .child(idAluno).child(idSerie).removeValue();
+    }
 }

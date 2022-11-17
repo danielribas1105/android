@@ -22,4 +22,9 @@ public class ExerciseDao {
                 .child(idAluno).child(idserie).push().setValue(exerciseAluno);
     }
 
+    public void excluirSerieExercAluno(String idAluno, String idserie){
+        reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
+                .child(idAluno).child(idserie).removeValue();
+    }
+
 }
