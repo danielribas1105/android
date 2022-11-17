@@ -5,6 +5,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PERSONAL;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,8 +14,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
+import com.apps.drpersonalmanager.dao.AlunoDao;
 import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Personal;
@@ -47,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference findAlunos;
     private ValueEventListener valueEventListenerPersonal;
     private ValueEventListener valueEventListenerAlunos;
+    private AlunoDao alunoDao = new AlunoDao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +86,26 @@ public class HomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onLongItemClick(View view, int position) {
+                        Aluno alunoSelected = alunos.get(position);
+                        AlertDialog.Builder alertDialog = new AlertDialog.Builder(HomeActivity.this);
+                        alertDialog.setTitle("EXCLUIR ALUNO: " + alunoSelected.getNomeAluno());
+                        alertDialog.setMessage("A aluno selecionado será excluído definitivamente. Confirmar?");
+                        alertDialog.setCancelable(false);
+                        alertDialog.setPositiveButton("SIM", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        alunoDao.excluirAluno(alunoSelected.getEmailAluno());
+                                        Toast.makeText(HomeActivity.this,
+                                                "Aluno excluído com sucesso!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).setNegativeButton("NÃO", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
+                                    }
+                                });
+                        alertDialog.create();
+                        alertDialog.show();
                     }
 
                     @Override

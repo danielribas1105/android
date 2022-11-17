@@ -1,7 +1,9 @@
 package com.apps.drpersonalmanager.dao;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 
 import android.util.Log;
 import android.widget.Toast;
@@ -30,5 +32,14 @@ public class AlunoDao {
     public void salvarNovoAluno(Aluno aluno, String emailAluno){
         reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                 .child(Base64Custom.codeToBase64(emailAluno)).setValue(aluno);
+    }
+
+    public void excluirAluno(String emailAluno){
+        reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL)
+                .child(Base64Custom.codeToBase64(emailAluno)).removeValue();
+        reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
+                .child(Base64Custom.codeToBase64(emailAluno)).removeValue();
+        reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL)
+                .child(Base64Custom.codeToBase64(emailAluno)).removeValue();
     }
 }
