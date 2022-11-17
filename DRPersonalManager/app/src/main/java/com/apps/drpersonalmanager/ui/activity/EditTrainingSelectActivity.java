@@ -1,7 +1,9 @@
 package com.apps.drpersonalmanager.ui.activity;
 
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_TREINO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SERIE;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -30,7 +33,8 @@ import java.util.List;
 
 public class EditTrainingSelectActivity extends AppCompatActivity {
 
-    private String idAluno, emailAluno, serieNomeSelect;
+    private TextView nomeSerieSelect, objSerieSelect;
+    private String idAluno, emailAluno, serieNomeSelect, serieObjSelect;
     private Training training;
     private List<ExerciseAluno> exerciseAlunos = new ArrayList<>();
     private RecyclerView recyclerTreinoSelect;
@@ -43,19 +47,27 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_training_select);
+        setTitle("Editar Treino");
+        nomeSerieSelect = findViewById(R.id.textSerieSelecao);
+        objSerieSelect = findViewById(R.id.textObjSelecao);
+        recyclerTreinoSelect = findViewById(R.id.recyclerTreinoSelecao);
 
-        training = (Training) getIntent().getSerializableExtra(STR_SERIE);
+        training = (Training) getIntent().getSerializableExtra(CHAVE_TREINO_SELECT);
         if(training != null){
-            serieNomeSelect = STR_SERIE + training.getNomeSerie();
-            Log.i("serie",serieNomeSelect);
+            serieNomeSelect = training.getNomeSerie();
+            serieObjSelect = training.getDescSerie();
         }
+        emailAluno = (String) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
+
+        nomeSerieSelect.setText(serieNomeSelect);
+        objSerieSelect.setText(serieObjSelect);
 
         //Configurar adapter treino selecionado
-        //loadExercTreinoSelect(serieNomeSelect);
+        loadExercTreinoSelect(STR_SERIE + serieNomeSelect);
         treinoSelectAdapter = new TreinoSelectAdapter(exerciseAlunos,this);
         //Configurar RecyclerView
-        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this);
-        recyclerTreinoSelect.setLayoutManager(layoutManager1);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerTreinoSelect.setLayoutManager(layoutManager);
         recyclerTreinoSelect.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
         recyclerTreinoSelect.setHasFixedSize(true);
         recyclerTreinoSelect.setAdapter(treinoSelectAdapter);
@@ -65,7 +77,7 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
     public void loadExercTreinoSelect(String serie){
         idAluno = Base64Custom.codeToBase64(emailAluno);
         exercTreinoAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
-                .child(idAluno).child(STR_SERIE+serie);
+                .child(idAluno).child(serie);
         valueEventListenerExercTreino = exercTreinoAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

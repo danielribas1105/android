@@ -9,6 +9,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SE
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -89,7 +90,8 @@ public class ManageAlunoActivity extends AppCompatActivity {
                 //Recuperar serie selecionada
                 Training trainingSelect = trainings.get(position);
                 Intent i = new Intent(ManageAlunoActivity.this, EditTrainingSelectActivity.class);
-                i.putExtra(CHAVE_TREINO_SELECT,trainingSelect);
+                i.putExtra(CHAVE_TREINO_SELECT,trainingSelect)
+                        .putExtra(CHAVE_ALUNO_SELECT,emailAluno);
                 startActivity(i);
             }
 
