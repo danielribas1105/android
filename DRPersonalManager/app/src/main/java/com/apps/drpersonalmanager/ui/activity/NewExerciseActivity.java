@@ -28,7 +28,8 @@ public class NewExerciseActivity extends AppCompatActivity {
     private RadioGroup catSelect;
     private Exercise exercise;
     private ExerciseDao exerciseDao = new ExerciseDao();
-    private static String categoria = "";
+    private static String categoria;
+    private Boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +41,7 @@ public class NewExerciseActivity extends AppCompatActivity {
         nomeExercNew = findViewById(R.id.editTextNewExerc);
         descExercNew = findViewById(R.id.editTextNewDesc);
         catSelect = findViewById(R.id.rgCategoria);
-
         selectedCategory();
-
     }
 
     private void selectedCategory() {
@@ -51,12 +50,16 @@ public class NewExerciseActivity extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup radioGroup, int catId) {
                 if(catId == R.id.rbAerobico){
                     categoria = CAT_AEROBICO;
+                    flag = true;
                 }else if(catId == R.id.rbAbdominais){
                     categoria = CAT_ABDOMINAIS;
+                    flag = true;
                 }else if(catId == R.id.rbMuscSuper){
                     categoria = CAT_MUSC_SUPER;
+                    flag = true;
                 }else if(catId == R.id.rbMuscInfer){
                     categoria = CAT_MUSC_INFER;
+                    flag = true;
                 }
             }
         });
@@ -76,18 +79,35 @@ public class NewExerciseActivity extends AppCompatActivity {
                     StringCustom.removerAcentos(nomeExercNew.getText().toString())
                             .toLowerCase().replaceAll(" ","_");
             String descricao = descExercNew.getText().toString();
-            exercise = new Exercise();
-            exercise.setIdExerc(idEx);
-            exercise.setNomeExerc(nome);
-            exercise.setDescExerc(descricao);
-            exercise.setIdImgExerc(IMAGE_NOT_FOUND);
-            exerciseDao.salvarNewExercise(exercise, categoria, idEx);
-            nomeExercNew.setText("");
-            descExercNew.setText("");
-            Toast.makeText(this, "Novo exercício "+nome+" salvo com sucesso!",
-                    Toast.LENGTH_SHORT).show();
+            if(!nome.isEmpty()){
+                if(!descricao.isEmpty()){
+                    if(flag){
+                        exercise = new Exercise();
+                        exercise.setIdExerc(idEx);
+                        exercise.setNomeExerc(nome);
+                        exercise.setDescExerc(descricao);
+                        exercise.setIdImgExerc(IMAGE_NOT_FOUND);
+                        exerciseDao.salvarNewExercise(exercise, categoria, idEx);
+                        nomeExercNew.setText("");
+                        descExercNew.setText("");
+                        categoria = "";
+                        Toast.makeText(this, "Novo exercício "+nome+" salvo com sucesso!",
+                                Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(this, "Selecione a categoria do exercício!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(this, "Insira uma breve descrição sobre o exercício!", Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                Toast.makeText(this, "Insira o nome do exercício!", Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }

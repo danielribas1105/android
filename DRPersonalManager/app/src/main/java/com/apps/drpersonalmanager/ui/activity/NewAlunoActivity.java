@@ -56,6 +56,10 @@ public class NewAlunoActivity extends AppCompatActivity {
                             alunoNew.setAcademia(gymNewAluno.getText().toString());
                             alunoNew.setSenhaAluno("123456");
                             alunoDao.salvarNovoAluno(alunoNew,emailNewAluno.getText().toString());
+                            Toast.makeText(NewAlunoActivity.this,
+                                    "Aluno(a) "+ nomeNewAluno.getText().toString() + " salvo(a) com sucesso!",
+                                    Toast.LENGTH_SHORT).show();
+                            finish();
                         }else {
                             Toast.makeText(NewAlunoActivity.this, "Informe a academia!", Toast.LENGTH_SHORT).show();
                         }
@@ -65,11 +69,6 @@ public class NewAlunoActivity extends AppCompatActivity {
                 }else {
                     Toast.makeText(NewAlunoActivity.this, "Digite o nome!", Toast.LENGTH_SHORT).show();
                 }
-
-                Toast.makeText(NewAlunoActivity.this,
-                        "Aluno(a) "+ nomeNewAluno.getText().toString() + " salvo(a) com sucesso!",
-                        Toast.LENGTH_SHORT).show();
-                finish();
             }
         });
     }
