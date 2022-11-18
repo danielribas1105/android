@@ -28,6 +28,7 @@ import java.util.concurrent.Executor;
 public class AlunoDao {
 
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
 
     public void salvarNovoAluno(Aluno aluno, String emailAluno){
         reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL)

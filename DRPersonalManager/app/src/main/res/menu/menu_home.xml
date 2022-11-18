@@ -12,18 +12,11 @@
         android:title="Novo Aluno" />
 
     <item
-        android:id="@+id/btn_menu_exclui_aluno"
-        android:title="Excluir Aluno" />
-
-    <item
         android:id="@+id/btn_menu_novo_exercicio"
         android:title="Novo Exercício" />
 
     <item
-        android:id="@+id/btn_menu_exclui_exercicio"
-        android:title="Excluir Exercício" />
-    <item
         android:id="@+id/btn_menu_sair"
-        android:title="Sair" />
+        android:title="@string/sair" />
 
 </menu>

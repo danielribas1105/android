@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DR Personal Manager</string>
+    <string name="inserir">Inserir</string>
+    <string name="excluir">Excluir</string>
+    <string name="sair">Sair</string>
+    <string name="alunos">Alunos</string>
+    <string name="exercicios">Exercícios</string>
 </resources>
