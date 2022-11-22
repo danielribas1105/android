@@ -7,7 +7,6 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CAT_MU
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.IMAGE_NOT_FOUND;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;

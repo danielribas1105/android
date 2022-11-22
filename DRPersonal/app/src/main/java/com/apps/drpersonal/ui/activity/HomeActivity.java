@@ -17,7 +17,6 @@ import com.google.firebase.database.DatabaseReference;
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
-    private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         campoSenha = findViewById(R.id.editTextSenha);
         btnLogin = findViewById(R.id.btnEntrar);
 
-        validateUser();
+        //drvalidateUser();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
