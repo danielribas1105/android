@@ -15,6 +15,7 @@ public interface ConstantesActivities {
     String CHAVE_ST_IMAGES = "images";
     String CHAVE_ST_VIDEOS = "videos";
     String CHAVE_ST_EXERCISES = "exercises";
+    String STR_EMAIL = "email";
     String STR_SERIE = "serie";
     String CAT_AEROBICO = "aero";
     String CAT_ABDOMINAIS = "abdo";

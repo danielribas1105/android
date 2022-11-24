@@ -1,5 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,13 +27,13 @@ public class MainActivity extends AppCompatActivity {
     private EditText campoEmail, campoSenha;
     private Button btnLogin;
     private Aluno aluno;
-    private FirebaseAuth auth;
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //validateUser();
+        validateUser();
         campoEmail = findViewById(R.id.textEmailLog);
         campoSenha = findViewById(R.id.textSenhaLog);
         btnLogin = findViewById(R.id.btnLogin);
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                         aluno = new Aluno();
                         aluno.setEmailAluno(textoEmail);
                         aluno.setSenhaAluno(textoSenha);
-                        validateLogin();
+                        checkLogin();
                     }else {
                         Toast.makeText(MainActivity.this, "Digite uma senha!", Toast.LENGTH_SHORT).show();
                     }
@@ -57,8 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void validateLogin(){
-        auth = ConfigFirebase.getFirebaseAutenticacao();
+    public void checkLogin(){
         auth.signInWithEmailAndPassword(aluno.getEmailAluno(), aluno.getSenhaAluno())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -84,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void validateUser(){
-        auth = ConfigFirebase.getFirebaseAutenticacao();
         if(auth.getCurrentUser() != null){
             startActivity(new Intent(this, HomeActivity.class));
         }
