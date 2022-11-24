@@ -1,7 +1,11 @@
 package com.apps.drpersonal.model;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ACADEMIA_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EMAIL_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_NOME_ALUNO;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_SENHA_ALUNO;
 
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
@@ -28,10 +32,22 @@ public class Aluno implements Serializable {
         reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(this.idAluno).setValue(this);
     }
 
-    public void salvarPerfilAluno(){
+    public void salvarPerfilAluno(String nome, String email, String academia){
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno).setValue(this);
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+                .child(CHAVE_DB_NOME_ALUNO).setValue(nome);
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+                .child(CHAVE_DB_EMAIL_ALUNO).setValue(email);
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+                .child(CHAVE_DB_ACADEMIA_ALUNO).setValue(academia);
+    }
+
+    public void salvarNovaSenhaAluno(String novaSenha){
+        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+                .child(CHAVE_DB_SENHA_ALUNO).setValue(novaSenha);
     }
 
     @Exclude

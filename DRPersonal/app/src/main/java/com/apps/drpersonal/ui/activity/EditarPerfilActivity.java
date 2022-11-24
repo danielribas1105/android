@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaFeature;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -41,7 +40,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private ImageButton imgCamera, imgGallery;
     private CircleImageView campoFoto;
     private TextInputEditText campoNome, campoEmail, campoAcademia;
-    private Aluno aluno;
+    private Aluno alunoNew;
     private String idAluno;
     private DatabaseReference dataProfile;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
@@ -123,11 +122,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
     }
 
     private void salvarPerfil() {
-        aluno = new Aluno();
-        aluno.setNomeAluno(campoNome.getText().toString());
-        aluno.setEmailAluno(campoEmail.getText().toString());
-        aluno.setAcademia(campoAcademia.getText().toString());
-        aluno.salvarPerfilAluno();
+        alunoNew = new Aluno();
+        alunoNew.salvarPerfilAluno(campoNome.getText().toString(),
+                campoEmail.getText().toString(),campoAcademia.getText().toString());
     }
 
     @Override

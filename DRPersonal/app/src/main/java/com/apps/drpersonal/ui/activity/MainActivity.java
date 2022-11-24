@@ -1,16 +1,14 @@
 package com.apps.drpersonal.ui.activity;
 
-import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
@@ -43,30 +41,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String textoEmail = campoEmail.getText().toString();
                 String textoSenha = campoSenha.getText().toString();
-                if(!textoEmail.isEmpty()){
-                    if(!textoSenha.isEmpty()){
+                if (!textoEmail.isEmpty()) {
+                    if (!textoSenha.isEmpty()) {
                         aluno = new Aluno();
                         aluno.setEmailAluno(textoEmail);
                         aluno.setSenhaAluno(textoSenha);
                         checkLogin();
-                    }else {
+                    } else {
                         Toast.makeText(MainActivity.this, "Digite uma senha!", Toast.LENGTH_SHORT).show();
                     }
-                }else {
+                } else {
                     Toast.makeText(MainActivity.this, "Digite um e-mail!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
 
-    public void checkLogin(){
+    public void checkLogin() {
         auth.signInWithEmailAndPassword(aluno.getEmailAluno(), aluno.getSenhaAluno())
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             goToHome();
-                        }else {
+                        } else {
                             String erroDB;
                             try {
                                 throw task.getException();
@@ -84,13 +82,13 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    public void validateUser(){
-        if(auth.getCurrentUser() != null){
+    public void validateUser() {
+        if (auth.getCurrentUser() != null) {
             startActivity(new Intent(this, HomeActivity.class));
         }
     }
 
-    public void goToHome(){
+    public void goToHome() {
         startActivity(new Intent(this, HomeActivity.class));
         finish();
     }

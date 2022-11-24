@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,7 +28,7 @@ public class SwapPasswordActivity extends AppCompatActivity {
 
     private EditText campoSenhaAtual, campoNovaSenha;
     private Button btnSwapPass;
-    private String idAluno, emailAluno, senhaAluno;
+    private String emailAluno;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference alunoRef;
@@ -43,18 +44,19 @@ public class SwapPasswordActivity extends AppCompatActivity {
         btnSwapPass = findViewById(R.id.btnAlterarSenha);
 
         if(auth.getCurrentUser() != null){
-            idAluno = auth.getUid();
             emailAluno = auth.getCurrentUser().getEmail();
         }
-
-        Log.i("dados",idAluno);
-        Log.i("dados",emailAluno);
         loadSenhaAtual(emailAluno);
 
         btnSwapPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //salvarNovaSenha(emailAluno);
+                if(campoNovaSenha.getText().toString().length() >= 6){
+                    salvarNovaSenha(emailAluno);
+                }else {
+                    Toast.makeText(SwapPasswordActivity.this,
+                            "A senha deve conter no mínimo 6 caracteres!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -64,8 +66,9 @@ public class SwapPasswordActivity extends AppCompatActivity {
             alunoRef = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                     .child(Base64Custom.codeToBase64(email));
             Aluno aluno = new Aluno();
-            aluno.setSenhaAluno(campoNovaSenha.getText().toString());
-            aluno.salvarPerfilAluno();
+            aluno.salvarNovaSenhaAluno(campoNovaSenha.getText().toString());
+            Toast.makeText(this, "Senha alterada com sucesso!", Toast.LENGTH_SHORT).show();
+            finish();
         }
     }
 
@@ -77,7 +80,9 @@ public class SwapPasswordActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Aluno aluno = snapshot.getValue(Aluno.class);
-                    campoSenhaAtual.setText(aluno.getSenhaAluno());
+                    if(aluno != null){
+                        campoSenhaAtual.setText(aluno.getSenhaAluno());
+                    }
                 }
 
                 @Override

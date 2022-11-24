@@ -12,6 +12,10 @@ public interface ConstantesActivities {
     String CHAVE_DB_EXERCICIOS = "exercicios";
     String CHAVE_DB_EXERCICIOS_ALUNO = "exerciciosAlunos";
     String CHAVE_DB_HISTORICO = "historico";
+    String CHAVE_DB_NOME_ALUNO = "nomeAluno";
+    String CHAVE_DB_EMAIL_ALUNO = "emailAluno";
+    String CHAVE_DB_ACADEMIA_ALUNO = "academia";
+    String CHAVE_DB_SENHA_ALUNO = "senhaAluno";
     String CHAVE_ST_IMAGES = "images";
     String CHAVE_ST_VIDEOS = "videos";
     String CHAVE_ST_EXERCISES = "exercises";
