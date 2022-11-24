@@ -42,6 +42,7 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
         Glide.with(holder.imgExerc.getContext()).load(exercisesAluno.get(position).getIdImg()).into(holder.imgExerc);
         holder.nomeExerc.setText(exercisesAluno.get(position).getNomeExerc());
         holder.quantExerc.setText(exercisesAluno.get(position).getQuantExerc());
+        holder.pesoExerc.setText(exercisesAluno.get(position).getPesoExerc());
         holder.obsExerc.setText(exercisesAluno.get(position).getObsExerc());
     }
 
@@ -49,7 +50,7 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
     public int getItemCount() { return exercisesAluno.size(); }
 
     public class ExerciciosViewHolder extends RecyclerView.ViewHolder{
-        TextView nomeExerc, quantExerc, obsExerc;
+        TextView nomeExerc, quantExerc, pesoExerc, obsExerc;
         ImageView imgExerc;
 
         public ExerciciosViewHolder(@NonNull View itemView) {
@@ -57,6 +58,7 @@ public class ExerciciosAdapter extends RecyclerView.Adapter<ExerciciosAdapter.Ex
             imgExerc = itemView.findViewById(R.id.imgListExerc);
             nomeExerc = itemView.findViewById(R.id.textNomeExercise);
             quantExerc = itemView.findViewById(R.id.textQuantExerc);
+            pesoExerc = itemView.findViewById(R.id.textPesoExerc);
             obsExerc = itemView.findViewById(R.id.textObsExerc);
         }
     }

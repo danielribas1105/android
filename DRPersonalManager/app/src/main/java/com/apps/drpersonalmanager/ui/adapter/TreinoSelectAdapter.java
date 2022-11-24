@@ -10,10 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonalmanager.R;
-import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.model.ExerciseAluno;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TreinoSelectAdapter extends RecyclerView.Adapter<TreinoSelectAdapter.TreinoSelectViewHolder> {
@@ -36,7 +34,10 @@ public class TreinoSelectAdapter extends RecyclerView.Adapter<TreinoSelectAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TreinoSelectViewHolder holder, int position) {
-        holder.campoNomeExerc.setText(exerciseAlunos.get(position).getNomeExerc());
+        holder.nomeExerc.setText(exerciseAlunos.get(position).getNomeExerc());
+        holder.quantExerc.setText(exerciseAlunos.get(position).getQuantExerc());
+        holder.pesoExerc.setText(exerciseAlunos.get(position).getPesoExerc());
+        holder.obsExerc.setText(exerciseAlunos.get(position).getObsExerc());
     }
 
     @Override
@@ -44,11 +45,14 @@ public class TreinoSelectAdapter extends RecyclerView.Adapter<TreinoSelectAdapte
 
 
     public class TreinoSelectViewHolder extends RecyclerView.ViewHolder{
-        TextView campoNomeExerc;
+        TextView nomeExerc, quantExerc, pesoExerc, obsExerc;
 
         public TreinoSelectViewHolder(@NonNull View itemView) {
             super(itemView);
-            campoNomeExerc = itemView.findViewById(R.id.textExercSerieSelect);
+            nomeExerc = itemView.findViewById(R.id.textExercSerieSelect);
+            quantExerc = itemView.findViewById(R.id.textExercQuantSelect);
+            pesoExerc = itemView.findViewById(R.id.textExercPesoSelect);
+            obsExerc = itemView.findViewById(R.id.textExercObsSelect);
         }
     }
 }
