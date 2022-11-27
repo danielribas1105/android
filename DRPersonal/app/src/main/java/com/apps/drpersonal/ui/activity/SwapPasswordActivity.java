@@ -38,6 +38,8 @@ public class SwapPasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swap_password);
+        setTitle("Alterar Senha");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         campoSenhaAtual = findViewById(R.id.editTextSenhaAtual);
         campoNovaSenha = findViewById(R.id.editTextNovaSenha);

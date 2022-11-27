@@ -15,7 +15,7 @@
     <string name="title_activity_desc_exerc">DescExercActivity</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="texto_saudacao">Vamos treinar!!! Selecione uma das séries abaixo e vamos começar.</string>
+    <string name="texto_saudacao">Vamos treinar!!!</string>
     <string name="menu_salvar">Salvar</string>
     <string name="str_descricao">Descrição de como executar o exercício selecionado.</string>
 

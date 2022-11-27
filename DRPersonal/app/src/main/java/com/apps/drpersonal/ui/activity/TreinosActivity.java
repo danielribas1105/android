@@ -1,6 +1,5 @@
 package com.apps.drpersonal.ui.activity;
 
-import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_TREINOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_TRAINING;
@@ -10,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +20,6 @@ import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
-import com.apps.drpersonal.model.Aluno;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.TreinosAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,12 +33,10 @@ import java.util.List;
 
 public class TreinosActivity extends AppCompatActivity {
 
-    private TextView campoHello;
     private String idAluno;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference alunoDB, treinoAluno;
-    private ValueEventListener valueEventListenerAluno;
+    private DatabaseReference treinoAluno;
     private ValueEventListener valueEventListenerTreino;
     private TreinosAdapter treinosAdapter;
     private List<Training> trainings = new ArrayList<>();
@@ -51,14 +46,10 @@ public class TreinosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_treinos);
-
         getSupportActionBar().setTitle("Meus Treinos");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        campoHello = findViewById(R.id.textHello);
         recyclerTraining = findViewById(R.id.recyclerTreinos);
-
-        getNomeAluno();
 
         //Configurar Adapter
         loadTraining();
@@ -99,22 +90,6 @@ public class TreinosActivity extends AppCompatActivity {
 
     }
 
-    public void getNomeAluno() {
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        alunoDB = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
-        valueEventListenerAluno = alunoDB.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Aluno aluno = snapshot.getValue(Aluno.class);
-                campoHello.setText("Olá, " + aluno.getNomeAluno() + "!");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-    }
-
     public void loadTraining() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         treinoAluno = reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
@@ -139,14 +114,12 @@ public class TreinosActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getNomeAluno();
         loadTraining();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        alunoDB.removeEventListener(valueEventListenerAluno);
         treinoAluno.removeEventListener(valueEventListenerTreino);
     }
 }
