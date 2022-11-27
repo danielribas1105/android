@@ -8,6 +8,10 @@
         android:title="Meu Perfil" />
 
     <item
+        android:id="@+id/btn_menu_alterar_senha"
+        android:title="Alterar Senha" />
+
+    <item
         android:id="@+id/btn_menu_novo_aluno"
         android:title="Novo Aluno" />
 

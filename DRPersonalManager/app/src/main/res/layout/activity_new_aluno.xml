@@ -87,20 +87,92 @@
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         tools:ignore="SpeakableTextPresentCheck" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNewGymAluno">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Aniversário:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextDataNiver"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*Formato: dd/aaaa"
+                android:textColor="@color/orange" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dia de Pagamento:"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/editTextDiaPagamento"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="*Digite apenas o dia"
+                android:textColor="@color/orange" />
+        </LinearLayout>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/textView18"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="OBS.: Será inserida uma senha padrão para o aluno - 123456"
         android:textAlignment="center"
         android:textColor="@color/orange"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editNewGymAluno" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
 
     <Button
         android:id="@+id/btnSalvarNovoAluno"

@@ -128,6 +128,9 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.btn_menu_meu_perfil:
                 startActivity(new Intent(this, MyProfileActivity.class));
                 break;
+            case R.id.btn_menu_alterar_senha:
+                startActivity(new Intent(this, SwapPasswordActivity.class));
+                break;
             case R.id.btn_menu_novo_aluno:
                 startActivity(new Intent(this, NewAlunoActivity.class));
                 break;

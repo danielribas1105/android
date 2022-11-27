@@ -22,6 +22,9 @@
         android:theme="@style/Theme.DRPersonalManager"
         tools:targetApi="31">
         <activity
+            android:name=".ui.activity.SwapPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.EditExerciseSelectActivity"
             android:exported="false" />
         <activity
@@ -36,7 +39,7 @@
         <activity
             android:name=".ui.activity.NewExerciseActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+            android:parentActivityName=".ui.activity.HomeActivity" />
         <activity
             android:name=".ui.activity.MyProfileActivity"
             android:exported="false" />

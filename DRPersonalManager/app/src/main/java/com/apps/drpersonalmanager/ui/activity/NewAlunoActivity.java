@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 public class NewAlunoActivity extends AppCompatActivity {
 
     private EditText nomeNewAluno, emailNewAluno, gymNewAluno;
+    private EditText dataNiver, diaPagamento;
     private Button btnSaveNewAluno;
     private Aluno alunoNew;
     private AlunoDao alunoDao = new AlunoDao();
@@ -34,10 +35,12 @@ public class NewAlunoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_aluno);
-
+        setTitle("Inserir Novo Aluno");
         nomeNewAluno = findViewById(R.id.editNewNomeAluno);
         emailNewAluno = findViewById(R.id.editNewEmailAluno);
         gymNewAluno = findViewById(R.id.editNewGymAluno);
+        dataNiver = findViewById(R.id.editTextDataNiver);
+        diaPagamento = findViewById(R.id.editTextDiaPagamento);
         btnSaveNewAluno = findViewById(R.id.btnSalvarNovoAluno);
 
         btnSaveNewAluno.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +57,8 @@ public class NewAlunoActivity extends AppCompatActivity {
                             alunoNew.setNomeAluno(nomeNewAluno.getText().toString());
                             alunoNew.setEmailAluno(emailNewAluno.getText().toString());
                             alunoNew.setAcademia(gymNewAluno.getText().toString());
+                            alunoNew.setDataNiver(dataNiver.getText().toString());
+                            alunoNew.setDiaPagamento(Integer.parseInt(diaPagamento.getText().toString()));
                             alunoNew.setSenhaAluno("123456");
                             alunoDao.salvarNovoAluno(alunoNew,emailNewAluno.getText().toString());
                             Toast.makeText(NewAlunoActivity.this,

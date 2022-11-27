@@ -8,8 +8,9 @@ public class Aluno implements Serializable {
     private String nomeAluno;
     private String emailAluno;
     private String senhaAluno;
-    private String dataInicio;
+    private String dataNiver;
     private String academia;
+    private int diaPagamento;
 
     public Aluno() {}
 
@@ -45,13 +46,9 @@ public class Aluno implements Serializable {
         this.senhaAluno = senhaAluno;
     }
 
-    public String getDataInicio() {
-        return dataInicio;
-    }
+    public String getDataNiver() {return dataNiver;}
 
-    public void setDataInicio(String dataInicio) {
-        this.dataInicio = dataInicio;
-    }
+    public void setDataNiver(String dataNiver) {this.dataNiver = dataNiver;}
 
     public String getAcademia() {
         return academia;
@@ -60,4 +57,8 @@ public class Aluno implements Serializable {
     public void setAcademia(String academia) {
         this.academia = academia;
     }
+
+    public int getDiaPagamento() {return diaPagamento;}
+
+    public void setDiaPagamento(int diaPagamento) {this.diaPagamento = diaPagamento;}
 }

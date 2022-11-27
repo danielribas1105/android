@@ -52,9 +52,9 @@
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:hint="Nome"
         app:boxBackgroundColor="@android:color/transparent"
         app:boxCollapsedPaddingTop="10dp"
@@ -72,9 +72,9 @@
         android:id="@+id/textInputLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginEnd="16dp"
         android:hint="E-mail"
         app:boxBackgroundColor="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,22 +87,16 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
-        android:hint="Academia"
-        app:boxBackgroundColor="@android:color/transparent"
+    <Button
+        android:id="@+id/btnAtualizarDados"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="Atualizar Dados"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextAcademia"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
