@@ -2,10 +2,8 @@ package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
-import static com.apps.drpersonal.ui.activity.ConstantesActivities.STR_EMAIL;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,7 +43,7 @@ public class SwapPasswordActivity extends AppCompatActivity {
         campoNovaSenha = findViewById(R.id.editTextNovaSenha);
         btnSwapPass = findViewById(R.id.btnAlterarSenha);
 
-        if(auth.getCurrentUser() != null){
+        if (auth.getCurrentUser() != null) {
             emailAluno = auth.getCurrentUser().getEmail();
         }
         loadSenhaAtual(emailAluno);
@@ -53,9 +51,9 @@ public class SwapPasswordActivity extends AppCompatActivity {
         btnSwapPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(campoNovaSenha.getText().toString().length() >= 6){
+                if (campoNovaSenha.getText().toString().length() >= 6) {
                     salvarNovaSenha(emailAluno);
-                }else {
+                } else {
                     Toast.makeText(SwapPasswordActivity.this,
                             "A senha deve conter no mínimo 6 caracteres!", Toast.LENGTH_SHORT).show();
                 }
@@ -64,7 +62,7 @@ public class SwapPasswordActivity extends AppCompatActivity {
     }
 
     private void salvarNovaSenha(String email) {
-        if(auth.getCurrentUser() != null) {
+        if (auth.getCurrentUser() != null) {
             alunoRef = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                     .child(Base64Custom.codeToBase64(email));
             Aluno aluno = new Aluno();
@@ -75,14 +73,14 @@ public class SwapPasswordActivity extends AppCompatActivity {
     }
 
     private void loadSenhaAtual(String email) {
-        if(auth.getCurrentUser() != null){
+        if (auth.getCurrentUser() != null) {
             alunoRef = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                     .child(Base64Custom.codeToBase64(email));
             valueEventListenerOldPass = alunoRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Aluno aluno = snapshot.getValue(Aluno.class);
-                    if(aluno != null){
+                    if (aluno != null) {
                         campoSenhaAtual.setText(aluno.getSenhaAluno());
                     }
                 }
