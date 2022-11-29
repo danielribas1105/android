@@ -1,16 +1,14 @@
 package com.apps.whatsup.ui.activity;
 
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -56,27 +54,14 @@ public class EditarPerfilActivity extends AppCompatActivity {
         imgCamera = findViewById(R.id.imgBtnCamera);
         imgGallery = findViewById(R.id.imgBtnGaleria);
 
-        /*
-        ActivityResultLauncher<String> register =
-                registerForActivityResult(new ActivityResultContracts.GetContent(),
-                        new ActivityResultCallback<Uri>() {
-                            @Override
-                            public void onActivityResult(Uri result) {
-
-                            }
-                        });
-
-         */
-
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(i.resolveActivity(getPackageManager()) != null){
+                arlCamera.launch(i);
+                /*if(i.resolveActivity(getPackageManager()) != null){
                     //startActivityForResult(i,SELECT_CAMERA);
-                    //register.launch(String.valueOf(i));
-                }
+                } */
 
             }
         });
@@ -85,20 +70,67 @@ public class EditarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                if(i.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(i,SELECT_GALLERY);
-                }
+                arlPicture.launch(i);
+                //if(i.resolveActivity(getPackageManager()) != null){
+               //     startActivityForResult(i,SELECT_GALLERY);
+               // }
+
             }
         });
 
     }
 
+    ActivityResultLauncher<Intent> arlCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == Activity.RESULT_OK){
+                    Intent imgInfo = result.getData();
+                    Bitmap imagem = null;
+                    try{
+                        imagem = (Bitmap) imgInfo.getExtras().get("data");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //Configurar a imagem recebida
+                    if(imagem != null){
+                        circleImageView.setImageBitmap(imagem);
+                    }else{
+                        Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
+    ActivityResultLauncher<Intent> arlPicture = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == Activity.RESULT_OK){
+                    Intent imgInfo = result.getData();
+                    Uri localImgSelected = imgInfo.getData();
+                    Bitmap imagem = null;
+                    try{
+                        imagem = MediaStore.Images.Media
+                                .getBitmap(getContentResolver(),localImgSelected);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //Configurar a imagem recebida
+                    if(imagem != null){
+                        circleImageView.setImageBitmap(imagem);
+                    }else{
+                        Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
+
+    /*
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             Bitmap imagem = null;
-
             try{
                 switch (requestCode){
                     case SELECT_CAMERA:
@@ -125,6 +157,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         }
 
     }
+
+     */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
