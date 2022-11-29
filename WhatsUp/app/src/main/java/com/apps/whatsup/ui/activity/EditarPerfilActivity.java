@@ -85,7 +85,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
                 if(i.resolveActivity(getPackageManager()) != null){
                     startActivityForResult(i,SELECT_GALLERY);
                 }
