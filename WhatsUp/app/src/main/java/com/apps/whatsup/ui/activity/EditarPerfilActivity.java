@@ -1,5 +1,7 @@
 package com.apps.whatsup.ui.activity;
 
+import static com.apps.whatsup.ui.activity.ConstantesActivities.CHAVE_ST_USERS;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -16,12 +18,20 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.apps.whatsup.R;
+import com.apps.whatsup.config.ConfigFirebase;
 import com.apps.whatsup.helper.Consent;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,8 +39,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private ImageButton imgCamera, imgGallery;
     private CircleImageView circleImageView;
+    private String idUser;
     private static final int SELECT_CAMERA = 100;
     private static final int SELECT_GALLERY = 200;
+    private StorageReference storageReference = ConfigFirebase.getStorageReference();
+    private StorageReference storageImg;
 
     private String[] consent = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -53,6 +66,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         circleImageView = findViewById(R.id.imgCirclePerfil);
         imgCamera = findViewById(R.id.imgBtnCamera);
         imgGallery = findViewById(R.id.imgBtnGaleria);
+
+        idUser = (String) getIntent().getSerializableExtra(CHAVE_ST_USERS);
 
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +109,29 @@ public class EditarPerfilActivity extends AppCompatActivity {
                     //Configurar a imagem recebida
                     if(imagem != null){
                         circleImageView.setImageBitmap(imagem);
+                        //Recuperar dados da imagem para o Firebase
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+                        byte[] dadosImagem = baos.toByteArray();
+
+                        //Salvar imagem no Firebase
+                        storageImg = storageReference.child("images")
+                                .child("profiles")
+                                .child(idUser + ".jpg");
+
+                        UploadTask uploadTask = storageImg.putBytes(dadosImagem);
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EditarPerfilActivity.this, "Falha ao salvar a imagem!", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(EditarPerfilActivity.this, "Imagem salva com sucesso!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
                     }else{
                         Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
                     }

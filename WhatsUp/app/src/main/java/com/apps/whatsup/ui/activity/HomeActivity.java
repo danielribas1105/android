@@ -1,5 +1,7 @@
 package com.apps.whatsup.ui.activity;
 
+import static com.apps.whatsup.ui.activity.ConstantesActivities.CHAVE_ST_USERS;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 
 import com.apps.whatsup.R;
 import com.apps.whatsup.config.ConfigFirebase;
+import com.apps.whatsup.helper.Base64Custom;
 import com.apps.whatsup.ui.fragments.ContatosFragment;
 import com.apps.whatsup.ui.fragments.ConversasFragment;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +28,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 public class HomeActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
+    private String idUser;
     private SmartTabLayout smartTabLayout;
     private ViewPager viewPager;
 
@@ -36,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
         smartTabLayout = findViewById(R.id.viewPagerTab);
         viewPager = findViewById(R.id.viewPager);
         auth = ConfigFirebase.getFirebaseAutenticacao();
+        idUser = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
 
         Toolbar toolbar = findViewById(R.id.toolbarHome);
         toolbar.setTitle("WhatsUp");
@@ -69,14 +74,12 @@ public class HomeActivity extends AppCompatActivity {
                 finish();
                 break;
             case R.id.menuEditar:
-                editUser();
+                Intent i = new Intent(HomeActivity.this, EditarPerfilActivity.class);
+                i.putExtra(CHAVE_ST_USERS,idUser);
+                startActivity(i);
                 break;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void editUser() {
-        startActivity(new Intent(HomeActivity.this, EditarPerfilActivity.class));
     }
 
     public void deslogarUser(){
