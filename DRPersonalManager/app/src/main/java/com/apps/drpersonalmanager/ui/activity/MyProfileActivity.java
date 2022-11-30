@@ -24,6 +24,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.exifinterface.media.ExifInterface;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -41,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -121,11 +123,23 @@ public class MyProfileActivity extends AppCompatActivity {
             result -> {
                 if(result.getResultCode() == Activity.RESULT_OK){
                     Intent imgInfo = result.getData();
-                    //Uri localImgSelected = imgInfo.getData();
-                    //Bitmap imagemRotate = null;
+                    /*Uri localImgSelected = imgInfo.getData();
+                    ExifInterface exif = null;
+                    try {
+                        exif = new ExifInterface(String.valueOf(localImgSelected));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
+                    Log.i("grau", String.valueOf(orientation));
+                    Bitmap imagemRotate = null;
+
+                     */
                     Bitmap imagem = null;
                     try{
                         imagem = (Bitmap) imgInfo.getExtras().get("data");
+
+                        //imagemRotate = ImageCustom.imgRotate(imagem,orientation);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

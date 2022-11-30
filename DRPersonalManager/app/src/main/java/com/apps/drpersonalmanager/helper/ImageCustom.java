@@ -24,38 +24,48 @@ public class ImageCustom {
 
      */
 
-    public static Bitmap imgRotate(Bitmap imagem, String path){
-
-        ExifInterface exif = null;
-        try {
-            //data carrega imagem, mas está retornando zero sempre! Mas não dá erro.
-            exif = new ExifInterface(path);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String orientacao = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
-
-        int codigoOrientacao = Integer.parseInt(orientacao);
-        int i=0;
-        switch (codigoOrientacao) {
-            case ExifInterface.ORIENTATION_NORMAL:
-                i = 0;
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                i = 90;
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                i = 180;
-                break;
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                i = 270;
-                break;
-        }
+    public static Bitmap imgRotate(Bitmap imagem, int orientation){
 
         Matrix matrix = new Matrix();
-        matrix.setRotate(i);
-        Bitmap bitmap = Bitmap
-                .createBitmap(imagem,0,0,imagem.getWidth(),imagem.getHeight(),matrix,true);
-        return bitmap;
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_NORMAL:
+                return imagem;
+            case ExifInterface.ORIENTATION_FLIP_HORIZONTAL:
+                matrix.setScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                matrix.setRotate(180);
+                break;
+            case ExifInterface.ORIENTATION_FLIP_VERTICAL:
+                matrix.setRotate(180);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_TRANSPOSE:
+                matrix.setRotate(90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                matrix.setRotate(90);
+                break;
+            case ExifInterface.ORIENTATION_TRANSVERSE:
+                matrix.setRotate(-90);
+                matrix.postScale(-1, 1);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                matrix.setRotate(-90);
+                break;
+            default:
+                return imagem;
+        }
+        try {
+            Bitmap bmRotated = Bitmap.createBitmap(imagem, 0, 0,
+                    imagem.getWidth(), imagem.getHeight(), matrix, true);
+            imagem.recycle();
+            return bmRotated;
+        }
+        catch (OutOfMemoryError e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
