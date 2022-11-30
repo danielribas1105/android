@@ -28,6 +28,7 @@ import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.Consent;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Aluno;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -55,7 +56,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private String idAluno;
     private DatabaseReference dataProfile;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private FirebaseAuth authPerfil = ConfigFirebase.getFirebaseAutenticacao();
     private ValueEventListener valueEventListenerProfile;
     private StorageReference storageReference = ConfigFirebase.getStorageReference();
     private StorageReference fotoPerfil;
@@ -83,7 +83,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmail);
         campoAcademia = findViewById(R.id.editTextAcademia);
-        idAluno = Base64Custom.codeToBase64(authPerfil.getCurrentUser().getEmail());
+        idAluno = UsersFirebase.getIdUserAuth();
         loadProfile();
 
         imgCamera.setOnClickListener(new View.OnClickListener() {
@@ -123,8 +123,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
                         byte[] dadosImagem = baos.toByteArray();
 
                         //Salvar imagem no Firebase
-                        fotoPerfil = storageReference.child("images")
-                                .child("fotoAlunos")
+                        fotoPerfil = storageReference.child(CHAVE_ST_IMAGES)
+                                .child(CHAVE_ST_PROFILE_ALUNOS)
                                 .child(idAluno + ".jpg");
 
                         UploadTask uploadTask = fotoPerfil.putBytes(dadosImagem);
@@ -174,9 +174,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         dataProfile = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         StorageReference fotoRef = storageReference.child(CHAVE_ST_IMAGES)
                 .child(CHAVE_ST_PROFILE_ALUNOS).child(idAluno + ".jpg");
-        Log.i("Id",fotoRef.toString());
-        Log.i("Id",idAluno);
-        fotoRef.getDownloadUrl().addOnSuccessListener(EditarPerfilActivity.this, new OnSuccessListener<Uri>() {
+        fotoRef.getDownloadUrl().addOnSuccessListener(EditarPerfilActivity.this,
+                new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(EditarPerfilActivity.this).load(uri).into(campoFoto);
@@ -184,7 +183,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
         }).addOnFailureListener(EditarPerfilActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditarPerfilActivity.this, "Erro ao fazer download da imagem", Toast.LENGTH_LONG).show();
+                Toast.makeText(EditarPerfilActivity.this, "Erro ao fazer download da imagem",
+                        Toast.LENGTH_LONG).show();
             }
         });
         valueEventListenerProfile = dataProfile.addValueEventListener(new ValueEventListener() {

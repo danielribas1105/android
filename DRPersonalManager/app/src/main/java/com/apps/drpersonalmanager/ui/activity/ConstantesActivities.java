@@ -12,6 +12,7 @@ public interface ConstantesActivities {
     String CHAVE_DB_IDPERSONAL = Base64Custom.codeToBase64("drpersonal@gmail.com");
     String CHAVE_ST_IMAGES = "images";
     String CHAVE_ST_EXERCISES = "exercises";
+    String CHAVE_ST_PROFILE_PERSONAL = "profilePersonal";
     String CHAVE_ALUNO_SELECT = "idAluno";
     String CHAVE_TREINO_SELECT = "treinoSelecionado";
     String CHAVE_ID_SERIE = "idSerie";

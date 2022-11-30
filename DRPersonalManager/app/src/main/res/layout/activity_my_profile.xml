@@ -8,7 +8,7 @@
     tools:context=".ui.activity.MyProfileActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_perfil"
+        android:id="@+id/imgPerfilPersonal"
         android:layout_width="0dp"
         android:layout_height="200dp"
         android:layout_marginStart="24dp"
@@ -25,11 +25,11 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@color/design_default_color_background"
-        app:layout_constraintBottom_toBottomOf="@+id/image_perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPerfilPersonal"
         app:layout_constraintEnd_toStartOf="@+id/imgBtnGaleria"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_perfil"
+        app:layout_constraintTop_toTopOf="@+id/imgPerfilPersonal"
         app:layout_constraintVertical_bias="0.9"
         app:srcCompat="@drawable/ic_camera_purple_24"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -39,11 +39,11 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@color/design_default_color_background"
-        app:layout_constraintBottom_toBottomOf="@+id/image_perfil"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPerfilPersonal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/imgBtnCamera"
-        app:layout_constraintTop_toTopOf="@+id/image_perfil"
+        app:layout_constraintTop_toTopOf="@+id/imgPerfilPersonal"
         app:layout_constraintVertical_bias="0.9"
         app:srcCompat="@drawable/ic_gallery_purple_24"
         tools:ignore="SpeakableTextPresentCheck" />
@@ -60,7 +60,7 @@
         app:boxCollapsedPaddingTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_perfil">
+        app:layout_constraintTop_toBottomOf="@+id/imgPerfilPersonal">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editTextNome"
