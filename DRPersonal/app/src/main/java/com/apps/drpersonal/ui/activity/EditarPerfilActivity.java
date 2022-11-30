@@ -2,11 +2,18 @@ package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_ALUNOS;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -20,6 +27,7 @@ import android.widget.Toast;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.Consent;
 import com.apps.drpersonal.model.Aluno;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -32,6 +40,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,18 +57,25 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private FirebaseAuth authPerfil = ConfigFirebase.getFirebaseAutenticacao();
     private ValueEventListener valueEventListenerProfile;
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    private StorageReference fotoPerfil = storageReference.child("images").child("fotoAlunos");
+    private StorageReference storageReference = ConfigFirebase.getStorageReference();
+    private StorageReference fotoPerfil;
     private static final int SELECT_CAMERA = 100;
     private static final int SELECT_GALLERY = 200;
+
+    private String[] consent = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
-
         getSupportActionBar().setTitle("Editar Perfil");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //Validar permissões
+        Consent.validateConsent(consent, this, 1);
 
         campoFoto = findViewById(R.id.profile_image);
         imgCamera = findViewById(R.id.imgBtnCamera);
@@ -65,16 +83,14 @@ public class EditarPerfilActivity extends AppCompatActivity {
         campoNome = findViewById(R.id.editTextNome);
         campoEmail = findViewById(R.id.editTextEmail);
         campoAcademia = findViewById(R.id.editTextAcademia);
-
+        idAluno = Base64Custom.codeToBase64(authPerfil.getCurrentUser().getEmail());
         loadProfile();
 
         imgCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(i.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(i,SELECT_CAMERA);
-                }
+                arlCamera.launch(i);
             }
         });
 
@@ -82,18 +98,84 @@ public class EditarPerfilActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                if(i.resolveActivity(getPackageManager()) != null){
-                    startActivityForResult(i,SELECT_GALLERY);
-                }
+                arlPicture.launch(i);
             }
         });
     }
 
+    ActivityResultLauncher<Intent> arlCamera = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == Activity.RESULT_OK){
+                    Intent imgInfo = result.getData();
+                    Bitmap imagem = null;
+                    try{
+                        imagem = (Bitmap) imgInfo.getExtras().get("data");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //Configurar a imagem recebida
+                    if(imagem != null){
+                        campoFoto.setImageBitmap(imagem);
+                        //Recuperar dados da imagem para o Firebase
+                        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+                        byte[] dadosImagem = baos.toByteArray();
+
+                        //Salvar imagem no Firebase
+                        fotoPerfil = storageReference.child("images")
+                                .child("fotoAlunos")
+                                .child(idAluno + ".jpg");
+
+                        UploadTask uploadTask = fotoPerfil.putBytes(dadosImagem);
+                        uploadTask.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(EditarPerfilActivity.this, "Falha ao salvar a imagem!", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(EditarPerfilActivity.this, "Imagem salva com sucesso!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                    }else{
+                        Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
+    ActivityResultLauncher<Intent> arlPicture = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if(result.getResultCode() == Activity.RESULT_OK){
+                    Intent imgInfo = result.getData();
+                    Uri localImgSelected = imgInfo.getData();
+                    Bitmap imagem = null;
+                    try{
+                        imagem = MediaStore.Images.Media
+                                .getBitmap(getContentResolver(),localImgSelected);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    //Configurar a imagem recebida
+                    if(imagem != null){
+                        campoFoto.setImageBitmap(imagem);
+                    }else{
+                        Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+
     private void loadProfile() {
-        idAluno = Base64Custom.codeToBase64(authPerfil.getCurrentUser().getEmail());
         dataProfile = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
-        StorageReference fotoRef = fotoPerfil.child(idAluno + ".jpg");
+        StorageReference fotoRef = storageReference.child(CHAVE_ST_IMAGES)
+                .child(CHAVE_ST_PROFILE_ALUNOS).child(idAluno + ".jpg");
         Log.i("Id",fotoRef.toString());
+        Log.i("Id",idAluno);
         fotoRef.getDownloadUrl().addOnSuccessListener(EditarPerfilActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {

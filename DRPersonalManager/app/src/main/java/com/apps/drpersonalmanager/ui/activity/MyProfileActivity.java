@@ -6,6 +6,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.Base64Custom;
+import com.apps.drpersonalmanager.helper.Consent;
 import com.apps.drpersonalmanager.model.Personal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -30,11 +32,20 @@ public class MyProfileActivity extends AppCompatActivity {
     private DatabaseReference refPersonal;
     private ValueEventListener valueEventListenerPersonal;
 
+    private String[] consent = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
         setTitle("Editar Perfil");
+
+        //Validar permissões
+        Consent.validateConsent(consent, this, 1);
+
         editNome = findViewById(R.id.editTextNome);
         editEmail = findViewById(R.id.editTextEmail);
         btnAtualizaDados = findViewById(R.id.btnAtualizarDados);
