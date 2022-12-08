@@ -16,6 +16,10 @@ public class Personal {
 
     public Personal() {}
 
+    public void salvarNewPersonal(){
+        reference.child(CHAVE_DB_PERSONAL).child(this.idPersonal).setValue(this);
+    }
+
     public void salvarPerfilPersonal(String nome, String email){
         reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL)
                 .child("nomePersonal").setValue(nome);

@@ -10,14 +10,14 @@ public class ConfigFirebase {
 
     private static FirebaseAuth auth;
     private static DatabaseReference reference;
-    private static StorageReference storageReference;
+    private static StorageReference storage;
 
     //Retorna a instância do Firebase Storage
-    public static StorageReference getStorageReference(){
-        if(storageReference == null){
-            storageReference = FirebaseStorage.getInstance().getReference();
+    public static StorageReference getStorage(){
+        if(storage == null){
+            storage = FirebaseStorage.getInstance().getReference();
         }
-        return storageReference;
+        return storage;
     }
 
     //Retorna a instância do Firebase Database

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 public class MainActivity extends AppCompatActivity {
 
     private EditText campoEmail, campoSenha;
+    public TextView criarConta;
     private Button btnLogin;
     private Personal personal;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         campoEmail = findViewById(R.id.editTextEmail);
         campoSenha = findViewById(R.id.editTextSenha);
         btnLogin = findViewById(R.id.btnEntrar);
+        criarConta = findViewById(R.id.textCreateNewPersonal);
 
         validateUser();
 
@@ -64,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
             goToHome();
         }
+    }
+
+    public void goToRegister(View view){
+        startActivity(new Intent(MainActivity.this, RegistrationActivity.class));
+        finish();
     }
 
     public void checkLogin() {

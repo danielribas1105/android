@@ -8,12 +8,10 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,16 +22,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.exifinterface.media.ExifInterface;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.Consent;
-import com.apps.drpersonalmanager.helper.ImageCustom;
+import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Personal;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,7 +40,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -54,7 +51,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private CircleImageView imgProfilePersonal;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refPersonal;
-    private StorageReference storageReference = ConfigFirebase.getStorageReference();
+    private StorageReference storageReference = ConfigFirebase.getStorage();
     private StorageReference storagePersonal;
     private ValueEventListener valueEventListenerPersonal;
 
@@ -71,6 +68,10 @@ public class MyProfileActivity extends AppCompatActivity {
 
         //Validar permissões
         Consent.validateConsent(consent, this, 1);
+
+        //Recuperar Usuário Atual
+        FirebaseUser user = UsersFirebase.getUserActual();
+
 
         imgProfilePersonal = findViewById(R.id.imgPerfilPersonal);
         editNome = findViewById(R.id.editTextNome);
@@ -156,7 +157,7 @@ public class MyProfileActivity extends AppCompatActivity {
                                 .child(CHAVE_ST_PROFILE_PERSONAL)
                                 .child(CHAVE_DB_IDPERSONAL + ".jpg");
 
-                        UploadTask uploadTask = storagePersonal.putBytes(dadosImagem);
+                        UploadTask uploadTask = storagePersonal.putBytes(dadosImagem); //upload da imagem
                         uploadTask.addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
