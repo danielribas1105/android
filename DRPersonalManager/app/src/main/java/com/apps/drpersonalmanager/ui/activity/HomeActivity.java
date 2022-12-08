@@ -26,7 +26,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.dao.AlunoDao;
+import com.apps.drpersonalmanager.helper.Base64Custom;
 import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
+import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Personal;
 import com.apps.drpersonalmanager.ui.adapter.AlunosAdapter;
@@ -159,7 +161,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadAlunos() {
-        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL);
+        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(UsersFirebase.getIdUserAuth());
         valueEventListenerAlunos = findAlunos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -179,7 +181,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void getPersonalLog() {
-        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL);
+        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(UsersFirebase.getIdUserAuth());
         valueEventListenerPersonal = refDbPersonal.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

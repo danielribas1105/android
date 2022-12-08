@@ -82,8 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             String idUsuario = Base64Custom.codeToBase64(personal.getEmailPersonal());
-                            personal.setIdPersonal(idUsuario);
-                            personal.salvarNewPersonal();
+                            personal.salvarNewPersonal(idUsuario);
                             finish();
                             goToHome();
                         } else {
