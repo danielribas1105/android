@@ -1,60 +1,59 @@
 package com.apps.drpersonalmanager.ui.activity;
 
-import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
-import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PERSONAL;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Personal;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 public class SwapPasswordActivity extends AppCompatActivity {
 
-    private EditText campoSenhaAtual, campoNovaSenha;
+    private EditText campoNovaSenha, campoConfNovaSenha;
     private Button btnSwapPass;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
-    private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference refPassPersonal;
-    private ValueEventListener valueEventListenerPersonal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_swap_password);
         setTitle("Alterar Senha");
-        campoSenhaAtual = findViewById(R.id.editTextSenhaAtual);
         campoNovaSenha = findViewById(R.id.editTextNovaSenha);
+        campoConfNovaSenha = findViewById(R.id.editTextConfNovaSenha);
         btnSwapPass = findViewById(R.id.btnAlterarSenha);
-
-        loadPasswordActual();
 
         btnSwapPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String newPassword = campoNovaSenha.getText().toString();
-                if(!newPassword.isEmpty()){
-                    if(!(newPassword.length() < 6)){
-                        salvarNewPassword(newPassword);
-                        finish();
-                    }else{
-                        Toast.makeText(SwapPasswordActivity.this, "A nova senha deve conter pelo menos 6 caracteres!", Toast.LENGTH_SHORT).show();
+                String confNewPassword = campoConfNovaSenha.getText().toString();
+                if (!newPassword.isEmpty() && !confNewPassword.isEmpty()) {
+                    if (!(newPassword.length() < 6) && !(confNewPassword.length() < 6)) {
+                        if (confNewPassword.equals(newPassword)) {
+                            salvarNewPassword(confNewPassword);
+                            auth.signOut();
+                            goToStart();
+                        } else {
+                            Toast.makeText(SwapPasswordActivity.this,
+                                    "Os campos Nova Senha e Confirmar Nova Senha não são iguais!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(SwapPasswordActivity.this,
+                                "A nova senha deve conter pelo menos 6 caracteres!",
+                                Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(SwapPasswordActivity.this, "O campo nova senha não pode estar vazio!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SwapPasswordActivity.this,
+                            "Os campos não podem estar vazios!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -62,32 +61,18 @@ public class SwapPasswordActivity extends AppCompatActivity {
 
     }
 
-    private void salvarNewPassword(String newPassword) {
-        Personal personal = new Personal();
-        personal.atualizarSenhaPersonal(newPassword);
-        if(UsersFirebase.changePassWord(newPassword)){
-            Toast.makeText(SwapPasswordActivity.this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(this, "Erro ao atualizar senha!", Toast.LENGTH_SHORT).show();
-        }
+    private void goToStart() {
+        startActivity(new Intent(SwapPasswordActivity.this, MainActivity.class));
+        finish();
     }
 
-    private void loadPasswordActual() {
-        if(auth.getCurrentUser() != null){
-            refPassPersonal = reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL);
-            valueEventListenerPersonal = refPassPersonal.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Personal passPersonal = snapshot.getValue(Personal.class);
-                    campoSenhaAtual.setText(passPersonal.getSenhaPersonal());
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+    private void salvarNewPassword(String pass) {
+        Personal personal = new Personal();
+        personal.atualizarSenhaPersonal(pass);
+        if (UsersFirebase.changePassWord(pass)) {
+            Toast.makeText(SwapPasswordActivity.this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Erro ao atualizar senha!", Toast.LENGTH_SHORT).show();
         }
-
     }
 }
