@@ -20,4 +20,10 @@ public class UsersFirebase {
     public static FirebaseUser getUserActual(){
         return auth.getCurrentUser();
     }
+
+    public static boolean changePassWord(String pass){
+        FirebaseUser user = getUserActual();
+        user.updatePassword(pass);
+        return true;
+    }
 }

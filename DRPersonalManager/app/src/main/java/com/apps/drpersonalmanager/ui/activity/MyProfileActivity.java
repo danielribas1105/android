@@ -161,12 +161,20 @@ public class MyProfileActivity extends AppCompatActivity {
                         uploadTask.addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(MyProfileActivity.this, "Falha ao salvar a imagem!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MyProfileActivity.this,
+                                        "Falha ao salvar a imagem!", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(MyProfileActivity.this, "Imagem salva com sucesso!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MyProfileActivity.this,
+                                        "Imagem salva com sucesso!", Toast.LENGTH_SHORT).show();
+                                storagePersonal.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
+
+                                    }
+                                });
                             }
                         });
 

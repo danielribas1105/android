@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnEntrar);
         criarConta = findViewById(R.id.textCreateNewPersonal);
 
-        validateUser();
+        //drvalidateUser();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override

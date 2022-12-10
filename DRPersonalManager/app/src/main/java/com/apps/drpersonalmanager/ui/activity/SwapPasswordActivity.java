@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
+import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Personal;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -48,7 +49,6 @@ public class SwapPasswordActivity extends AppCompatActivity {
                 if(!newPassword.isEmpty()){
                     if(!(newPassword.length() < 6)){
                         salvarNewPassword(newPassword);
-                        Toast.makeText(SwapPasswordActivity.this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show();
                         finish();
                     }else{
                         Toast.makeText(SwapPasswordActivity.this, "A nova senha deve conter pelo menos 6 caracteres!", Toast.LENGTH_SHORT).show();
@@ -65,6 +65,11 @@ public class SwapPasswordActivity extends AppCompatActivity {
     private void salvarNewPassword(String newPassword) {
         Personal personal = new Personal();
         personal.atualizarSenhaPersonal(newPassword);
+        if(UsersFirebase.changePassWord(newPassword)){
+            Toast.makeText(SwapPasswordActivity.this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(this, "Erro ao atualizar senha!", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void loadPasswordActual() {
