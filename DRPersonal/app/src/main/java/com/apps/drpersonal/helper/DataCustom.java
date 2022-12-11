@@ -38,12 +38,19 @@ public class DataCustom {
 
     public static String previousMonth(String data) {
         String mesAno[] = data.split(" ");
-        for (int i = 0; i < 12; i++) {
-            if (mesAno[0].equals(month[i])) {
-                mesAno[0] = month[i - 1];
-                break;
+        Integer ano = Integer.valueOf(mesAno[1]);
+        if(mesAno[0].equals("Janeiro")){
+            mesAno[0] = "Dezembro";
+            mesAno[1] = String.valueOf(ano = ano - 1);
+        }else {
+            for (int i = 0; i < 12; i++) {
+                if (mesAno[0].equals(month[i])) {
+                    mesAno[0] = month[i - 1];
+                    break;
+                }
             }
         }
+
         return mesAno[0] + " " + mesAno[1];
     }
 
@@ -61,12 +68,19 @@ public class DataCustom {
 
     public static String nextMonth(String data) {
         String mesAno[] = data.split(" ");
-        for (int i = 0; i < 12; i++) {
-            if (mesAno[0].equals(month[i])) {
-                mesAno[0] = month[i + 1];
-                break;
+        Integer ano = Integer.valueOf(mesAno[1]);
+        if(mesAno[0].equals("Dezembro")){
+            mesAno[0] = "Janeiro";
+            mesAno[1] = String.valueOf(ano = ano + 1);
+        }else{
+            for (int i = 0; i < 12; i++) {
+                if (mesAno[0].equals(month[i])) {
+                    mesAno[0] = month[i + 1];
+                    break;
+                }
             }
         }
+
         return mesAno[0] + " " + mesAno[1];
     }
 
