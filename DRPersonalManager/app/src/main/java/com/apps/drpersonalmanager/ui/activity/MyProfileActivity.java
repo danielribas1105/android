@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
@@ -46,7 +47,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProfileActivity extends AppCompatActivity {
 
-    private EditText editNome, editEmail;
+    private EditText editNome;
+    private TextView textEmail;
     private ImageButton btnCamera, btnGaleria;
     private Button btnAtualizaDados;
     private CircleImageView imgProfilePersonal;
@@ -75,8 +77,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
         imgProfilePersonal = findViewById(R.id.imgPerfilPersonal);
-        editNome = findViewById(R.id.editTextNome);
-        editEmail = findViewById(R.id.editTextEmail);
+        editNome = findViewById(R.id.editNome);
+        textEmail = findViewById(R.id.textViewEmail);
         btnCamera = findViewById(R.id.imgBtnCamera);
         btnGaleria = findViewById(R.id.imgBtnGaleria);
         btnAtualizaDados = findViewById(R.id.btnAtualizarDados);
@@ -103,15 +105,11 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nomePersonal = editNome.getText().toString();
-                String emailPersonal = editEmail.getText().toString();
                 if(!nomePersonal.isEmpty()){
-                    if(!emailPersonal.isEmpty()){
-                        salvarPersonalInfo(nomePersonal, emailPersonal);
-                        Toast.makeText(MyProfileActivity.this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }else {
-                        Toast.makeText(MyProfileActivity.this, "Campo e-mail não pode ser vazio!", Toast.LENGTH_SHORT).show();
-                    }
+                    Personal personal = new Personal();
+                    personal.salvarPerfilPersonal(nomePersonal);
+                    Toast.makeText(MyProfileActivity.this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                    finish();
                 }else{
                     Toast.makeText(MyProfileActivity.this, "Campo nome não pode estar vazio!", Toast.LENGTH_SHORT).show();
                 }
@@ -209,11 +207,6 @@ public class MyProfileActivity extends AppCompatActivity {
                 }
             });
 
-    private void salvarPersonalInfo(String nomePersonal, String emailPersonal) {
-        Personal personal = new Personal();
-        personal.salvarPerfilPersonal(nomePersonal,emailPersonal);
-    }
-
     private void loadPersonalProfile() {
         refPersonal = reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL);
         storagePersonal = storageReference.child(CHAVE_ST_IMAGES).child(CHAVE_ST_PROFILE_PERSONAL)
@@ -235,7 +228,7 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Personal personal = snapshot.getValue(Personal.class);
                 editNome.setText(personal.getNomePersonal());
-                editEmail.setText(personal.getEmailPersonal());
+                textEmail.setText(personal.getEmailPersonal());
             }
 
             @Override
