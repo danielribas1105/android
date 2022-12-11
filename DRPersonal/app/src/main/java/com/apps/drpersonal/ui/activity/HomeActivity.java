@@ -2,13 +2,18 @@ package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_ALUNOS;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,12 +21,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Aluno;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,6 +43,8 @@ public class HomeActivity extends AppCompatActivity {
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference alunoDB;
+    private StorageReference storageReference = ConfigFirebase.getStorageReference();
+    private StorageReference fotoAluno;
     private ValueEventListener valueEventListenerAluno;
 
     @Override
@@ -41,7 +53,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         campoHomeFotoAluno = findViewById(R.id.imgFotoAluno);
         campoHello = findViewById(R.id.textHello);
-        getNomeAluno();
+        getProfileAluno();
     }
 
     @Override
@@ -68,8 +80,22 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void getNomeAluno() {
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+    public void getProfileAluno() {
+        idAluno = UsersFirebase.getIdUserAuth();
+        fotoAluno = storageReference.child(CHAVE_ST_IMAGES).child(CHAVE_ST_PROFILE_ALUNOS)
+                .child(idAluno + ".jpg");
+        fotoAluno.getDownloadUrl().addOnSuccessListener(HomeActivity.this,
+                new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(HomeActivity.this).load(uri).into(campoHomeFotoAluno);
+            }
+        }).addOnFailureListener(HomeActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("foto", "Erro ao carregar a imagem de perfil");
+            }
+        });
         alunoDB = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         valueEventListenerAluno = alunoDB.addValueEventListener(new ValueEventListener() {
             @Override
@@ -99,7 +125,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getNomeAluno();
+        getProfileAluno();
     }
 
     @Override

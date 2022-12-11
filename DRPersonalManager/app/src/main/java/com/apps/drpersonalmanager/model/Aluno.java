@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Aluno implements Serializable {
 
     private String idAluno;
+    private String idImgAluno;
     private String nomeAluno;
     private String emailAluno;
     private String senhaAluno;
@@ -21,6 +22,10 @@ public class Aluno implements Serializable {
     public void setIdAluno(String idAluno) {
         this.idAluno = idAluno;
     }
+
+    public String getIdImgAluno() {return idImgAluno;}
+
+    public void setIdImgAluno(String idImgAluno) {this.idImgAluno = idImgAluno;}
 
     public String getNomeAluno() {
         return nomeAluno;

@@ -11,8 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.model.Aluno;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AlunosAdapter extends RecyclerView.Adapter<AlunosAdapter.AlunosViewHolder> {
 
@@ -34,6 +37,8 @@ public class AlunosAdapter extends RecyclerView.Adapter<AlunosAdapter.AlunosView
 
     @Override
     public void onBindViewHolder(@NonNull AlunosViewHolder holder, int position) {
+        Glide.with(holder.fotoAluno.getContext()).load(alunos.get(position).getIdImgAluno())
+                .into(holder.fotoAluno);
         holder.aluno.setText(alunos.get(position).getNomeAluno());
         holder.academia.setText(alunos.get(position).getAcademia());
     }
@@ -46,9 +51,11 @@ public class AlunosAdapter extends RecyclerView.Adapter<AlunosAdapter.AlunosView
     public class AlunosViewHolder extends RecyclerView.ViewHolder {
 
         TextView aluno, academia;
+        CircleImageView fotoAluno;
 
         public AlunosViewHolder(@NonNull View itemView) {
             super(itemView);
+            fotoAluno = itemView.findViewById(R.id.imgPerfilAluno);
             aluno = itemView.findViewById(R.id.textNomeAluno);
             academia = itemView.findViewById(R.id.textAcademia);
         }

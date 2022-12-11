@@ -13,6 +13,8 @@ public interface ConstantesActivities {
     String CHAVE_ST_IMAGES = "images";
     String CHAVE_ST_EXERCISES = "exercises";
     String CHAVE_ST_PROFILE_PERSONAL = "profilePersonal";
+    String CHAVE_ST_PROFILE_ALUNOS = "profileAlunos";
+    String CHAVE_ST_ID_IMG_PADRAO = "https://firebasestorage.googleapis.com/v0/b/dr-personal-68282.appspot.com/o/images%2Fhelper%2Fpadrao.jpg?alt=media&token=0c631b17-d920-4e4f-aa19-bcf5f81c466f";
     String CHAVE_ALUNO_SELECT = "idAluno";
     String CHAVE_TREINO_SELECT = "treinoSelecionado";
     String CHAVE_ID_SERIE = "idSerie";

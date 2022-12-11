@@ -59,8 +59,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerProfile;
     private StorageReference storageReference = ConfigFirebase.getStorageReference();
     private StorageReference fotoPerfil;
-    private static final int SELECT_CAMERA = 100;
-    private static final int SELECT_GALLERY = 200;
+    //private static final int SELECT_CAMERA = 100;
+    //private static final int SELECT_GALLERY = 200;
 
     private String[] consent = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -183,8 +183,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         }).addOnFailureListener(EditarPerfilActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EditarPerfilActivity.this, "Erro ao fazer download da imagem",
-                        Toast.LENGTH_LONG).show();
+                Log.d("foto", "Erro ao carregar a imagem de perfil");
             }
         });
         valueEventListenerProfile = dataProfile.addValueEventListener(new ValueEventListener() {

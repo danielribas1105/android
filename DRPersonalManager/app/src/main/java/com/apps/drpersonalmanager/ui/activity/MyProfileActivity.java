@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -226,7 +227,7 @@ public class MyProfileActivity extends AppCompatActivity {
         }).addOnFailureListener(MyProfileActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MyProfileActivity.this, "Erro ao fazer download da imagem!", Toast.LENGTH_SHORT).show();
+                Log.d("foto", "Erro ao carregar a imagem de perfil");
             }
         });
         valueEventListenerPersonal = refPersonal.addValueEventListener(new ValueEventListener() {

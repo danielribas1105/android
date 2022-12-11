@@ -2,12 +2,16 @@ package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
-import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PERSONAL;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_ALUNOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_PERSONAL;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,24 +30,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.dao.AlunoDao;
-import com.apps.drpersonalmanager.helper.Base64Custom;
 import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Aluno;
 import com.apps.drpersonalmanager.model.Personal;
 import com.apps.drpersonalmanager.ui.adapter.AlunosAdapter;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class HomeActivity extends AppCompatActivity {
 
     private TextView campoHello;
+    private CircleImageView fotoPerfil;
+    private String idPersonal;
     private AlunosAdapter alunosAdapter;
     private RecyclerView recyclerViewAlunos;
     private List<Aluno> alunos = new ArrayList<>();
@@ -51,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refDbPersonal;
     private DatabaseReference findAlunos;
+    private StorageReference storageReference = ConfigFirebase.getStorage();
+    private StorageReference fotoPersonal;
     private ValueEventListener valueEventListenerPersonal;
     private ValueEventListener valueEventListenerAlunos;
     private AlunoDao alunoDao = new AlunoDao();
@@ -61,7 +74,10 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         campoHello = findViewById(R.id.textHomeOla);
+        fotoPerfil = findViewById(R.id.imgFotoPersonal);
         recyclerViewAlunos = findViewById(R.id.recyclerMeusAlunos);
+
+        idPersonal = UsersFirebase.getIdUserAuth();
 
         //Configurar Adapter
         loadAlunos();
@@ -148,20 +164,44 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        getPersonalLog();
-    }
+    private void getProfilePersonal() {
+        fotoPersonal = storageReference.child(CHAVE_ST_IMAGES).child(CHAVE_ST_PROFILE_PERSONAL)
+                .child(idPersonal + ".jpg");
+        fotoPersonal.getDownloadUrl().addOnSuccessListener(HomeActivity.this,
+                new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(HomeActivity.this).load(uri).into(fotoPerfil);
+            }
+        }).addOnFailureListener(HomeActivity.this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("foto", "Erro ao carregar a imagem de perfil");
+            }
+        });
+        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(idPersonal);
+        valueEventListenerPersonal = refDbPersonal.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Personal personal = snapshot.getValue(Personal.class);
+                String hello = "Olá, " + personal.getNomePersonal() + "!";
+                if(personal.getNomePersonal() != null){
+                    campoHello.setText(hello);
+                }else{
+                    campoHello.setText("Usuário não encontrado!");
+                }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        refDbPersonal.removeEventListener(valueEventListenerPersonal);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void loadAlunos() {
-        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(UsersFirebase.getIdUserAuth());
+        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(idPersonal);
         valueEventListenerAlunos = findAlunos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -180,20 +220,16 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    private void getPersonalLog() {
-        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(UsersFirebase.getIdUserAuth());
-        valueEventListenerPersonal = refDbPersonal.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Personal personal = snapshot.getValue(Personal.class);
-                campoHello.setText("Olá, " + personal.getNomePersonal() + "!");
-            }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        getProfilePersonal();
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+    @Override
+    protected void onStop() {
+        super.onStop();
+        refDbPersonal.removeEventListener(valueEventListenerPersonal);
     }
 
 }

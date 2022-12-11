@@ -1,5 +1,7 @@
 package com.apps.drpersonalmanager.ui.activity;
 
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ST_ID_IMG_PADRAO;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -54,13 +56,14 @@ public class NewAlunoActivity extends AppCompatActivity {
                         if(!textoAcademia.isEmpty()){
                             createAluno();
                             alunoNew = new Aluno();
-                            alunoNew.setNomeAluno(nomeNewAluno.getText().toString());
-                            alunoNew.setEmailAluno(emailNewAluno.getText().toString());
-                            alunoNew.setAcademia(gymNewAluno.getText().toString());
+                            alunoNew.setIdImgAluno(CHAVE_ST_ID_IMG_PADRAO);
+                            alunoNew.setNomeAluno(textoNome);
+                            alunoNew.setEmailAluno(textoEmail);
+                            alunoNew.setAcademia(textoAcademia);
                             alunoNew.setDataNiver(dataNiver.getText().toString());
                             alunoNew.setDiaPagamento(Integer.parseInt(diaPagamento.getText().toString()));
                             alunoNew.setSenhaAluno("123456");
-                            alunoDao.salvarNovoAluno(alunoNew,emailNewAluno.getText().toString());
+                            alunoDao.salvarNovoAluno(alunoNew,textoEmail);
                             Toast.makeText(NewAlunoActivity.this,
                                     "Aluno(a) "+ nomeNewAluno.getText().toString() + " salvo(a) com sucesso!",
                                     Toast.LENGTH_SHORT).show();

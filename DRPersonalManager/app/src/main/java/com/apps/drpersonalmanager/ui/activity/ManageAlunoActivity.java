@@ -9,6 +9,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SE
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +38,7 @@ import com.apps.drpersonalmanager.model.ExerciseAluno;
 import com.apps.drpersonalmanager.model.Training;
 import com.apps.drpersonalmanager.ui.adapter.TreinoSelectAdapter;
 import com.apps.drpersonalmanager.ui.adapter.TreinosAlunoAdapter;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,11 +48,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ManageAlunoActivity extends AppCompatActivity {
 
     private TextView campoNome, campoAcademia;
+    private CircleImageView fotoAluno;
     private Aluno alunoSelect;
-    private String idAluno, nomeAluno, emailAluno, academiaAluno;
+    private String idAluno, idFotoAluno, nomeAluno, emailAluno, academiaAluno;
     private List<Training> trainings = new ArrayList<>();
     private List<ExerciseAluno> exerciseAlunos = new ArrayList<>();
     private TreinosAlunoAdapter treinosAlunoAdapter;
@@ -67,16 +72,19 @@ public class ManageAlunoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_manage_aluno);
         getSupportActionBar().setTitle("Aluno");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        fotoAluno = findViewById(R.id.fotoPerfilAluno);
         campoNome = findViewById(R.id.textAlunoSelect);
         campoAcademia = findViewById(R.id.textAcademiaSelect);
         recyclerTreinos = findViewById(R.id.recyclerTreinosAluno);
 
         alunoSelect = (Aluno) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
         if (alunoSelect != null) {
+            idFotoAluno = alunoSelect.getIdImgAluno();
             nomeAluno = alunoSelect.getNomeAluno();
             emailAluno = alunoSelect.getEmailAluno();
             academiaAluno = alunoSelect.getAcademia();
         }
+        Glide.with(ManageAlunoActivity.this).load(Uri.parse(idFotoAluno)).into(fotoAluno);
         campoNome.setText(nomeAluno);
         campoAcademia.setText(academiaAluno);
 
