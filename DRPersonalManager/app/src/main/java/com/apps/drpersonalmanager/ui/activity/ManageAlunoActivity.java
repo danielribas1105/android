@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -177,10 +178,17 @@ public class ManageAlunoActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.btn_add_treino) {
-            Intent i = new Intent(ManageAlunoActivity.this, CreateTrainingActivity.class);
-            i.putExtra(CHAVE_ALUNO_SELECT, alunoSelect);
-            startActivity(i);
+        switch (item.getItemId()){
+            case R.id.btn_add_treino:
+                Intent iTreino = new Intent(ManageAlunoActivity.this, CreateTrainingActivity.class);
+                iTreino.putExtra(CHAVE_ALUNO_SELECT, alunoSelect);
+                startActivity(iTreino);
+                break;
+            case R.id.btn_historic_aluno:
+                Intent iHistoric = new Intent(ManageAlunoActivity.this, HistoricActivity.class);
+                iHistoric.putExtra(CHAVE_ALUNO_SELECT, alunoSelect);
+                startActivity(iHistoric);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

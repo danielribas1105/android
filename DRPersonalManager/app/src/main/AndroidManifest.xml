@@ -21,6 +21,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DRPersonalManager"
         tools:targetApi="31">
+
+        <activity
+            android:name=".ui.activity.HistoricActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.activity.ManageAlunoActivity">
+        </activity>
+
         <activity
             android:name=".ui.activity.RegistrationActivity"
             android:exported="false" />
@@ -39,23 +46,30 @@
         <activity
             android:name=".ui.activity.EditTrainingActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.activity.NewExerciseActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity" />
+            android:parentActivityName=".ui.activity.HomeActivity" >
+        </activity>
+
         <activity
             android:name=".ui.activity.MyProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ui.activity.CreateTrainingActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.activity.ManageAlunoActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity" />
+            android:parentActivityName=".ui.activity.HomeActivity" >
+        </activity>
+
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="false" />
+
         <activity
             android:name=".ui.activity.MainActivity"
             android:exported="true">

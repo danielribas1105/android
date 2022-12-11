@@ -8,4 +8,10 @@
         android:icon="@drawable/ic_add_white_24"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/btn_historic_aluno"
+        android:title="Histórico"
+        android:icon="@drawable/ic_historic_white_24"
+        app:showAsAction="always"/>
+
 </menu>
