@@ -56,14 +56,20 @@ public class DataCustom {
 
     public static String previousMonthDataBase(String mesAtual){
         String mesAno[] = mesAtual.split(" ");
-        Integer nextMonth = 0;
-        for (int i = 0; i < 12; i++) {
-            if (mesAno[0].equals(month[i])) {
-                nextMonth = i;
-                break;
+        Integer prevMonth = 0;
+        Integer ano = Integer.valueOf(mesAno[1]);
+        if(mesAno[0].equals("Janeiro")){
+            prevMonth = 12;
+            mesAno[1] = String.valueOf(ano = ano - 1);
+        }else{
+            for (int i = 0; i < 12; i++) {
+                if (mesAno[0].equals(month[i])) {
+                    prevMonth = i;
+                    break;
+                }
             }
         }
-        return String.format("%02d",nextMonth) + mesAno[1];
+        return String.format("%02d",prevMonth) + mesAno[1];
     }
 
     public static String nextMonth(String data) {
@@ -80,19 +86,25 @@ public class DataCustom {
                 }
             }
         }
-
         return mesAno[0] + " " + mesAno[1];
     }
 
     public static String nextMonthDataBase(String mesAtual) {
         String mesAno[] = mesAtual.split(" ");
         Integer nextMonth = 0;
-        for (int i = 0; i < 12; i++) {
-            if (mesAno[0].equals(month[i])) {
-                nextMonth = i + 2;
-                break;
+        Integer ano = Integer.valueOf(mesAno[1]);
+        if(mesAno[0].equals("Dezembro")){
+            nextMonth = 1;
+            mesAno[1] = String.valueOf(ano = ano + 1);
+        }else{
+            for (int i = 0; i < 12; i++) {
+                if (mesAno[0].equals(month[i])) {
+                    nextMonth = i + 2;
+                    break;
+                }
             }
         }
+
         return String.format("%02d",nextMonth) + mesAno[1];
     }
 

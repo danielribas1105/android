@@ -155,7 +155,7 @@ public class ExerciciosActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
                 idImgStorage = uri.toString();
-                Log.i("dados", "1- "+idImgStorage);
+                //Log.i("dados", "1- "+idImgStorage);
             }
         }).addOnFailureListener(ExerciciosActivity.this, new OnFailureListener() {
             @Override

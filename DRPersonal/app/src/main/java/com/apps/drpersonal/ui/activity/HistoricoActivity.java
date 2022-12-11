@@ -3,6 +3,7 @@ package com.apps.drpersonal.ui.activity;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_HISTORICO;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
