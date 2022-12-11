@@ -24,4 +24,10 @@ public class UsersFirebase {
         user.updatePassword(pass);
         return true;
     }
+
+    public static boolean changeEmail(String email){
+        FirebaseUser user = getUserActual();
+        user.updateEmail(email);
+        return true;
+    }
 }

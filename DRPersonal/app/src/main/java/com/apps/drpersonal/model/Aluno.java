@@ -4,6 +4,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ACAD
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EMAIL_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_NIVER_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_NOME_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_SENHA_ALUNO;
 
@@ -18,9 +19,11 @@ import java.io.Serializable;
 public class Aluno implements Serializable {
 
     private String idAluno;
+    private String idImgAluno;
     private String nomeAluno;
     private String emailAluno;
     private String senhaAluno;
+    private String dataNiver;
     private String dataInicio;
     private String academia;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
@@ -32,15 +35,15 @@ public class Aluno implements Serializable {
         reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(this.idAluno).setValue(this);
     }
 
-    public void salvarPerfilAluno(String nome, String email, String academia){
+    public void salvarPerfilAluno(String nome, String academia, String niver){
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
         referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
                 .child(CHAVE_DB_NOME_ALUNO).setValue(nome);
         referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
-                .child(CHAVE_DB_EMAIL_ALUNO).setValue(email);
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
                 .child(CHAVE_DB_ACADEMIA_ALUNO).setValue(academia);
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+                .child(CHAVE_DB_NIVER_ALUNO).setValue(niver);
     }
 
     public void salvarNovaSenhaAluno(String novaSenha){
@@ -58,6 +61,10 @@ public class Aluno implements Serializable {
     public void setIdAluno(String idAluno) {
         this.idAluno = idAluno;
     }
+
+    public String getIdImgAluno() {return idImgAluno;}
+
+    public void setIdImgAluno(String idImgAluno) {this.idImgAluno = idImgAluno;}
 
     public String getNomeAluno() { return nomeAluno;}
 
@@ -81,6 +88,10 @@ public class Aluno implements Serializable {
     public void setSenhaAluno(String senhaAluno) {
         this.senhaAluno = senhaAluno;
     }
+
+    public String getDataNiver() {return dataNiver;}
+
+    public void setDataNiver(String dataNiver) {this.dataNiver = dataNiver;}
 
     public String getDataInicio() {
         return dataInicio;

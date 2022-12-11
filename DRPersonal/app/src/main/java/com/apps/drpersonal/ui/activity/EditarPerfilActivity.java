@@ -21,7 +21,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.apps.drpersonal.R;
@@ -35,6 +37,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -51,9 +54,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     private ImageButton imgCamera, imgGallery;
     private CircleImageView campoFoto;
-    private TextInputEditText campoNome, campoEmail, campoAcademia;
+    private EditText campoNome, campoAcademia, campoNiver;
+    private TextView campoEmail;
     private Aluno alunoNew;
     private String idAluno;
+    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference dataProfile;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private ValueEventListener valueEventListenerProfile;
@@ -81,8 +86,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
         imgCamera = findViewById(R.id.imgBtnCamera);
         imgGallery = findViewById(R.id.imgBtnGaleria);
         campoNome = findViewById(R.id.editTextNome);
-        campoEmail = findViewById(R.id.editTextEmail);
         campoAcademia = findViewById(R.id.editTextAcademia);
+        campoNiver = findViewById(R.id.editTextNiver);
+        campoEmail = findViewById(R.id.textViewEmail);
         idAluno = UsersFirebase.getIdUserAuth();
         loadProfile();
 
@@ -191,8 +197,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Aluno alunoProfile = snapshot.getValue(Aluno.class);
                 campoNome.setText(alunoProfile.getNomeAluno());
-                campoEmail.setText(alunoProfile.getEmailAluno());
                 campoAcademia.setText(alunoProfile.getAcademia());
+                campoNiver.setText(alunoProfile.getDataNiver());
+                campoEmail.setText(alunoProfile.getEmailAluno());
             }
 
             @Override
@@ -205,7 +212,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void salvarPerfil() {
         alunoNew = new Aluno();
         alunoNew.salvarPerfilAluno(campoNome.getText().toString(),
-                campoEmail.getText().toString(),campoAcademia.getText().toString());
+                campoAcademia.getText().toString(), campoNiver.getText().toString());
     }
 
     @Override
