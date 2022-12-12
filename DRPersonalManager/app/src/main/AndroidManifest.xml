@@ -24,9 +24,7 @@
 
         <activity
             android:name=".ui.activity.HistoricActivity"
-            android:exported="false"
-            android:parentActivityName=".ui.activity.ManageAlunoActivity">
-        </activity>
+            android:exported="false" />
 
         <activity
             android:name=".ui.activity.RegistrationActivity"

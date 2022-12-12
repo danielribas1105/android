@@ -1,6 +1,7 @@
 package com.apps.drpersonal.ui.activity;
 
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_HISTORICO;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -86,7 +87,8 @@ public class HistoricoActivity extends AppCompatActivity {
 
     public void loadHistorical() {
         idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
-        histAluno = referenceHist.child(CHAVE_DB_HISTORICO).child(idAluno).child(mesAnoHist);
+        histAluno = referenceHist.child(CHAVE_DB_HISTORICO).child(CHAVE_DB_IDPERSONAL)
+                .child(idAluno).child(mesAnoHist);
         valueEventListenerHistoric = histAluno.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

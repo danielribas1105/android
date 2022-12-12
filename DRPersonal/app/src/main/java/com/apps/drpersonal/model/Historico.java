@@ -1,8 +1,12 @@
 package com.apps.drpersonal.model;
 
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_HISTORICO;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.DataCustom;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -14,9 +18,9 @@ public class Historico {
     public Historico() {}
 
     public void salvar(){
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        idAluno = UsersFirebase.getIdUserAuth();
         DatabaseReference referenceHist = ConfigFirebase.getFirebaseDatabase();
-        referenceHist.child("historico").child(idAluno)
+        referenceHist.child(CHAVE_DB_HISTORICO).child(CHAVE_DB_IDPERSONAL).child(idAluno)
                 .child(DataCustom.dataMesAno(DataCustom.dataAtual()))
                 .push()
                 .setValue(this);
