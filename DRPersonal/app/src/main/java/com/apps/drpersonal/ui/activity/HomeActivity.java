@@ -5,6 +5,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPE
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_ALUNOS;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,11 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Aluno;
 import com.bumptech.glide.Glide;
@@ -39,13 +42,15 @@ public class HomeActivity extends AppCompatActivity {
 
     private TextView campoHello;
     private CircleImageView campoHomeFotoAluno;
-    private String idAluno;
+    private String idAluno = UsersFirebase.getIdUserAuth();;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-    private DatabaseReference alunoDB;
+    private DatabaseReference alunoDB = reference.child(CHAVE_DB_ALUNOS)
+            .child(CHAVE_DB_IDPERSONAL).child(idAluno);
     private StorageReference storageReference = ConfigFirebase.getStorageReference();
     private StorageReference fotoAluno;
     private ValueEventListener valueEventListenerAluno;
+    private ValueEventListener valueEventListenerMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         campoHomeFotoAluno = findViewById(R.id.imgFotoAluno);
         campoHello = findViewById(R.id.textHello);
         getProfileAluno();
+        showMessagePgto();
     }
 
     @Override
@@ -81,7 +87,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void getProfileAluno() {
-        idAluno = UsersFirebase.getIdUserAuth();
         fotoAluno = storageReference.child(CHAVE_ST_IMAGES).child(CHAVE_ST_PROFILE_ALUNOS)
                 .child(idAluno + ".jpg");
         fotoAluno.getDownloadUrl().addOnSuccessListener(HomeActivity.this,
@@ -96,7 +101,6 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("foto", "Erro ao carregar a imagem de perfil");
             }
         });
-        alunoDB = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         valueEventListenerAluno = alunoDB.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -106,6 +110,38 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
+
+    private void showMessagePgto() {
+        valueEventListenerMessage = alunoDB.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Aluno aluno = snapshot.getValue(Aluno.class);
+                Log.i("data", String.valueOf(aluno.getDiaPagamento()));
+                Log.i("data", DataCustom.diaAtual(DataCustom.dataAtual()));
+                if(aluno.getDiaPagamento() == Integer
+                        .parseInt(DataCustom.diaAtual(DataCustom.dataAtual()))){
+                    AlertDialog.Builder alertPgto = new AlertDialog.Builder(HomeActivity.this);
+                    alertPgto.setTitle("VENCIMENTO - Dia: " + aluno.getDiaPagamento());
+                    alertPgto.setMessage("Sua data de vencimento é hoje. Caso já tenha efetuado o pagamento, favor desconsiderar esta mensagem!");
+                    alertPgto.setCancelable(false);
+                    alertPgto.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+                    alertPgto.create();
+                    alertPgto.show();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

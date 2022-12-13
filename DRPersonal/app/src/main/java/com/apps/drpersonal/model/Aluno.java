@@ -24,8 +24,8 @@ public class Aluno implements Serializable {
     private String emailAluno;
     private String senhaAluno;
     private String dataNiver;
-    private String dataInicio;
     private String academia;
+    private int diaPagamento;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
 
     public Aluno() {}
@@ -93,14 +93,6 @@ public class Aluno implements Serializable {
 
     public void setDataNiver(String dataNiver) {this.dataNiver = dataNiver;}
 
-    public String getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(String dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
     public String getAcademia() {
         return academia;
     }
@@ -108,4 +100,8 @@ public class Aluno implements Serializable {
     public void setAcademia(String academia) {
         this.academia = academia;
     }
+
+    public int getDiaPagamento() {return diaPagamento;}
+
+    public void setDiaPagamento(int diaPagamento) {this.diaPagamento = diaPagamento;}
 }
