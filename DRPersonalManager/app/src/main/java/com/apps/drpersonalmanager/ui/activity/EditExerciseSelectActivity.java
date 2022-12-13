@@ -2,6 +2,7 @@ package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ID_SERIE;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.dao.ExerciseDao;
@@ -21,7 +23,7 @@ public class EditExerciseSelectActivity extends AppCompatActivity {
     private TextView nomeExerc;
     private EditText quantExerc, pesoExerc, obsExerc;
     private Button saveEdicaoExerc;
-    private String emailAluno;
+    private String emailAluno, idSerie, key;
     private ExerciseAluno exerciseAluno;
     private ExerciseDao exerciseDao = new ExerciseDao();
 
@@ -41,8 +43,11 @@ public class EditExerciseSelectActivity extends AppCompatActivity {
             quantExerc.setText(exerciseAluno.getQuantExerc());
             pesoExerc.setText(exerciseAluno.getPesoExerc());
             obsExerc.setText(exerciseAluno.getObsExerc());
+            key = exerciseAluno.getKey();
         }
+
         emailAluno = (String) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
+        idSerie = (String) getIntent().getSerializableExtra(CHAVE_ID_SERIE);
 
         saveEdicaoExerc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,9 +55,14 @@ public class EditExerciseSelectActivity extends AppCompatActivity {
                 String repeticoes = quantExerc.getText().toString();
                 String peso = pesoExerc.getText().toString();
                 String observacoes = obsExerc.getText().toString();
-
-
-                //exerciseDao.editarExercAluno(emailAluno, "idSerie", "idExerc", );
+                ExerciseAluno exerciseAluno = new ExerciseAluno();
+                exerciseAluno.setQuantExerc(repeticoes);
+                exerciseAluno.setPesoExerc(peso);
+                exerciseAluno.setObsExerc(observacoes);
+                exerciseDao.editarExercAluno(emailAluno, idSerie, key,exerciseAluno);
+                Toast.makeText(EditExerciseSelectActivity.this,
+                        "Exercício atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 

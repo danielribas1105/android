@@ -30,6 +30,7 @@ import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Exercise;
 import com.apps.drpersonal.model.ExerciseAluno;
 import com.apps.drpersonal.model.Historico;
@@ -62,7 +63,6 @@ public class ExerciciosActivity extends AppCompatActivity {
     private Training trainingSelected;
     private static String date = "", keySerie = "", nameSerie = "";
     private String idAluno = "", idImg, idImgStorage;
-    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference exercAluno;
     private ValueEventListener valueEventListenerExerc;
@@ -117,6 +117,7 @@ public class ExerciciosActivity extends AppCompatActivity {
                         Intent i = new Intent(ExerciciosActivity.this,
                                 InfoExercActivity.class);
                         i.putExtra(CHAVE_EXERCISE, exercSelected);
+                        //Log.i("key", " "+ exercSelected.getKey());
                         startActivity(i);
                     }
 
@@ -150,12 +151,10 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     private void loadImageExerc(String id){
         StorageReference imgRef = imagens.child(id);
-        //Log.i("dados",imgRef.toString());
         imgRef.getDownloadUrl().addOnSuccessListener(ExerciciosActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 idImgStorage = uri.toString();
-                //Log.i("dados", "1- "+idImgStorage);
             }
         }).addOnFailureListener(ExerciciosActivity.this, new OnFailureListener() {
             @Override
@@ -167,7 +166,7 @@ public class ExerciciosActivity extends AppCompatActivity {
 
     private void loadExercises(String keySerie) {
         String idSerieAluno = STR_SERIE + keySerie;
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        idAluno = UsersFirebase.getIdUserAuth();
         exercAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNO).child(CHAVE_DB_IDPERSONAL)
                 .child(idAluno).child(idSerieAluno);
         valueEventListenerExerc = exercAluno.addValueEventListener(new ValueEventListener() {

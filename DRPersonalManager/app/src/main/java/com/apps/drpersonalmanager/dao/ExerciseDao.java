@@ -3,6 +3,9 @@ package com.apps.drpersonalmanager.dao;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_OBS_EXERC;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PESO;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_REPETICOES;
 
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.Base64Custom;
@@ -26,7 +29,13 @@ public class ExerciseDao {
     public void editarExercAluno(String emailAluno, String idserie, String idExerc, ExerciseAluno exerciseAluno){
         reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                 .child(Base64Custom.codeToBase64(emailAluno)).child(idserie)
-                .child(idExerc).child("quantExerc").setValue(exerciseAluno.getQuantExerc());
+                .child(idExerc).child(CHAVE_DB_REPETICOES).setValue(exerciseAluno.getQuantExerc());
+        reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
+                .child(Base64Custom.codeToBase64(emailAluno)).child(idserie)
+                .child(idExerc).child(CHAVE_DB_PESO).setValue(exerciseAluno.getPesoExerc());
+        reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
+                .child(Base64Custom.codeToBase64(emailAluno)).child(idserie)
+                .child(idExerc).child(CHAVE_DB_OBS_EXERC).setValue(exerciseAluno.getObsExerc());
     }
 
     public void excluirSerieExercAluno(String idAluno, String idserie){

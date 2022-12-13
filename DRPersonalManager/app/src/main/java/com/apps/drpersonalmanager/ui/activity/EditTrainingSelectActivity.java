@@ -3,6 +3,7 @@ package com.apps.drpersonalmanager.ui.activity;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ID_SERIE;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_TREINO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.STR_SERIE;
 
@@ -92,7 +93,8 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
                 Intent i = new Intent(EditTrainingSelectActivity.this,
                         EditExerciseSelectActivity.class);
                 i.putExtra(CHAVE_DB_EXERCICIOS_ALUNOS, exerciseAlunoSelect)
-                        .putExtra(CHAVE_ALUNO_SELECT,emailAluno);
+                        .putExtra(CHAVE_ALUNO_SELECT,emailAluno)
+                        .putExtra(CHAVE_ID_SERIE,"serie" + serieNomeSelect);
                 startActivity(i);
             }
 

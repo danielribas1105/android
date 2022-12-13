@@ -20,6 +20,7 @@ import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.TreinosAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -91,7 +92,7 @@ public class TreinosActivity extends AppCompatActivity {
     }
 
     public void loadTraining() {
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
+        idAluno = UsersFirebase.getIdUserAuth();
         treinoAluno = reference.child(CHAVE_DB_TREINOS).child(CHAVE_DB_IDPERSONAL).child(idAluno);
         valueEventListenerTreino = treinoAluno.addValueEventListener(new ValueEventListener() {
             @Override

@@ -64,6 +64,9 @@ public class InfoExercActivity extends AppCompatActivity {
             catExerc = exerciseSelected.getCatExerc();
         }
 
+        //String teste = exerciseSelected.getKey();
+        //Log.i("key", "id "+teste);
+
         campoNomeExerc.setText(nomeExerc);
 
         loadImageExerc(idExerc+"_full.jpg");
