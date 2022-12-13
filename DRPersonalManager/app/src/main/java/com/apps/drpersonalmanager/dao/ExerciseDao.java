@@ -18,15 +18,15 @@ public class ExerciseDao {
         reference.child(CHAVE_DB_EXERCICIOS).child(categoria).child(idExercise).setValue(exercise);
     }
 
-    public void salvarExercAluno(String idAluno, String idserie, ExerciseAluno exerciseAluno){
+    public void salvarExercAluno(String idAluno, String idserie, String idExerc, ExerciseAluno exerciseAluno){
         reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
-                .child(idAluno).child(idserie).push().setValue(exerciseAluno);
+                .child(idAluno).child(idserie).child(idExerc).setValue(exerciseAluno);
     }
 
-    public void editarExercAluno(String emailAluno, String idserie, String key, ExerciseAluno exerciseAluno){
+    public void editarExercAluno(String emailAluno, String idserie, String idExerc, ExerciseAluno exerciseAluno){
         reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                 .child(Base64Custom.codeToBase64(emailAluno)).child(idserie)
-                .child(key).setValue(exerciseAluno);
+                .child(idExerc).child("quantExerc").setValue(exerciseAluno.getQuantExerc());
     }
 
     public void excluirSerieExercAluno(String idAluno, String idserie){

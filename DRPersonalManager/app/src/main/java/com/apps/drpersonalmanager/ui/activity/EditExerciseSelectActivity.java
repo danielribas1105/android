@@ -1,10 +1,12 @@
 package com.apps.drpersonalmanager.ui.activity;
 
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNOS;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ public class EditExerciseSelectActivity extends AppCompatActivity {
     private TextView nomeExerc;
     private EditText quantExerc, pesoExerc, obsExerc;
     private Button saveEdicaoExerc;
+    private String emailAluno;
     private ExerciseAluno exerciseAluno;
     private ExerciseDao exerciseDao = new ExerciseDao();
 
@@ -26,7 +29,7 @@ public class EditExerciseSelectActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_exercise_select);
-        setTitle("Editar Exercício");
+        setTitle("Editar Repetições e Pesos");
         nomeExerc = findViewById(R.id.textExercSelecao);
         quantExerc = findViewById(R.id.editTextQuantExerc);
         pesoExerc = findViewById(R.id.editTextPesoExerc);
@@ -39,13 +42,17 @@ public class EditExerciseSelectActivity extends AppCompatActivity {
             pesoExerc.setText(exerciseAluno.getPesoExerc());
             obsExerc.setText(exerciseAluno.getObsExerc());
         }
+        emailAluno = (String) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
 
         saveEdicaoExerc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String repeticoes = quantExerc.getText().toString();
+                String peso = pesoExerc.getText().toString();
+                String observacoes = obsExerc.getText().toString();
 
 
-                //exerciseDao.editarExercAluno();
+                //exerciseDao.editarExercAluno(emailAluno, "idSerie", "idExerc", );
             }
         });
 

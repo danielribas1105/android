@@ -6,6 +6,7 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ID_SERIE;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,13 +28,13 @@ public class EditTrainingActivity extends AppCompatActivity {
     private Exercise exercSelect;
     private ExerciseAluno exerciseAluno;
     private ExerciseDao exerciseDao = new ExerciseDao();
-    private String idAluno, idSerie, catExerc;
+    private String idAluno, idSerie, idExerc, catExerc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_trainig);
-        setTitle("Editar Exercício");
+        setTitle("Inserir Repetições e Pesos");
         editNomeExerc = findViewById(R.id.textEditNomeExerc);
         editQuantExerc = findViewById(R.id.editQuantExerc);
         editPesoExerc = findViewById(R.id.editPesoExerc);
@@ -43,6 +44,7 @@ public class EditTrainingActivity extends AppCompatActivity {
         exercSelect = (Exercise) getIntent().getSerializableExtra(CHAVE_EXERCICIO_EDIT);
         if (exercSelect != null) {
             editNomeExerc.setText(exercSelect.getNomeExerc());
+            idExerc = exercSelect.getIdExerc();
         }
         idAluno = (String) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
         idSerie = (String) getIntent().getSerializableExtra(CHAVE_ID_SERIE);
@@ -53,13 +55,13 @@ public class EditTrainingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 exerciseAluno = new ExerciseAluno();
                 exerciseAluno.setNomeExerc(exercSelect.getNomeExerc());
-                exerciseAluno.setIdExerc(exercSelect.getIdExerc());
+                //exerciseAluno.setIdExerc(exercSelect.getIdExerc());
                 exerciseAluno.setIdImg(exercSelect.getIdImgExerc());
                 exerciseAluno.setCatExerc(catExerc);
                 exerciseAluno.setQuantExerc(editQuantExerc.getText().toString());
                 exerciseAluno.setPesoExerc(editPesoExerc.getText().toString());
                 exerciseAluno.setObsExerc(editObsExerc.getText().toString());
-                exerciseDao.salvarExercAluno(idAluno, idSerie, exerciseAluno);
+                exerciseDao.salvarExercAluno(idAluno, idSerie, idExerc, exerciseAluno);
 
                 Toast.makeText(EditTrainingActivity.this, "Exercício " +
                         exercSelect.getNomeExerc() + " salvo com sucesso!", Toast.LENGTH_SHORT).show();

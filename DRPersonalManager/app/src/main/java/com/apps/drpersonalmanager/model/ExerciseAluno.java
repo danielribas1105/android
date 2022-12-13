@@ -4,17 +4,13 @@ import java.io.Serializable;
 
 public class ExerciseAluno implements Serializable {
 
-    private String key, idExerc, idImg, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
+    private String key, idImg, nomeExerc, catExerc, quantExerc, pesoExerc, obsExerc;
 
     public ExerciseAluno() {}
 
     public String getKey() {return key;}
 
     public void setKey(String key) {this.key = key;}
-
-    public String getIdExerc() {return idExerc;}
-
-    public void setIdExerc(String idExerc) {this.idExerc = idExerc;}
 
     public String getIdImg() {return idImg;}
 

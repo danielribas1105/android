@@ -91,7 +91,8 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
                 ExerciseAluno exerciseAlunoSelect = exerciseAlunos.get(position);
                 Intent i = new Intent(EditTrainingSelectActivity.this,
                         EditExerciseSelectActivity.class);
-                i.putExtra(CHAVE_DB_EXERCICIOS_ALUNOS, exerciseAlunoSelect);
+                i.putExtra(CHAVE_DB_EXERCICIOS_ALUNOS, exerciseAlunoSelect)
+                        .putExtra(CHAVE_ALUNO_SELECT,emailAluno);
                 startActivity(i);
             }
 

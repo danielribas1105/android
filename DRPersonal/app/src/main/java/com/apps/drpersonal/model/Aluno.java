@@ -10,6 +10,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_SENH
 
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
@@ -18,7 +19,7 @@ import java.io.Serializable;
 
 public class Aluno implements Serializable {
 
-    private String idAluno;
+    private String idAluno = UsersFirebase.getIdUserAuth();;
     private String idImgAluno;
     private String nomeAluno;
     private String emailAluno;
@@ -26,7 +27,6 @@ public class Aluno implements Serializable {
     private String dataNiver;
     private String academia;
     private int diaPagamento;
-    private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
 
     public Aluno() {}
 
@@ -36,7 +36,6 @@ public class Aluno implements Serializable {
     }
 
     public void salvarPerfilAluno(String nome, String academia, String niver){
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
         referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
                 .child(CHAVE_DB_NOME_ALUNO).setValue(nome);
@@ -47,7 +46,6 @@ public class Aluno implements Serializable {
     }
 
     public void salvarNovaSenhaAluno(String novaSenha){
-        idAluno = Base64Custom.codeToBase64(auth.getCurrentUser().getEmail());
         DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
         referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
                 .child(CHAVE_DB_SENHA_ALUNO).setValue(novaSenha);
