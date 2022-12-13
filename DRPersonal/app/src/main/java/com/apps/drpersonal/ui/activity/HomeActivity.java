@@ -59,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
         campoHomeFotoAluno = findViewById(R.id.imgFotoAluno);
         campoHello = findViewById(R.id.textHello);
         getProfileAluno();
-        showMessagePgto();
+        //showMessagePgto();
     }
 
     @Override
