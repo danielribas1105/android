@@ -30,11 +30,15 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InfoExercActivity extends AppCompatActivity {
 
     private TextView campoNomeExerc, campoDesc;
     private ImageView campoImagem, campoVideo;
     private String idExerc, nomeExerc, catExerc;
+    private List<ExerciseAluno> exerciseAlunoList = new ArrayList<>();
     private ExerciseAluno exerciseSelected;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference refInfoExerc;
@@ -63,8 +67,8 @@ public class InfoExercActivity extends AppCompatActivity {
             nomeExerc = exerciseSelected.getNomeExerc();
             catExerc = exerciseSelected.getCatExerc();
         }
-
-        //String teste = exerciseSelected.getKey();
+        //exerciseAlunoList.add(exerciseSelected);
+        //String teste = exerciseSelected;
         //Log.i("key", "id "+teste);
 
         campoNomeExerc.setText(nomeExerc);
@@ -73,41 +77,32 @@ public class InfoExercActivity extends AppCompatActivity {
         loadVideoExerc(idExerc+".gif");
         loadDescExerc();
 
-        //Log.i("dados",idExerc+"_full.jpg");
-        //Log.i("dados",idExerc+".gif");
-
     }
 
     private void loadImageExerc(String infoIdExerc) {
         StorageReference imgRef = imagens.child(infoIdExerc);
-        //Log.i("dados",imgRef.toString());
         imgRef.getDownloadUrl().addOnSuccessListener(InfoExercActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(InfoExercActivity.this).load(uri).into(campoImagem);
-                //Toast.makeText(InfoExercActivity.this, "Sucesso ao fazer download da imagem", Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(InfoExercActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //Toast.makeText(InfoExercActivity.this, "Erro ao fazer download da imagem", Toast.LENGTH_LONG).show();
             }
         });
     }
 
     private void loadVideoExerc(String infoIdExerc) {
         StorageReference videoRef = videos.child(infoIdExerc);
-        //Log.i("dados",videoRef.toString());
         videoRef.getDownloadUrl().addOnSuccessListener(InfoExercActivity.this, new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(InfoExercActivity.this).load(uri).into(campoVideo);
-                //Toast.makeText(InfoExercActivity.this, "Sucesso ao fazer download do vídeo", Toast.LENGTH_LONG).show();
             }
         }).addOnFailureListener(InfoExercActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                //Toast.makeText(InfoExercActivity.this, "Erro ao fazer download do vídeo", Toast.LENGTH_LONG).show();
             }
         });
     }

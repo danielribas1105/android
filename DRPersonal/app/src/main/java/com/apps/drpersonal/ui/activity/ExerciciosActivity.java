@@ -1,6 +1,5 @@
 package com.apps.drpersonal.ui.activity;
 
-import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EXERCICIOS_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_EXERCISE;
@@ -27,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
-import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.DataCustom;
 import com.apps.drpersonal.helper.RecyclerItemClickListener;
 import com.apps.drpersonal.helper.UsersFirebase;
@@ -36,15 +34,12 @@ import com.apps.drpersonal.model.ExerciseAluno;
 import com.apps.drpersonal.model.Historico;
 import com.apps.drpersonal.model.Training;
 import com.apps.drpersonal.ui.adapter.ExerciciosAdapter;
-import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
@@ -65,6 +60,7 @@ public class ExerciciosActivity extends AppCompatActivity {
     private String idAluno = "", idImg, idImgStorage;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference exercAluno;
+    private String idExerc;
     private ValueEventListener valueEventListenerExerc;
     private Historico historico;
     private StorageReference storageReference = ConfigFirebase.getStorageReference();
@@ -97,6 +93,8 @@ public class ExerciciosActivity extends AppCompatActivity {
         recyclerExerc = findViewById(R.id.recyclerExercicios);
         loadExercises(keySerie);
         //loadImageExerc(infoIdExerc);
+
+
 
         //Configurar Adapter
         adapterExerc = new ExerciciosAdapter(exercisesAluno,this);
@@ -174,6 +172,9 @@ public class ExerciciosActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 exercisesAluno.clear();
                 for (DataSnapshot infoExerc : snapshot.getChildren()) {
+                    //Log.i("dados", snapshot.getValue().toString());
+                    //String teste = snapshot.getKey();
+                    //Log.i("id", teste);
                     ExerciseAluno exercAluno = infoExerc.getValue(ExerciseAluno.class);
                     exercisesAluno.add(exercAluno);
                 }
