@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/btn_add_exercise"
+        android:icon="@drawable/ic_add_white_24"
+        android:title="Inserir Exercício"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/btn_save_exercise"
+        android:icon="@drawable/ic_save_24"
+        android:title="Salvar Exercício"
+        app:showAsAction="always" />
+</menu>
