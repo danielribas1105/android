@@ -15,14 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -40,9 +38,9 @@ import java.util.List;
 public class AddExerciseActivity extends AppCompatActivity {
 
     private TextView serie, objetivo;
-    private RadioGroup rgCat1, rgCat2;
+    private RadioGroup rgCateg;
     private Button btnAdd;
-    private String categoria, cat1 = "", cat2 = "";
+    private String categoria;
     private List<Exercise> exercises = new ArrayList<>();
     private AddExerciseAdapter addExerciseAdapter;
     private RecyclerView recyclerView;
@@ -58,8 +56,7 @@ public class AddExerciseActivity extends AppCompatActivity {
 
         serie = findViewById(R.id.serieSelecao_addExerc);
         objetivo = findViewById(R.id.objSerie_addExerc);
-        rgCat1 = findViewById(R.id.rgCatGrupo1);
-        rgCat2 = findViewById(R.id.rgCatGrupo2);
+        rgCateg = findViewById(R.id.rgCatGrupo);
         btnAdd = findViewById(R.id.btnAddExerc);
         recyclerView = findViewById(R.id.recyclerAddExerc);
         String nomeSerie = (String) getIntent().getSerializableExtra(CHAVE_ID_SERIE);
@@ -100,44 +97,24 @@ public class AddExerciseActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!cat1.isEmpty() && !cat2.isEmpty()){
-                    Toast.makeText(AddExerciseActivity.this,
-                            "Selecionar apenas 1 categoria por vez!", Toast.LENGTH_SHORT).show();
-                    rgCat1.clearCheck();
-                    rgCat2.clearCheck();
-                    categoria = "";
-                }else if(!cat1.isEmpty() && cat2.isEmpty()){
-                    rgCat2.clearCheck();
-                    categoria = cat1;
-                }else if(cat1.isEmpty() && !cat2.isEmpty()){
-                    rgCat1.clearCheck();
-                    categoria = cat2;
-                }
-                Log.i("cat", categoria);
-                //loadFindExercises();
+                loadFindExercises();
             }
         });
 
     }
 
     private void selectedCategory() {
-        rgCat1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        rgCateg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int catId1) {
-                if (catId1 == R.id.rbAddAero) {
-                    cat1 = CAT_AEROBICO;
-                } else if (catId1 == R.id.rbAddAbdo) {
-                    cat1 = CAT_ABDOMINAIS;
-                }
-            }
-        });
-        rgCat2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int catId2) {
-                if (catId2 == R.id.rbMemSuper) {
-                    cat2 = CAT_MUSC_SUPER;
-                } else if (catId2 == R.id.rbMemInfer) {
-                    cat2 = CAT_MUSC_INFER;
+            public void onCheckedChanged(RadioGroup radioGroup, int catId) {
+                if (catId == R.id.rbAddAero) {
+                    categoria = CAT_AEROBICO;
+                } else if (catId == R.id.rbAddAbdo) {
+                    categoria = CAT_ABDOMINAIS;
+                } else if (catId == R.id.rbMemSuper) {
+                    categoria = CAT_MUSC_SUPER;
+                } else if (catId == R.id.rbMemInfer) {
+                    categoria = CAT_MUSC_INFER;
                 }
             }
         });

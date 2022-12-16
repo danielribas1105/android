@@ -90,7 +90,7 @@
             android:orientation="vertical">
 
             <RadioGroup
-                android:id="@+id/rgCatGrupo1"
+                android:id="@+id/rgCatGrupo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -98,13 +98,29 @@
                     android:id="@+id/rbAddAero"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Aeróbico" />
+                    android:text="Aeróbico"
+                    android:textSize="16sp" />
 
                 <RadioButton
                     android:id="@+id/rbAddAbdo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Abdominais" />
+                    android:text="Abdominais"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rbMemSuper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Membros Superiores"
+                    android:textSize="16sp" />
+
+                <RadioButton
+                    android:id="@+id/rbMemInfer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Membros Inferiores"
+                    android:textSize="16sp" />
 
             </RadioGroup>
         </LinearLayout>
@@ -116,39 +132,49 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/rgCatGrupo2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <RadioButton
-                    android:id="@+id/rbMemSuper"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Membros Superiores" />
-
-                <RadioButton
-                    android:id="@+id/rbMemInfer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Membros Inferiores" />
-            </RadioGroup>
+            <Button
+                android:id="@+id/btnAddExerc"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:text="Buscar Exercícios"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_search_white_24" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnAddExerc"
+    <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="0dp"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:text="Buscar Exercícios"
-        app:icon="@drawable/ic_search_white_24"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_double_arrow_down_orange_48" />
+
+        <TextView
+            android:id="@+id/textView33"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Selecione o exercício"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_double_arrow_down_orange_48" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAddExerc"
@@ -161,6 +187,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnAddExerc" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

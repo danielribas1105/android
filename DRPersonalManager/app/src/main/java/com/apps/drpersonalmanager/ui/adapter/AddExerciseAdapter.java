@@ -26,10 +26,10 @@ public class AddExerciseAdapter extends RecyclerView.Adapter<AddExerciseAdapter.
 
     @NonNull
     @Override
-    public AddExerciseAdapter.AddExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AddExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View addViewExerc = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.adapter_add_exercise,parent, false);
-        return null;
+        return new AddExerciseViewHolder(addViewExerc);
     }
 
     @Override
