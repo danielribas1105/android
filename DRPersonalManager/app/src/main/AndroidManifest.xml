@@ -48,7 +48,8 @@
         <activity
             android:name=".ui.activity.NewExerciseActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+            android:parentActivityName=".ui.activity.HomeActivity">
+        </activity>
         <activity
             android:name=".ui.activity.MyProfileActivity"
             android:exported="false" />
@@ -58,7 +59,8 @@
         <activity
             android:name=".ui.activity.ManageAlunoActivity"
             android:exported="false"
-            android:parentActivityName=".ui.activity.HomeActivity"></activity>
+            android:parentActivityName=".ui.activity.HomeActivity">
+        </activity>
         <activity
             android:name=".ui.activity.HomeActivity"
             android:exported="false" />

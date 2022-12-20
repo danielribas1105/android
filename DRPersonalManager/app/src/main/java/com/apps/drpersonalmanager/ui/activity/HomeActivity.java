@@ -2,6 +2,7 @@ package com.apps.drpersonalmanager.ui.activity;
 
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ALUNO_SELECT;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
+import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_DB_PERSONAL;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
 import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_ALUNOS;
@@ -30,6 +31,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.dao.AlunoDao;
+import com.apps.drpersonalmanager.helper.Base64Custom;
 import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Aluno;
@@ -77,7 +79,7 @@ public class HomeActivity extends AppCompatActivity {
         fotoPerfil = findViewById(R.id.imgFotoPersonal);
         recyclerViewAlunos = findViewById(R.id.recyclerMeusAlunos);
 
-        idPersonal = UsersFirebase.getIdUserAuth();
+        //idPersonal = CHAVE_DB_IDPERSONAL;
 
         //Configurar Adapter
         loadAlunos();
@@ -166,7 +168,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private void getProfilePersonal() {
         fotoPersonal = storageReference.child(CHAVE_ST_IMAGES).child(CHAVE_ST_PROFILE_PERSONAL)
-                .child(idPersonal + ".jpg");
+                .child(CHAVE_DB_IDPERSONAL + ".jpg");
         fotoPersonal.getDownloadUrl().addOnSuccessListener(HomeActivity.this,
                 new OnSuccessListener<Uri>() {
             @Override
@@ -179,7 +181,7 @@ public class HomeActivity extends AppCompatActivity {
                 Log.d("foto", "Erro ao carregar a imagem de perfil");
             }
         });
-        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(idPersonal);
+        refDbPersonal = reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL);
         valueEventListenerPersonal = refDbPersonal.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -201,7 +203,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void loadAlunos() {
-        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(idPersonal);
+        findAlunos = reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL);
         valueEventListenerAlunos = findAlunos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
