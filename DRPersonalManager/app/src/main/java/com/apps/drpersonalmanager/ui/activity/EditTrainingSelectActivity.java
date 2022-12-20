@@ -72,6 +72,7 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
             serieObjSelect = training.getDescSerie();
         }
         emailAluno = (String) getIntent().getSerializableExtra(CHAVE_ALUNO_SELECT);
+        idAluno = Base64Custom.codeToBase64(emailAluno);
 
         nomeSerieSelect.setText(serieNomeSelect);
         objSerieSelect.setText(serieObjSelect);
@@ -135,7 +136,6 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
     }
 
     public void loadExercTreinoSelect(String serie){
-        idAluno = Base64Custom.codeToBase64(emailAluno);
         exercTreinoAluno = reference.child(CHAVE_DB_EXERCICIOS_ALUNOS).child(CHAVE_DB_IDPERSONAL)
                 .child(idAluno).child(serie);
         valueEventListenerExercTreino = exercTreinoAluno.addValueEventListener(new ValueEventListener() {
@@ -170,9 +170,12 @@ public class EditTrainingSelectActivity extends AppCompatActivity {
                 Intent i = new Intent(EditTrainingSelectActivity.this, AddExerciseActivity.class);
                 i.putExtra(CHAVE_ID_SERIE,serieNomeSelect);
                 i.putExtra(CHAVE_ID_OBJETIVO,serieObjSelect);
+                i.putExtra(CHAVE_ALUNO_SELECT,idAluno);
                 startActivity(i);
                 break;
             case R.id.btn_save_exercise:
+                Toast.makeText(this, "Treino salvo com sucesso!", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
