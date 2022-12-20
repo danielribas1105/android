@@ -19,7 +19,7 @@ import java.io.Serializable;
 
 public class Aluno implements Serializable {
 
-    private String idAluno = UsersFirebase.getIdUserAuth();;
+    private String idAluno;
     private String idImgAluno;
     private String nomeAluno;
     private String emailAluno;

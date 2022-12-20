@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.helper.Base64Custom;
+import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Aluno;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 if (!textoEmail.isEmpty()) {
                     if (!textoSenha.isEmpty()) {
                         aluno = new Aluno();
+                        aluno.setIdAluno(Base64Custom.codeToBase64(textoEmail));
                         aluno.setEmailAluno(textoEmail);
                         aluno.setSenhaAluno(textoSenha);
                         checkLogin();
