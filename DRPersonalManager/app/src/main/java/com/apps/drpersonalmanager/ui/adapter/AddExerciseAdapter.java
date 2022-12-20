@@ -19,8 +19,8 @@ public class AddExerciseAdapter extends RecyclerView.Adapter<AddExerciseAdapter.
     private List<Exercise> exerciseList;
     private Context context;
 
-    public AddExerciseAdapter(List<Exercise> exerciseList, Context context) {
-        this.exerciseList = exerciseList;
+    public AddExerciseAdapter(List<Exercise> exercises, Context context) {
+        this.exerciseList = exercises;
         this.context = context;
     }
 

@@ -27,6 +27,7 @@ import com.apps.drpersonalmanager.config.ConfigFirebase;
 import com.apps.drpersonalmanager.helper.RecyclerItemClickListener;
 import com.apps.drpersonalmanager.model.Exercise;
 import com.apps.drpersonalmanager.ui.adapter.AddExerciseAdapter;
+import com.apps.drpersonalmanager.ui.adapter.FindExercisesAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,9 +42,9 @@ public class AddExerciseActivity extends AppCompatActivity {
     private RadioGroup rgCateg;
     private Button btnAdd;
     private String categoria;
-    private List<Exercise> exercises = new ArrayList<>();
+    private List<Exercise> addExercises = new ArrayList<>();
     private AddExerciseAdapter addExerciseAdapter;
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewAddExerc;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
     private DatabaseReference addExercRef;
     private ValueEventListener valueEventListenerAddExerc;
@@ -58,24 +59,24 @@ public class AddExerciseActivity extends AppCompatActivity {
         objetivo = findViewById(R.id.objSerie_addExerc);
         rgCateg = findViewById(R.id.rgCatGrupo);
         btnAdd = findViewById(R.id.btnAddExerc);
-        recyclerView = findViewById(R.id.recyclerAddExerc);
+        recyclerViewAddExerc = findViewById(R.id.recyclerAddExerc);
         String nomeSerie = (String) getIntent().getSerializableExtra(CHAVE_ID_SERIE);
         String objSerie = (String) getIntent().getSerializableExtra(CHAVE_ID_OBJETIVO);
         serie.setText(nomeSerie);
         objetivo.setText(objSerie);
         selectedCategory();
 
-        addExerciseAdapter = new AddExerciseAdapter(exercises,this);
+        addExerciseAdapter = new AddExerciseAdapter(addExercises,this);
         //Configurar RecyclerView
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(addExerciseAdapter);
+        recyclerViewAddExerc.setLayoutManager(layoutManager);
+        recyclerViewAddExerc.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+        recyclerViewAddExerc.setHasFixedSize(true);
+        recyclerViewAddExerc.setAdapter(addExerciseAdapter);
 
         //Configurar evento de click no RecyclerView Exercícios
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(
-                getApplicationContext(), recyclerView,
+        recyclerViewAddExerc.addOnItemTouchListener(new RecyclerItemClickListener(
+                getApplicationContext(), recyclerViewAddExerc,
                 new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
@@ -125,10 +126,10 @@ public class AddExerciseActivity extends AppCompatActivity {
         valueEventListenerAddExerc = addExercRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                exercises.clear();
+                addExercises.clear();
                 for (DataSnapshot infoTreinos : snapshot.getChildren()) {
                     Exercise exercise = infoTreinos.getValue(Exercise.class);
-                    exercises.add(exercise);
+                    addExercises.add(exercise);
                 }
                 addExerciseAdapter.notifyDataSetChanged();
             }
