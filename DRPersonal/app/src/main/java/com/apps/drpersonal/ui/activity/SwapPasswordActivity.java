@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.dao.AlunoDao;
 import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Aluno;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,9 +41,13 @@ public class SwapPasswordActivity extends AppCompatActivity {
                 if (!newPassword.isEmpty() && !confNewPassword.isEmpty()) {
                     if (!(newPassword.length() < 6) && (!(confNewPassword.length() < 6))) {
                         if (confNewPassword.equals(newPassword)) {
-                            salvarNewPassword(confNewPassword);
-                            auth.signOut();
-                            goToStart();
+                            if(UsersFirebase.changePassWord(confNewPassword)){
+                                salvarNewPassword(confNewPassword);
+                                auth.signOut();
+                                goToStart();
+                            }else{
+                                Toast.makeText(SwapPasswordActivity.this, "Erro ao atualizar a senha!", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
                             Toast.makeText(SwapPasswordActivity.this,
                                     "Os campos Nova Senha e Confirmar Nova Senha não são iguais!",
@@ -67,8 +72,8 @@ public class SwapPasswordActivity extends AppCompatActivity {
     }
 
     private void salvarNewPassword(String pass) {
-        Aluno aluno = new Aluno();
-        aluno.salvarNovaSenhaAluno(pass);
+        AlunoDao alunoDao = new AlunoDao();
+        alunoDao.salvarNovaSenhaAluno(pass);
         if (UsersFirebase.changePassWord(pass)) {
             Toast.makeText(SwapPasswordActivity.this, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show();
         } else {

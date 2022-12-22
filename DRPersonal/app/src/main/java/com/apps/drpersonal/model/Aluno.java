@@ -28,30 +28,8 @@ public class Aluno implements Serializable {
     private String dataNiver;
     private String academia;
     private int diaPagamento;
-    private DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
 
     public Aluno() {}
-
-    public void salvarAluno(){
-        DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
-        reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(this.idAluno).setValue(this);
-    }
-
-    public void salvarPerfilAluno(String nome, String academia, String niver, String idImg){
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
-                .child(CHAVE_DB_NOME_ALUNO).setValue(nome);
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
-                .child(CHAVE_DB_ACADEMIA_ALUNO).setValue(academia);
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
-                .child(CHAVE_DB_NIVER_ALUNO).setValue(niver);
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
-                .child(CHAVE_DB_IMG_ALUNO).setValue(idImg);
-    }
-
-    public void salvarNovaSenhaAluno(String novaSenha){
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
-                .child(CHAVE_DB_SENHA_ALUNO).setValue(novaSenha);
-    }
 
     @Exclude
     public String getIdAluno() {

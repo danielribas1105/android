@@ -28,6 +28,7 @@ import android.widget.Toast;
 
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
+import com.apps.drpersonal.dao.AlunoDao;
 import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.Consent;
 import com.apps.drpersonal.helper.UsersFirebase;
@@ -219,8 +220,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
     }
 
     private void salvarPerfil() {
-        alunoNew = new Aluno();
-        alunoNew.salvarPerfilAluno(campoNome.getText().toString(),
+        AlunoDao alunoDao = new AlunoDao();
+        alunoDao.salvarPerfilAluno(campoNome.getText().toString(),
                 campoAcademia.getText().toString(), campoNiver.getText().toString(), idImgPerfil);
     }
 
