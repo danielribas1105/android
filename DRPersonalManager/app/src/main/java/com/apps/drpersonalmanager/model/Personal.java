@@ -20,11 +20,6 @@ public class Personal {
         reference.child(CHAVE_DB_PERSONAL).child(id).setValue(this);
     }
 
-    public void salvarPerfilPersonal(String nome){
-        reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL)
-                .child("nomePersonal").setValue(nome);
-    }
-
     public void atualizarSenhaPersonal(String senha){
         reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL)
                 .child("senhaPersonal").setValue(senha);

@@ -14,6 +14,7 @@ public interface ConstantesActivities {
     String CHAVE_DB_PESO = "pesoExerc";
     String CHAVE_DB_OBS_EXERC = "obsExerc";
     String CHAVE_DB_IDPERSONAL = Base64Custom.codeToBase64("drpersonal@gmail.com");
+    String CHAVE_DB_NOME_PERSONAL = "nomePersonal";
     String CHAVE_ST_IMAGES = "images";
     String CHAVE_ST_EXERCISES = "exercises";
     String CHAVE_ST_PROFILE_PERSONAL = "profilePersonal";

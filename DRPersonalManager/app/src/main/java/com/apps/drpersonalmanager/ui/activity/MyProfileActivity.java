@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
+import com.apps.drpersonalmanager.dao.PersonalDao;
 import com.apps.drpersonalmanager.helper.Consent;
 import com.apps.drpersonalmanager.helper.UsersFirebase;
 import com.apps.drpersonalmanager.model.Personal;
@@ -106,8 +107,8 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String nomePersonal = editNome.getText().toString();
                 if(!nomePersonal.isEmpty()){
-                    Personal personal = new Personal();
-                    personal.salvarPerfilPersonal(nomePersonal);
+                    PersonalDao personalDao = new PersonalDao();
+                    personalDao.salvarPerfilPersonal(nomePersonal);
                     Toast.makeText(MyProfileActivity.this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
