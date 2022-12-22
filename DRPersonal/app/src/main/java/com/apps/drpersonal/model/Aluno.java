@@ -4,6 +4,7 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ACAD
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_ALUNOS;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_EMAIL_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPERSONAL;
+import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IMG_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_NIVER_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_NOME_ALUNO;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_SENHA_ALUNO;
@@ -27,6 +28,7 @@ public class Aluno implements Serializable {
     private String dataNiver;
     private String academia;
     private int diaPagamento;
+    private DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
 
     public Aluno() {}
 
@@ -35,18 +37,18 @@ public class Aluno implements Serializable {
         reference.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(this.idAluno).setValue(this);
     }
 
-    public void salvarPerfilAluno(String nome, String academia, String niver){
-        DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+    public void salvarPerfilAluno(String nome, String academia, String niver, String idImg){
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
                 .child(CHAVE_DB_NOME_ALUNO).setValue(nome);
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
                 .child(CHAVE_DB_ACADEMIA_ALUNO).setValue(academia);
-        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
                 .child(CHAVE_DB_NIVER_ALUNO).setValue(niver);
+        referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child("YW5uYWp1bGlhQGdtYWlsLmNvbQ==")
+                .child(CHAVE_DB_IMG_ALUNO).setValue(idImg);
     }
 
     public void salvarNovaSenhaAluno(String novaSenha){
-        DatabaseReference referencePerfil = ConfigFirebase.getFirebaseDatabase();
         referencePerfil.child(CHAVE_DB_ALUNOS).child(CHAVE_DB_IDPERSONAL).child(idAluno)
                 .child(CHAVE_DB_SENHA_ALUNO).setValue(novaSenha);
     }

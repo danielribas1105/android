@@ -56,8 +56,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private CircleImageView campoFoto;
     private EditText campoNome, campoAcademia, campoNiver;
     private TextView campoEmail;
-    private Aluno alunoNew;
-    private String idAluno;
+    private Aluno alunoNew, imgPerfilAluno;
+    private String idAluno, idImgPerfil;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference dataProfile;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
@@ -142,6 +142,15 @@ public class EditarPerfilActivity extends AppCompatActivity {
                         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                StorageReference imgRef = storageReference.child(CHAVE_ST_IMAGES)
+                                        .child(CHAVE_ST_PROFILE_ALUNOS).child(idAluno + ".jpg");
+                                imgRef.getDownloadUrl().addOnSuccessListener(
+                                        EditarPerfilActivity.this, new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+                                                idImgPerfil = uri.toString();
+                                            }
+                                        });
                                 Toast.makeText(EditarPerfilActivity.this, "Imagem salva com sucesso!", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -212,7 +221,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private void salvarPerfil() {
         alunoNew = new Aluno();
         alunoNew.salvarPerfilAluno(campoNome.getText().toString(),
-                campoAcademia.getText().toString(), campoNiver.getText().toString());
+                campoAcademia.getText().toString(), campoNiver.getText().toString(), idImgPerfil);
     }
 
     @Override
