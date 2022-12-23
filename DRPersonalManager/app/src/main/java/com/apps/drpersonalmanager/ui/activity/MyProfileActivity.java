@@ -7,8 +7,11 @@ import static com.apps.drpersonalmanager.ui.activity.ConstantesActivities.CHAVE_
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -24,6 +27,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.exifinterface.media.ExifInterface;
 
 import com.apps.drpersonalmanager.R;
 import com.apps.drpersonalmanager.config.ConfigFirebase;
@@ -43,6 +47,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -124,26 +129,21 @@ public class MyProfileActivity extends AppCompatActivity {
             result -> {
                 if(result.getResultCode() == Activity.RESULT_OK){
                     Intent imgInfo = result.getData();
-                    /*Uri localImgSelected = imgInfo.getData();
-                    ExifInterface exif = null;
-                    try {
-                        exif = new ExifInterface(String.valueOf(localImgSelected));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
-                    Log.i("grau", String.valueOf(orientation));
-                    Bitmap imagemRotate = null;
-
-                     */
+                    Uri localImgSelected = imgInfo.getData();
+                    Log.i("uri", String.valueOf(localImgSelected));
                     Bitmap imagem = null;
                     try{
                         imagem = (Bitmap) imgInfo.getExtras().get("data");
-
-                        //imagemRotate = ImageCustom.imgRotate(imagem,orientation);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+                    //Rotacionar a imagem recebida
+                    //Uri uriImgSelected = imgInfo.getData();
+                    //String pathImgSelected = getImagePath(uriImgSelected);
+                    //int anguloImg = loadAnguloImg(pathImgSelected);
+                    //Bitmap imgRotate = rotateImg(imagem,anguloImg);
+
                     //Configurar a imagem recebida
                     if(imagem != null){
                         imgProfilePersonal.setImageBitmap(imagem);
@@ -191,6 +191,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 if(result.getResultCode() == Activity.RESULT_OK){
                     Intent imgInfo = result.getData();
                     Uri localImgSelected = imgInfo.getData();
+                    Log.i("uri", String.valueOf(localImgSelected));
                     Bitmap imagem = null;
                     try{
                         imagem = MediaStore.Images.Media
@@ -207,6 +208,52 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 }
             });
+
+    private Bitmap rotateImg(Bitmap imagem, int anguloImg) {
+        Matrix matrix= new Matrix();
+        matrix.setRotate(anguloImg);
+        Bitmap btmp = Bitmap.createBitmap(imagem,0,0,imagem.getWidth(),imagem.getHeight(),
+                matrix,true);
+        return btmp;
+    }
+
+    private int loadAnguloImg(String pathImgSelected) {
+        ExifInterface exif = null;
+        try {
+            //data carrega imagem, mas está retornando zero sempre! Mas não dá erro.
+            exif = new ExifInterface(pathImgSelected);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientacao = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+
+        int codigoOrientacao = Integer.parseInt(orientacao);
+        int i=0;
+        switch (codigoOrientacao) {
+            case ExifInterface.ORIENTATION_NORMAL:
+                i = 0;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                i = 90;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                i = 180;
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                i = 270;
+                break;
+        }
+        return i;
+    }
+
+    private String getImagePath(Uri uriImgSelected) {
+        String[] campos = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(uriImgSelected,campos,null,null,null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA));
+        cursor.close();
+        return path;
+    }
 
     private void loadPersonalProfile() {
         refPersonal = reference.child(CHAVE_DB_PERSONAL).child(CHAVE_DB_IDPERSONAL);
