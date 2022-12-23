@@ -5,11 +5,6 @@ import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_DB_IDPE
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_IMAGES;
 import static com.apps.drpersonal.ui.activity.ConstantesActivities.CHAVE_ST_PROFILE_ALUNOS;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
@@ -26,24 +21,25 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.apps.drpersonal.R;
 import com.apps.drpersonal.config.ConfigFirebase;
 import com.apps.drpersonal.dao.AlunoDao;
-import com.apps.drpersonal.helper.Base64Custom;
 import com.apps.drpersonal.helper.Consent;
 import com.apps.drpersonal.helper.UsersFirebase;
 import com.apps.drpersonal.model.Aluno;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -53,11 +49,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditarPerfilActivity extends AppCompatActivity {
 
-    private ImageButton imgCamera, imgGallery;
+    private ImageButton imgGallery;
     private CircleImageView campoFoto;
     private EditText campoNome, campoAcademia, campoNiver;
     private TextView campoEmail;
-    private Aluno alunoNew, imgPerfilAluno;
     private String idAluno, idImgPerfil;
     private FirebaseAuth auth = ConfigFirebase.getFirebaseAutenticacao();
     private DatabaseReference dataProfile;
@@ -65,8 +60,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
     private ValueEventListener valueEventListenerProfile;
     private StorageReference storageReference = ConfigFirebase.getStorageReference();
     private StorageReference fotoPerfil;
-    //private static final int SELECT_CAMERA = 100;
-    //private static final int SELECT_GALLERY = 200;
 
     private String[] consent = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -84,7 +77,6 @@ public class EditarPerfilActivity extends AppCompatActivity {
         Consent.validateConsent(consent, this, 1);
 
         campoFoto = findViewById(R.id.profile_image);
-        imgCamera = findViewById(R.id.imgBtnCamera);
         imgGallery = findViewById(R.id.imgBtnGaleria);
         campoNome = findViewById(R.id.editTextNome);
         campoAcademia = findViewById(R.id.editTextAcademia);
@@ -93,40 +85,35 @@ public class EditarPerfilActivity extends AppCompatActivity {
         idAluno = UsersFirebase.getIdUserAuth();
         loadProfile();
 
-        imgCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                arlCamera.launch(i);
-            }
-        });
-
         imgGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 arlPicture.launch(i);
             }
         });
     }
 
-    ActivityResultLauncher<Intent> arlCamera = registerForActivityResult(
+    ActivityResultLauncher<Intent> arlPicture = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if(result.getResultCode() == Activity.RESULT_OK){
+                if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent imgInfo = result.getData();
+                    Uri localImgSelected = imgInfo.getData();
                     Bitmap imagem = null;
-                    try{
-                        imagem = (Bitmap) imgInfo.getExtras().get("data");
+                    try {
+                        imagem = MediaStore.Images.Media
+                                .getBitmap(getContentResolver(), localImgSelected);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     //Configurar a imagem recebida
-                    if(imagem != null){
+                    if (imagem != null) {
                         campoFoto.setImageBitmap(imagem);
+
                         //Recuperar dados da imagem para o Firebase
                         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                        imagem.compress(Bitmap.CompressFormat.JPEG,70,baos);
+                        imagem.compress(Bitmap.CompressFormat.JPEG, 70, baos);
                         byte[] dadosImagem = baos.toByteArray();
 
                         //Salvar imagem no Firebase
@@ -156,31 +143,8 @@ public class EditarPerfilActivity extends AppCompatActivity {
                             }
                         });
 
-                    }else{
-                        Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
-                    }
-
-                }
-            });
-
-    ActivityResultLauncher<Intent> arlPicture = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if(result.getResultCode() == Activity.RESULT_OK){
-                    Intent imgInfo = result.getData();
-                    Uri localImgSelected = imgInfo.getData();
-                    Bitmap imagem = null;
-                    try{
-                        imagem = MediaStore.Images.Media
-                                .getBitmap(getContentResolver(),localImgSelected);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    //Configurar a imagem recebida
-                    if(imagem != null){
-                        campoFoto.setImageBitmap(imagem);
-                    }else{
-                        Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Imagem vazia", Toast.LENGTH_SHORT).show();
                     }
 
                 }
@@ -192,11 +156,11 @@ public class EditarPerfilActivity extends AppCompatActivity {
                 .child(CHAVE_ST_PROFILE_ALUNOS).child(idAluno + ".jpg");
         fotoRef.getDownloadUrl().addOnSuccessListener(EditarPerfilActivity.this,
                 new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(EditarPerfilActivity.this).load(uri).into(campoFoto);
-            }
-        }).addOnFailureListener(EditarPerfilActivity.this, new OnFailureListener() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Glide.with(EditarPerfilActivity.this).load(uri).into(campoFoto);
+                    }
+                }).addOnFailureListener(EditarPerfilActivity.this, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d("foto", "Erro ao carregar a imagem de perfil");
@@ -233,9 +197,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menuSaveInfo){
+        if (item.getItemId() == R.id.menuSaveInfo) {
             salvarPerfil();
-            Toast.makeText(this,"Perfil atualizado com sucesso!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
             finish();
         }
         return super.onOptionsItemSelected(item);
