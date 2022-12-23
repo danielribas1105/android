@@ -199,9 +199,15 @@ public class MyProfileActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
+                    //Rotacionar a imagem recebida
+                    String pathImgSelected = getImagePath(localImgSelected);
+                    int anguloImg = loadAnguloImg(pathImgSelected);
+                    Bitmap imgRotate = rotateImg(imagem,anguloImg);
+
                     //Configurar a imagem recebida
-                    if(imagem != null){
-                        imgProfilePersonal.setImageBitmap(imagem);
+                    if(imgRotate != null){
+                        imgProfilePersonal.setImageBitmap(imgRotate);
                     }else{
                         Toast.makeText(this,"Imagem vazia", Toast.LENGTH_SHORT).show();
                     }
