@@ -46,7 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MyProfileActivity extends AppCompatActivity {
 
-    private EditText editNome;
+    private EditText editNome, editCref;
     private TextView textEmail;
     private ImageButton btnGaleria;
     private Button btnAtualizaDados;
@@ -73,6 +73,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
         imgProfilePersonal = findViewById(R.id.imgPerfilPersonal);
         editNome = findViewById(R.id.editNome);
+        editCref = findViewById(R.id.editCref);
         textEmail = findViewById(R.id.textViewEmail);
         btnGaleria = findViewById(R.id.imgBtnGaleria);
         btnAtualizaDados = findViewById(R.id.btnAtualizarDados);
@@ -91,9 +92,10 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String nomePersonal = editNome.getText().toString();
+                String crefPersonal = editCref.getText().toString();
                 if (!nomePersonal.isEmpty()) {
                     PersonalDao personalDao = new PersonalDao();
-                    personalDao.salvarPerfilPersonal(nomePersonal);
+                    personalDao.salvarPerfilPersonal(nomePersonal, crefPersonal);
                     Toast.makeText(MyProfileActivity.this, "Perfil atualizado com sucesso!", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
@@ -181,6 +183,7 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Personal personal = snapshot.getValue(Personal.class);
                 editNome.setText(personal.getNomePersonal());
+                editCref.setText(personal.getCrefPersonal());
                 textEmail.setText(personal.getEmailPersonal());
             }
 

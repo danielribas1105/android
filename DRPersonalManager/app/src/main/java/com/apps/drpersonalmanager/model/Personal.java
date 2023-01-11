@@ -12,6 +12,7 @@ public class Personal {
     private String nomePersonal;
     private String emailPersonal;
     private String senhaPersonal;
+    private String crefPersonal;
     private DatabaseReference reference = ConfigFirebase.getFirebaseDatabase();
 
     public Personal() {}
@@ -52,4 +53,8 @@ public class Personal {
     public void setSenhaPersonal(String senhaPersonal) {
         this.senhaPersonal = senhaPersonal;
     }
+
+    public String getCrefPersonal() {return crefPersonal;}
+
+    public void setCrefPersonal(String crefPersonal) {this.crefPersonal = crefPersonal;}
 }
